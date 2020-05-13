@@ -1,0 +1,274 @@
+--- 
+apiVersion: v1
+kind: kvm
+labels: 
+  kvm: private cloud provider
+metadata: 
+  name: kvm-provider
+  annotations:
+    title: Provisioning KVM Services
+    description: |
+      KVM service
+    iconClass: icon-libvirt-kvm
+    tags: "kvm,cloud,provider"
+  cloud: false
+
+ansibleObjects: 
+
+  - apiVersion: v1
+    kind: ModelInjector
+    metadata: 
+      name: instance
+      model: core.virtualmachine
+      anchor: r__ec2_inventory
+      entrypoint: r__ec2_inventory.instances
+
+
+    spec:
+      # adhoc: false
+      uniqueKeys:
+
+        - name: instance_id
+          yaqlRef: instance_id
+
+        - name: primary_ip
+          yaqlRef: public_ip_address
+      
+
+      modelFields: 
+
+        - name: name
+          yaqlRef: instance_id
+
+        - name: kind
+          value: generic
+
+        - name: username
+          fieldRef: inputs
+          value: ec2-user
+
+        - name: password
+          fieldRef: inputs
+          value: nopass
+
+        - name: inventory
+          fieldRef: inputs
+          yaqlRef: network_interfaces.first().association.public_dns_name
+
+        - name: group_id
+          yaqlRef: network_interfaces.first().groups.first().group_id
+
+        - name: fqdn
+          yaqlRef: network_interfaces.first().association.public_dns_name
+
+        - name: label
+          yaqlRef: tags.Name
+
+        - name: architecture
+          yaqlRef: architecture
+
+        - name: hypervisor
+          yaqlRef: hypervisor
+
+        - name: image_id
+          yaqlRef: image_id
+
+        - name: instance_id
+          yaqlRef: instance_id
+
+        - name: tags
+          fieldRef: inputs
+          yaqlRef: tags
+
+
+
+  - apiVersion: v1
+    kind: ModelCleaner
+    metadata: 
+      name: instance
+      model: core.virtualmachine
+      anchor: r__kvm_facts
+      entrypoint: r__kvm_facts.instances
+    spec:
+      # adhoc: false
+      uniqueKeys:
+
+        - name: uuid
+          yaqlRef: uuid
+
+
+  - apiVersion: v1
+    kind: ModelInjector
+    metadata: 
+      name: instance
+      model: core.virtualmachine
+      anchor: r__kvm_facts
+      entrypoint: r__kvm_facts.instances
+    spec:
+      # adhoc: false
+      uniqueKeys:
+
+        # - name: instance_id
+        #   yaqlRef: instance_id
+
+        # - name: primary_ip
+        #   yaqlRef: where($.name=eth0).selectMany( $['ip-addresses'].where($['prefix']=24).select($['ip-address']) ).single()
+
+        - name: uuid
+          yaqlRef: uuid
+          
+      
+
+      modelFields: 
+
+        - name: name
+          yaqlRef: uuid
+
+        - name: kind
+          value: generic
+
+        - name: username
+          fieldRef: inputs
+          value: centos
+
+        - name: password
+          fieldRef: inputs
+          value: nopass
+
+        - name: inventory
+          fieldRef: inputs
+          yaqlRef: interfaces.where($.name=eth0).selectMany( $['ip-addresses'].where($['prefix']=24).select($['ip-address']) ).single()
+
+        # - name: group_id
+        #   yaqlRef: network_interfaces.first().groups.first().group_id
+
+        # - name: fqdn
+        #   yaqlRef: network_interfaces.first().association.public_dns_name
+
+        # - name: label
+        #   yaqlRef: tags.Name
+
+        # - name: architecture
+        #   yaqlRef: architecture
+
+        # - name: hypervisor
+        #   yaqlRef: hypervisor
+
+        # - name: image_id
+        #   yaqlRef: image_id
+
+        # - name: instance_id
+        #   yaqlRef: instance_id
+
+        - name: tags
+          fieldRef: inputs
+          yaqlRef: tags
+
+
+
+
+parameters: 
+  - description: "Password used for Redis authentication"
+    from: "[A-Z0-9]{8}"
+    generate: expression
+    name: REDIS_PASSWORD
+
+
+
+wizardObjects:
+  metadata:
+    name: wizardbox
+    model: core.iaas 
+
+# fields:
+#   - name: ec2_instance_name
+#     label: instance name
+#     help_text: ex. instance1
+#     required: true
+
+#   - name: ec2_instance_type
+#     label: instance type
+#     help_text: ex. t2.micro
+#     initial: t2.micro
+#     type: select
+#     choices:
+#       - name: 1vCPU 0.5GiB RAM $0.0058/hr
+#         value: t2.nano
+
+#       - name: 1vCPU 1GiB RAM $0.0116/hr
+#         value: t2.micro
+
+#       - name: 1vCPU 1GiB RAM $0.023/hr
+#         value: t2.small
+      
+#       - name: 2vCPUs 4GiB RAM $0.0464/hr
+#         value: t2.medium
+      
+#       - name: 2vCPUs 8GiB RAM $0.0928/hr
+#         value: t2.large
+      
+#       - name: 4vCPUs 16GiB RAM $0.1856/hr
+#         value: t2.xlarge
+      
+#       - name: 8vCPUs 32GiB RAM $0.3712/hr
+#         value: t2.2xlarge
+
+
+
+#   - name: ec2_instance_image
+#     label: image
+#     help_text: ex. ami-123456
+#     initial: 309956199498;RHEL-8.0.*
+#     # required: true
+#     type: select
+#     choices:
+#       - name: RHEL 6 x64
+#         value: 309956199498;RHEL-6*
+
+#       - name: RHEL 7 x64
+#         value: 309956199498;RHEL-7*
+
+#       - name: RHEL 8 x64
+#         value: 309956199498;RHEL-8.0.*
+
+
+#   - name: ec2_wait
+#     type: checkbox
+#     advanced: true
+
+#   - name: ec2_group
+#     help_text: ex. webserver
+#     advanced: true
+
+#   - name: ec2_assign_public_ip
+#     label: assign public ip
+#     help_text: public ip
+#     type: checkbox
+#     advanced: true
+
+#   - name: ec2_instance_count
+#     label: count
+#     type: integer
+#     min_value: 1
+#     max_value: 10
+#     initial: 1
+#     advanced: false
+
+
+# credentials:
+#   - name: ec2_username
+#     label: username
+
+#   - name: ec2_password
+#     type: password
+#     label: Password
+
+#   - name: ec2_key_name
+#     advanced: true
+
+#   - name: ec2_ssh_pubkey
+#     label: ssh public key
+#     advanced: true
+#     type: textarea
+
+

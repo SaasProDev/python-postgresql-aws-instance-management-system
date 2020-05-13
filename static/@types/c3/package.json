@@ -1,0 +1,108 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "@types/c3@^0.6.0",
+        "scope": "@types",
+        "escapedName": "@types%2fc3",
+        "name": "@types/c3",
+        "rawSpec": "^0.6.0",
+        "spec": ">=0.6.0 <0.7.0",
+        "type": "range"
+      },
+      "/Users/danny/ownCloud/ahome.patternfly3/node_modules/patternfly"
+    ]
+  ],
+  "_from": "@types/c3@>=0.6.0 <0.7.0",
+  "_hasShrinkwrap": false,
+  "_id": "@types/c3@0.6.4",
+  "_inCache": true,
+  "_location": "/@types/c3",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/c3_0.6.4_1554315817430_0.17878398257291717"
+  },
+  "_npmUser": {
+    "name": "types",
+    "email": "ts-npm-types@microsoft.com"
+  },
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "@types/c3@^0.6.0",
+    "scope": "@types",
+    "escapedName": "@types%2fc3",
+    "name": "@types/c3",
+    "rawSpec": "^0.6.0",
+    "spec": ">=0.6.0 <0.7.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/patternfly"
+  ],
+  "_resolved": "https://registry.npmjs.org/@types/c3/-/c3-0.6.4.tgz",
+  "_shasum": "449830da0e1a2fc4feceb87f97de7ee5965e183b",
+  "_shrinkwrap": null,
+  "_spec": "@types/c3@^0.6.0",
+  "_where": "/Users/danny/ownCloud/ahome.patternfly3/node_modules/patternfly",
+  "bugs": {
+    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
+  },
+  "contributors": [
+    {
+      "name": "Marc Climent",
+      "url": "https://github.com/mcliment"
+    },
+    {
+      "name": "Gerin Jacob",
+      "url": "https://github.com/gerinjacob"
+    },
+    {
+      "name": "Bernd Hacker",
+      "url": "https://github.com/denyo"
+    },
+    {
+      "name": "Dzmitry Shyndzin",
+      "url": "https://github.com/dmitryshindin"
+    },
+    {
+      "name": "Tim Niemueller",
+      "url": "https://github.com/timn"
+    }
+  ],
+  "dependencies": {
+    "@types/d3": "^4"
+  },
+  "description": "TypeScript definitions for C3js",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-W7i7oSmHsXYhseZJsIYexelv9HitGsWdQhx3mcy4NWso+GedpCYr02ghpkNvnZ4oTIjNeISdrOnM70s7HiuV+g==",
+    "shasum": "449830da0e1a2fc4feceb87f97de7ee5965e183b",
+    "tarball": "https://registry.npmjs.org/@types/c3/-/c3-0.6.4.tgz",
+    "fileCount": 4,
+    "unpackedSize": 47385,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJcpPoqCRA9TVsSAnZWagAAPuoP/3A3nvdUGtTZZU+dZTgC\n0SGyoKiosSCUbQkCGPjBJugOvjpTCRST5RX0jPC3nLX70UQXXi2XrUS49TzW\nEzt8vrkiCqrpLmG/GOgCk2mFFxgSPRXQM5Vvgy/VzCdm90rdWZP40I806Woy\nnMDQASx2mOisgZ61MCAAasCo5+zoY5pD2nNP0letXyLmggxs39EU12RbIPvN\n/4cnqE6fy2h29/9FySG2hHpu5/+78M/2QN8BKMZ2QzHL/RpUdK+QctxnuiqM\nI6jURATIbe3u2M8ivnKy+TdaB8jC/KE3URwfuWKuYhYpPnfagQfJV3s2H9rm\n0mttWPML8PCg9zNj17jHhVr57AXwfqWHwHohCNGQxvsWQWo8/LE3eFn5Z1Ki\nXJgXyB7XmyeFZLwqmemESYmDTid17GL6R1MOX3YyvlC6PjYwd4m5BWWZxha5\nOiLab+ox1Bf7/yErMiQA83n4CHfbMGQTq2ruXRrsSaPm3iHm0IgkRZODStU+\nl30kZbL8yh7gqrJnmCgdXrsTEgOCgYHzEYzwBAc0PbZ+mF9rIjRl1Rr+U9Id\nNa+wuvyzNnyY3sjgehjUOzl5NyW8Bs1089d2KQl4xSnKQt99Qw4SxlfEbLuJ\nTU9SL/5pYu/rXCvBdPGSdQnxAoMdIvzeovB4b11fFFEPgTIv9ljn/cyWpRMJ\nm/W8\r\n=o0RS\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped#readme",
+  "license": "MIT",
+  "main": "",
+  "maintainers": [
+    {
+      "name": "types",
+      "email": "ts-npm-types@microsoft.com"
+    }
+  ],
+  "name": "@types/c3",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+    "directory": "types/c3"
+  },
+  "scripts": {},
+  "typeScriptVersion": "2.3",
+  "types": "index",
+  "typesPublisherContentHash": "fe3729442d39e79b6e8fff8ca24536b059b47c2dbcb085fd8a160c732c3dacac",
+  "version": "0.6.4"
+}

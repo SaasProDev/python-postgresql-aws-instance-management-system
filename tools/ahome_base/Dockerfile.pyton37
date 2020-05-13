@@ -1,0 +1,31 @@
+FROM ahome_prebase
+
+WORKDIR /
+
+ADD requirements.txt .
+
+
+RUN yum update -y && \
+    yum -y groupinstall development && \
+    yum -y install \
+        zlib-devel \
+        build-essential \
+        openssl-devel \
+        bzip2-devel \
+        libffi-devel
+
+
+RUN wget https://www.python.org/ftp/python/3.7.6/Python-3.7.6.tgz && \
+     tar -xzf Python-3.7.6.tgz && \
+     rm  Python-3.7.6.tgz && \
+     cd  Python-3.7.6 && \
+     ./configure --with-ensurepip=install --enable-optimizations && \
+     make -j 8 && \
+     make altinstall && \
+     echo "Python 3.7.6 INSTALLLED"
+
+RUN rm requirements.txt
+
+
+
+

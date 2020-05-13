@@ -1,0 +1,289 @@
+---
+# tasks file for playbooks/roles/discover.libvirt
+
+
+# Listing VMs
+- name: get all VMs
+  virt:
+    command: list_vms
+  register: r__guests
+
+# - debug: var=r__guests
+
+
+- include_tasks: "inc/activate.yml"
+  # when:
+  #   ahome__action in ['check',]
+
+
+# - name: get all vms xml
+#   virt:
+#     name: "{{ item }}"
+#     command: get_xml
+#   with_items:
+#     - "{{ r__guests.list_vms }}"
+#     # - ip-94-242-195-115
+#   register: r__guests_xml
+
+
+# - name: get all vms status
+#   virt:
+#     name: "{{ item }}"
+#     command: status
+#   with_items:
+#     - "{{ r__guests.list_vms }}"
+#     # - ip-94-242-195-115
+#   register: r__guests_status
+
+# - name: get network info
+#   virt_net:
+#     command: info
+#   register: r__netinfo
+
+
+
+
+# - name: set sdn fact
+#   set_fact:
+#     v__sdn: >-
+#       {%- set sdn = v__sdn | d([])  -%}
+#       {%- for net in r__netinfo.networks | list -%}
+
+#         {%- set _dict = {
+
+#           'definition': r__netinfo.networks[net],
+#           'name': net,
+#           'status': r__netinfo.networks[net]['state'],
+#           'uuid': r__netinfo.networks[net]['uuid'],
+
+#           } -%}
+#         {%- set _ignore = sdn.append(_dict) -%}
+
+
+#       {%- endfor -%}
+#       {{ sdn }}
+
+
+# - debug: var=v__sdn
+
+
+# - name: set ip addresses fact
+#   set_fact:
+#     v__ipaddresses: >-
+#       {%- set ipaddresses = v__ipaddresses | d([])  -%}
+#       {%- for net in r__netinfo.networks | list -%}
+
+#         {%- for lease in r__netinfo.networks[net]['dhcp_leases'] -%}
+
+#           {%- set _dict = {
+
+#             'definition': lease,
+#             'name': lease['hostname'],
+#             'hostname': lease['hostname'],
+#             'mac': lease['mac'],
+#             'ipaddr': lease['ipaddr'],
+#             'prefix': lease['prefix'],
+#             'iface': lease['iface'],
+
+#             } -%}
+#           {%- set _ignore = ipaddresses.append(_dict) -%}
+
+#         {%- endfor -%}
+
+#       {%- endfor -%}
+#       {{ ipaddresses }}
+
+
+# - debug: var=v__ipaddresses
+
+
+
+# - name: set virtual machines fact
+#   set_fact:
+#     v__virtualmachines: >-
+#       {%- set vms = v__virtualmachines | d([])  -%}
+#       {%- for guest in r__guests.list_vms -%}
+#         {%- set _xml = r__guests_xml.results | selectattr('item', 'equalto', guest ) | map(attribute='get_xml') | list -%}
+#         {%- set _status = r__guests_status.results | selectattr('item', 'equalto', guest ) | map(attribute='status') | list -%}
+#         {% if _xml | length > 0 and _status | length > 0 %}
+#           {%- set _json = _xml[0] | xml2json | from_json -%}
+
+#           {%- set _hash = [] -%}
+
+#           {%- if _json['domain']['devices']['interface']['mac'] is defined -%}
+#             {%- set _mac = _json['domain']['devices']['interface']['mac']['@address'] -%}
+#             {%- set _ip = v__ipaddresses | selectattr('mac', 'equalto', _mac ) | map(attribute='ipaddr') | list -%}
+
+#             {%- set _ignore = _hash.append({
+#               'mac': _mac,
+#               'ipaddress': _ip[0] if _ip|length > 0 else '',
+#               }) -%}
+#           {%- else -%}
+#             {%- set _interfaces = _json['domain']['devices']['interface'] | map(attribute='mac') | list   -%}
+#             {%- for _iface in _interfaces -%}
+#               {%- set _mac = _iface['@address'] -%}
+#               {%- set _ip = v__ipaddresses | selectattr('mac', 'equalto', _mac ) | map(attribute='ipaddr') | list -%}
+#               {%- set _ignore = _hash.append({
+#                 'mac': _mac,
+#                 'ipaddress': _ip[0] if _ip|length > 0 else '',
+#                 }) -%}
+#             {%- endfor -%}
+
+#           {%- endif -%}
+
+          
+#           {%- set _dict = {
+
+#             'definition': _json,
+#             'name': guest,
+#             'status': _status[0],
+#             'uuid': _json['domain']['uuid'],
+#             'kind': _json['domain']['@type'],
+#             'interfaces': _hash,
+
+#             } -%}
+#           {%- set _ignore = vms.append(_dict) -%}
+#         {%- endif -%}
+#       {%- endfor -%}
+#       {{ vms }}
+
+
+# - debug: var=v__virtualmachines
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # List available networks
+# - virt_net:
+#     command: list_nets
+#   register: r__nets
+
+# - debug: var=r__nets
+
+# # Get XML data of a specified network
+# - virt_net:
+#     command: get_xml
+#     name: ovs-net
+#   register: r__netxml
+
+# - debug: var=r__netxml
+
+
+# - virt_net:
+#     command: info
+#     name: ovs-net
+#   register: r__netinfo
+
+# - debug: var=r__netinfo
+
+# - virt_net:
+#     command: info
+#     uri: '{{ item }}'
+#   with_items: '{{ libvirt_uris }}'
+#   register: networks
+
+
+# Get the status VMs
+
+
+# - debug: var=r__guestsinfo
+
+
+# # Nodeinfo
+# - name: Get node info
+#   virt:
+#     command: nodeinfo
+#   register: r__nodeinfo
+
+# - debug: var=r__nodeinfo
+
+
+
+
+# - name: list only running VMs
+#   virt:
+#     command: list_vms
+#     state: running
+#   register: running_vms
+
+# - debug: var=running_vms
+
+
+
+
+# - name: get xml
+#   virt:
+#     name: "{{ item }}"
+#     command: get_xml
+#   with_items:
+#     - ip-94-242-195-116
+#   register: r__guestxml
+
+
+# - name: get xml
+#   virt:
+#     name: ip-94-242-195-116
+#     command: get_xml
+#   register: r__guestxml
+
+# - debug: var=r__guestxml
+
+
+# - name: Show an attribute value
+#   debug:
+#     msg: "{{ r__guestxml.get_xml | xml2json }}"
+
+
+# - set_fact:
+#     content_json: "{{ r__guestxml.get_xml | xml2json }}"
+
+# - debug: var=content_json
+
+# # How to read an attribute value and access it in Ansible
+# - name: Read an element's attribute values
+#   xml:
+#     xmlstring: "{{ r__guestxml.get_xml }}"
+#     xpath: /domain/name
+#     content: text
+#   register: xmlresp
+
+
+# - name: Show an attribute value
+#   debug:
+#     var: xmlresp.matches[0]
+
+
+# - name: Read an element's attribute values
+#   xml:
+#     xmlstring: "{{ r__guestxml.get_xml }}"
+#     xpath: /domain/memory
+#     content: text
+#   register: xmlresp
+
+
+# - name: Show an attribute value
+#   debug:
+#     msg: "{{ r__guestxml.get_xml | parse_xml('/domain') }}"
+
+

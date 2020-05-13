@@ -1,0 +1,271 @@
+--- 
+apiVersion: v1
+kind: ms_azure
+labels: 
+  microsoft_azure: cloud provider
+metadata: 
+  name: microsoft-azure provider
+  annotations:
+    title: Provisioning Microsoft Azure
+    description: |
+      Microsoft Azure
+    iconClass: ms_azure
+    tags: "azure,cloud,provider"
+  cloud: true
+
+ansibleObjects: 
+
+  - apiVersion: v1
+    kind: ModelInjector
+    metadata: 
+      name: instance
+      model: core.virtualmachine
+      anchor: r__ec2_inventory
+      entrypoint: r__ec2_inventory.instances
+
+
+    spec:
+      # adhoc: false
+      uniqueKeys:
+
+        - name: instance_id
+          yaqlRef: name
+
+        - name: id
+          yaqlRef: id
+      
+
+      modelFields: 
+
+        - name: name
+          yaqlRef: instance_id
+
+        - name: kind
+          value: generic
+
+        - name: username
+          fieldRef: inputs
+          value: ec2-user
+
+        - name: password
+          fieldRef: inputs
+          value: nopass
+
+        - name: inventory
+          fieldRef: inputs
+          yaqlRef: network_interfaces.first().association.public_dns_name
+
+        - name: group_id
+          yaqlRef: network_interfaces.first().groups.first().group_id
+
+        - name: fqdn
+          yaqlRef: network_interfaces.first().association.public_dns_name
+
+        - name: label
+          yaqlRef: tags.Name
+
+        - name: architecture
+          yaqlRef: architecture
+
+        - name: hypervisor
+          yaqlRef: hypervisor
+
+        - name: image_id
+          yaqlRef: image_id
+
+        - name: instance_id
+          yaqlRef: instance_id
+
+        - name: tags
+          fieldRef: inputs
+          yaqlRef: tags
+
+
+
+  - apiVersion: v1
+    kind: ModelCleaner
+    metadata: 
+      name: instance
+      model: core.virtualmachine
+      anchor: r__azure_facts
+      entrypoint: r__azure_facts.instances
+    spec:
+      # adhoc: false
+      uniqueKeys:
+
+        - name: instance_id
+          yaqlRef: name
+
+        - name: id
+          yaqlRef: id
+
+
+  - apiVersion: v1
+    kind: ModelInjector
+    metadata: 
+      name: instance
+      model: core.virtualmachine
+      anchor: r__azure_facts
+      entrypoint: r__azure_facts.instances
+    spec:
+      # adhoc: false
+      uniqueKeys:
+
+        - name: instance_id
+          yaqlRef: name
+
+        - name: id
+          yaqlRef: id
+      
+
+      modelFields: 
+
+        - name: name
+          yaqlRef: name
+
+        - name: kind
+          value: generic
+
+        - name: username
+          fieldRef: inputs
+          value: azureuser
+
+        - name: password
+          fieldRef: inputs
+          value: nopass
+
+        - name: inventory
+          fieldRef: inputs
+          yaqlRef: public_ip
+
+#TODO
+        - name: fqdn
+          yaqlRef: public_ip
+
+        - name: label
+          yaqlRef: tags.Name
+
+
+        - name: image_id
+          yaqlRef: image.offer
+
+        - name: tags
+          fieldRef: inputs
+          yaqlRef: tags
+
+
+parameters: 
+  - description: "Password used for Redis authentication"
+    from: "[A-Z0-9]{8}"
+    generate: expression
+    name: REDIS_PASSWORD
+
+
+
+wizardObjects:
+  metadata:
+    name: wizardbox
+    model: core.iaas 
+
+fields:
+  - name: azure_instance_name
+    label: instance name
+    help_text: ex. instance1
+    required: true
+
+  - name: azure_instance_type
+    label: instance type
+    help_text: ex. Standard_B1ms
+    initial: Standard_B1ms
+    type: select
+    choices:
+      - name: 1vCPU 0.5GiB RAM €3.26/mo
+        value: Standard_B1ls
+
+      - name: 1vCPU 1GiB RAM €6.53/mo
+        value: Standard_B1s
+
+      - name: 1vCPU 2GiB RAM €12.99/mo
+        value: Standard_B1ms
+      
+      - name: 2vCPUs 4GiB RAM €26.10/mo
+        value: Standard_B2s
+      
+      - name: 2vCPUs 8GiB RAM €52.20/mo
+        value: Standard_B2ms
+      
+      - name: 4vCPUs 16GiB RAM €104.15/mo
+        value: Standard_B4ms
+      
+
+
+
+  - name: azure_instance_image
+    label: image
+    help_text: ex. ami-123456
+    initial: 309956199498;RHEL-8.0.*
+    # required: true
+    type: select
+    choices:
+      - name: RHEL 6 x64
+        value: OpenLogic:CentOS-CI:6-CI:latest
+
+      - name: RHEL 7 x64
+        value: OpenLogic:CentOS-CI:7-CI:latest
+
+      - name: RHEL 8 x64
+        value: OpenLogic:CentOS-CI:7-CI:latest
+
+
+  - name: azure_wait
+    type: checkbox
+    advanced: true
+
+  - name: azure_group
+    help_text: ex. webserver
+    advanced: true
+
+  - name: azure_assign_public_ip
+    label: assign public ip
+    help_text: public ip
+    type: checkbox
+    advanced: true
+
+  - name: azure_instance_count
+    label: count
+    type: integer
+    min_value: 1
+    max_value: 4
+    initial: 1
+    advanced: false
+
+
+credentials:
+  - name: username
+    label: username
+
+  - name: password
+    type: password
+    label: Password
+
+  - name: sshkey_name
+    advanced: true
+
+  - name: ec2_ssh_pubkey
+    label: ssh public key
+    advanced: true
+    type: textarea
+
+
+
+
+
+
+
+
+
+icons:
+  small: azure-icon-sm.svg
+  large: azure-icon-lg.svg
+  image: azure-icon.svg
+

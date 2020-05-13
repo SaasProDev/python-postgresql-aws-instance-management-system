@@ -1,0 +1,25 @@
+
+
+- ec2_instance_info:
+    filters:
+      "tag:ahome": "{{ ahome__id }}"
+  register: r__ec2
+
+# Launch an EC2 instance
+- name: Remove EC2 instance
+  ec2:
+    instance_ids: "{{ item.instance_id }}"
+    state: absent
+  with_items:
+    - "{{ r__ec2.instances }}"
+
+
+# - name: Remove key pair
+#   ec2_key:
+#     name: "ahome_keypair_{{ ahome__id }}"
+#     state: absent
+
+# - name: Remove security group
+#   ec2_group:
+#     name: "ahome_security_group_{{ ahome__id }}"
+#     state: absent

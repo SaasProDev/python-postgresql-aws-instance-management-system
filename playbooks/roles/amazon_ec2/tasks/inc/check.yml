@@ -1,0 +1,13 @@
+---
+
+- ec2_instance_info:
+  register: r__inventory_ec2
+
+- name: ahome inventory callback
+  set_fact:
+    r__ec2_inventory:
+      ahome__id: "{{ ahome__id }}"
+      ahome__model: "{{ ahome__model }}"
+      instances: "{{ r__inventory_ec2.instances }}"
+
+- debug: var=r__ec2_inventory

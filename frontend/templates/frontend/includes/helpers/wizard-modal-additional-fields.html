@@ -1,0 +1,21 @@
+{% load static %}
+{% load widget_tweaks %}
+{% load frontend_extras %}
+
+
+{% for field in wizardboxform %}
+  
+
+  <div class="form-group">
+    <label class="col-sm-3 control-label" for="textInput4-modal-markup">{{ field.label }}</label>
+    <div class="col-sm-9">
+      {% with "f-modal-"|add:field.html_name|add:"-label" as field_label %}
+        <label id="{{ field_label }}" name="{{ field_label }}"> [] </label>
+      {% endwith %}
+      {% with "f-modal-"|add:field.html_name as field_id %}
+        <input type="hidden" id="{{ field_id }}" name="{{ field_id }}" class="form-control">
+      {% endwith %}
+    </div>
+  </div>
+
+{% endfor %}

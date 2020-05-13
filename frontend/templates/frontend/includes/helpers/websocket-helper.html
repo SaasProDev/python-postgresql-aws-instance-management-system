@@ -1,0 +1,483 @@
+{% load frontend_extras %}
+
+<script type="text/javascript">
+  // Put the timeout id in a correct js variable
+  function getSafe(fn, defaultVal) {
+      try {
+          return fn();
+      } catch (e) {
+          return defaultVal;
+      }
+  };
+  var timeoutId = "timeoutId_{{ pk }}";
+  var timeoutId_var = window.timeoutId;
+
+
+  var vm_failed_vm = 0;
+  var vm_running_vm = 0;
+
+  var timeoutId_var = setTimeout(function () {
+
+    $.ajax({
+      url: "{% url model|concatenate:'-detail'  pk %}",
+      type: 'get',
+      dataType: 'json',
+      beforeSend: function () {
+
+        // $('#ajax-button').attr('disabled', true);
+        // $('#ajax-container').html('');
+        // addSpinner($('#ajax-container'));
+        // var width=Math.floor((Math.random() * 70) + 1) //(1/5*100);
+
+        $("#{{ model }}-spinner-{{ uuid }}").html('<span class="spinner spinner-xs spinner-inline {{ model }}-spinner-{{ uuid }}" role="status" aria-hidden="true"></span>');
+
+        $("#{{ model }}-progress-description-{{ uuid }}").html('<div class="spinner spinner-xs spinner-inline spinner-{{ data.uuid }}"></div> <strong>{{ action }} in progress...</strong>');
+
+        $("#{{ model }}-progress-bar-{{ uuid }}").removeClass('progress-bar-success progress-bar-danger')
+        $("#{{ model }}-runner-status-{{uuid }}").html("loading...");
+        $("#{{ model }}-vm-runner-status-{{ uuid }}").html("loading...");
+        $("#{{ model }}-runner-state-{{ uuid }}").html("loading...");
+        $("#{{ model }}-user-credential-status-{{ uuid }}").html("loading...");
+        // $( "#{{ model }}-progress-bar-{{ uuid }}" ).css('width',width + "%");
+
+        // progress_bar_move_{{ pk }}();
+        $("#{{ model }}-mount-device-{{uuid}}").html("laoding...");
+
+        $("#{{ model }}-memory-progress-bar-{{uuid}}").html(`
+                loading...
+                <div id="used_memory" class="progress-bar role="progressbar" aria-valuenow="{{ mem_used }}" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"  data-toggle="tooltip" title="0% Used"> 
+                </div>
+                <div id="remaining_memory" class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" data-toggle="tooltip" title="0% Available">
+                </div>
+          `);
+
+        $("#{{ model }}-mount-progress-bar-{{uuid}}").html(`
+                
+                <div class="progress-description">
+                    loading...
+                    </div>
+                    <div class="progress progress-label-top-right">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"  data-toggle="tooltip" title="0% Used">
+                      </div>
+                      <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;" data-toggle="tooltip" title="0% Available">
+                        <span class="sr-only">0% Available</span>
+                      </div>
+                </div>
+            `);
+
+      },
+      success: function (data) {
+        //console.log("initial data: ", data);
+        // Perform operation on return value
+        //console.log(data.status);
+        //console.log("{{ model }}-spinner-{{ uuid }}");
+        //console.log(data.runner.celery_progress);
+
+        $("#{{ model }}-progress-bar-{{ uuid }}").css('width', data.runner.celery_progress + "%");
+
+        //successful
+        if (data.status == 'successful') {
+          console.log(data.type);
+
+          clearTimeout(timeoutId_var);
+
+          $("#{{ model }}-spinner-{{ uuid }}").html('<span class="fa fa-circle {{ model }}-spinner-{{ uuid }}" role="status" aria-hidden="true"></span>');
+          $("#{{ model }}-spinner-{{ uuid }}").addClass("run-success");
+          $("#{{ model }}-progress-description-{{ uuid }}").html('<div class="fa fa-circle {{ model }}-spinner-{{ data.uuid }}" style="color:green" role="status" aria-hidden="true"></div> <strong>{{ action }} successful.</strong>');
+          //progress-bar-danger
+          $("#{{ model }}-progress-bar-{{ uuid }}").removeClass('progress-bar-danger').addClass('progress-bar-success');
+          $("#{{ model }}-runner-status-{{ uuid }}").html("Running");
+          $("#{{ model }}-runner-state-{{ uuid }}").html("Successful");
+
+
+          /*
+          * User Credential
+          */
+          if (data.type === "user_credential") {
+            $("#{{ model }}-user-credential-info-{{ uuid }}").html(`
+              <span class="pficon pficon-virtual-machine"></span>
+              <strong>${data.summarized_fields.virtualmachine}</strong>
+            `);
+            $("#{{ model }}-user-credential-status-{{ uuid }}").html(`${data.status}`);
+            $("#{{ model }}-user-credential-instance-{{ uuid }}").html(`<span class="fa pficon-service" style="color:green"></span><strong>${data.related.iaas.length}</strong> iaaS`);
+            $(".{{ model}}-user-credentials-ias-status-{{uuid}}").html("&nbsp;Successful)");
+            $("#{{model}}-user-credential-name-{{uuid}}").html(`${data.name}`);
+            $("#{{model}}-user-credential-created-{{uuid}}").html(`${data.created}`);
+            $("#{{model}}-user-credential-updated-{{uuid}}").html(`${data.last_updated}`);
+            const description = data.description === null ? "None description" : data.description;
+            $("#{{model}}-user-credential-description-{{uuid}}").html(`${description}`);
+
+
+            var html = '<button class="btn btn-default" data-toggle="tooltip" data-placement="top"';
+            html += 'title="show {{ model }}"><span class="pficon pficon-optimize"></span> Show</button>';
+
+            $(".btn-{{ model }}-label-{{ uuid }}").html(html);
+          }
+
+          /*
+          * Ifrastructure As A Service
+          */
+          //console.log("Done",data);
+          if (data.type === "iaa_s") {
+
+
+
+            let running_vm = 0;
+            let failed_vm = 0;
+            let iaas_vm_status_html = ``;
+            let iaas_vm_count_status_html = ``;
+
+            let iaas_failed_vm_html = ``;
+            let iaas_running_vm_html = ``;
+            let iaas_setfacts_url = ``;
+
+            data.setfacts.forEach((value, index) => {
+              iaas_setfacts_url+=`<div class="list-view-pf-additional-info-item">`;
+              iaas_setfacts_url+=`<small>`;
+              iaas_setfacts_url+=`<a href="${value}" target="_blank">${value}&nbsp;<i style="font-size: 10px;" class="fa pficon-arrow"></i></a>`;
+              iaas_setfacts_url+=`</small>`;
+              iaas_setfacts_url+=`</div>`;
+            });
+            data.related.virtualmachine.forEach(vm => {
+              if (vm.status == "running") {
+                running_vm += 1;
+              } else {
+                failed_vm += 1;
+              }
+
+              iaas_vm_status_html += `<li class="{{model}}-iaas-vm-status` + `${vm.uuid}">`;
+              iaas_vm_status_html += `<a href="#"  class="js-link-ahome-navigate" data-url="">${vm.name}</a> &nbsp;`;
+              iaas_vm_status_html += `( <i class="fa fa-info" aria-hidden="true"></i> ${vm.status} )`;
+              iaas_vm_status_html += `</li>`;
+
+
+            });
+
+
+
+            if (data.related.virtualmachine.length > 1) {
+              iaas_vm_count_status_html = `<strong>${data.related.virtualmachine.length}</strong>Instances`;
+            } else if (data.related.virtualmachine.length == 1) {
+              iaas_vm_count_status_html = `<strong>${data.related.virtualmachine.length}</strong>Instance`;
+            } else {
+              iaas_vm_count_status_html = `<strong>0</strong>Instance`;
+            }
+            $("#{{ model}}-vm-count-status-{{uuid}}").html(iaas_vm_count_status_html);
+
+
+            $(".{{ model}}-setfacts-url-{{uuid}}").empty();
+            $(".{{ model}}-setfacts-url-{{uuid}}").empty(iaas_setfacts_url);
+
+            $(".{{ model}}-ul-iaas-vm-status{{uuid}}").empty();
+            $(".{{ model}}-ul-iaas-vm-status{{uuid}}").html(iaas_vm_status_html);
+
+            if (failed_vm > 0) {
+              iaas_failed_vm_html = `<div style="margin-right: 8px">`;
+              iaas_failed_vm_html += `<span class="pficon pficon-virtual-machine" style="color:#b51c10"></span>`;
+              iaas_failed_vm_html += `<strong>${failed_vm}</strong>Stopped`;
+              iaas_failed_vm_html += `</div>`;
+            }
+            if (running_vm > 0) {
+              iaas_running_vm_html = `<div style="margin-right: 8px">`;
+              iaas_running_vm_html += `<span class="pficon pficon-virtual-machine" style="color:green"></span>`;
+              iaas_running_vm_html += `<strong>${running_vm}</strong>Running`;
+              iaas_running_vm_html += `</div>`;
+            }
+
+            $("#{{ model}}-vm-status-{{uuid}}").html(iaas_failed_vm_html + iaas_running_vm_html);
+
+            $("#{{ model}}-name-{{uuid}}").html(`${data.name}`);
+            $("#{{ model}}-description-{{uuid}}").html(`${data.description === null ? "None description" : `${data.description}`}`);
+            $("#{{ model}}-created-{{uuid}}").html(`${data.created}`);
+            $("#{{ model}}-updated-{{uuid}}").html(`${data.last_updated}`);
+          }
+
+          /**
+          * Virtual machines
+          */
+          if (data.type === "virtual_machine") {
+            // Iaas
+            $("{{ model }}-vm-iaas-{{ uuid }}").html(`${data.summary_fields.iaas.name}`);
+
+            // Status
+            $("#{{ model }}-vm-runner-status-{{ uuid }}").html("Successful");
+
+            // FQDN
+            $("#{{ model }}-vm-fqdn-{{uuid}}").html(`${data.fqdn}`);
+
+            // Device Type 
+            $("#{{ model }}-vm-kind-{{ uuid }}").html(`${data.kind}`);
+
+            // Vendor
+            $("#{{ model }}-vm-hardware-vendor-{{ uuid }}").html(`${data.hardware.vendor}`);
+
+            // Model
+            $("#{{ model }}-vm-hardware-model-{{ uuid }}").html(`${data.model}`);
+
+            // Processors
+            $("#{{ model }}-vm-processor-{{ uuid }}").html(`${data.processors.processor}`);
+
+            // Memory
+            $("#{{ model }}-vm-memory-real-total-{{ uuid }}").html(`${data.memory.real.total} MB`);
+
+            const used_memory_percentage = Math.round((data.memory.real.used / data.memory.real.total) * 100);
+            const free_memory_percentage = Math.round((data.memory.real.free / data.memory.real.total) * 100);
+
+            $("#{{ model }}-memory-progress-bar-{{uuid}}").html(`
+                <div id="used_memory" class="progress-bar ${ used_memory_percentage > 80 ? "progress-bar-danger" : ""}" role="progressbar" aria-valuenow="${used_memory_percentage}%" aria-valuemin="0" aria-valuemax="100" style="width: ${used_memory_percentage}%;"  data-toggle="tooltip" title="${used_memory_percentage}% Used">
+                  <span><strong>${data.memory.real.used} of ${data.memory.real.total} MB</strong> Used</span>
+                </div>
+                <div id="remaining_memory" class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="${ free_memory_percentage}" aria-valuemin="0" aria-valuemax="100" style="width: ${free_memory_percentage}%;" data-toggle="tooltip" title=" ${free_memory_percentage}% Available">
+                  <span class="sr-only"> ${ free_memory_percentage}%  Available</span>
+                </div>
+            `);
+
+            $("#{{ model }}-mount-device-{{uuid}}").html(`${data.mounts[0].device}`);
+            const available_size = Math.round((data.mounts[0].size_available / 1073741824) * 10) / 10;
+            const total_size = Math.round((data.mounts[0].size_total / 1073741824) * 10) / 10;
+            total_used_percentage = ((total_size - available_size) / total_size) * 100;
+
+
+            $("#{{ model }}-mount-progress-bar-{{uuid}}").html(`
+      
+            <div class="progress-description">
+              ${ data.mounts[0].mount}
+              </div>
+              <div class="progress progress-label-top-right">
+                <div class="progress-bar ${ total_used_percentage > 80 ? "progress-bar-danger" : ""}" role="progressbar" aria-valuenow="${total_used_percentage}" aria-valuemin="0" aria-valuemax="100" style="width: ${total_used_percentage}%;"  data-toggle="tooltip" title="${total_used_percentage}% Used">
+                  <span><strong>${available_size} of ${total_size}</strong> Available</span>
+                </div>
+                <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="${available_size}" aria-valuemin="0" aria-valuemax="100" style="width: ${available_size}%;" data-toggle="tooltip" title="${available_size}% Available">
+                  <span class="sr-only">${ available_size}% Available</span>
+                </div>
+              </div>
+            `);
+
+            // IPv4
+            $("#{{ model }}-vm-ipv4-{{ uuid }}").html(`${data.interfaces[0].ipv4.address}`);
+
+            // IPv6
+            $("#{{ model }}-vm-ipv6-{{uuid }}").html(`getSafe(() => data.interfaces[0].ipv6[0].address, 'none')`);
+
+            // Interface
+            $("#{{ model }}-vm-interface-{{uuid }}").html(`${data.interfaces[0].device}`);
+          }
+
+
+        }
+
+        //failed
+        if (data.status == 'failed') {
+          console.log(data);
+          //console.log("Failed", data);
+          clearTimeout(timeoutId_var);
+
+          $("#{{ model }}-spinner-{{ uuid }}").html('<span class="fa fa-circle {{ model }}-spinner-{{ uuid }}" role="status" data-toggle="tooltip" data-placement="top" title="{{ msg|escapejs }}" role="status" aria-hidden="true"></span>');
+          $("#{{ model }}-spinner-{{ uuid }} span").addClass("run-failed");
+
+          $("#{{ model }}-progress-description-{{ uuid }}").html('<div class="fa fa-circle {{ model }}-spinner-{{ data.uuid }} run-failed" role="status" aria-hidden="true"></div> <strong>{{ action }} failed.</strong>');
+
+          //progress-bar-danger
+          $("#{{ model }}-progress-bar-{{ uuid }}").removeClass('progress-bar-success').addClass('progress-bar-danger');
+
+          // Status
+          $("#{{ model }}-runner-status-{{uuid}}").html("Failed to start");
+          $("#{{ model }}-runner-state-{{ uuid }}").html("failed");
+
+
+          /*
+          * User Credential
+          */
+          if (data.type === "user_credential") {
+            $("#{{ model }}-user-credential-info-{{ uuid }}").html(`
+              <span class="pficon pficon-virtual-machine"></span>
+              <strong>${data.summarized_fields.virtualmachine}</strong>
+            `);
+            $("#{{ model }}-user-credential-status-{{ uuid }}").html(`${data.status}`);
+            $("#{{ model}}-user-credential-instance-{{ uuid }}").html("failed");
+            $("#{{ model }}-user-credential-instance-{{ uuid }}").html('<span class="fa pficon-service" style="color:#b51c10"></span><strong>{{ data.related.iaas | length }}</strong> iaaS');
+
+
+            console.log("--- user_credential");
+            console.log(".{{ model}}-user-credentials-ias-status-{{uuid}}");
+            $(".{{ model}}-user-credentials-ias-status-{{uuid}}").html("&nbsp;failed)");
+
+            $("#{{model}}-user-credential-name-{{uuid}}").html(`${data.name}`);
+            $("#{{model}}-user-credential-created-{{uuid}}").html(`${data.created}`);
+            $("#{{model}}-user-credential-updated-{{uuid}}").html(`${data.last_updated}`);
+            const description = data.description === null ? "None description" : data.description;
+            $("#{{model}}-user-credential-description-{{uuid}}").html(`${description}`);
+
+          }
+
+          /*
+          * Iaas
+          */
+          if (data.type === "iaa_s") {
+
+            let running_vm = 0;
+            let failed_vm = 0;
+
+            data.related.virtualmachine.forEach(vm => {
+              if (vm.status === null) {
+                failed_vm += 1;
+              } else {
+                running_vm += 1;
+              }
+            });
+
+            $("#{{ model}}-vm-status-{{uuid}}").html(`
+                <div class="list-view-pf-additional-info-item">
+                  ${ failed_vm > 0 ? `
+                    <div style="margin-right: 8px">
+                    <span class="pficon pficon-virtual-machine" style="color:#b51c10"></span>
+                    <strong>${ failed_vm}</strong>Stopped
+                  </div>` : ""}
+
+                  ${ running_vm > 0 ? `
+                    <div style="margin-right: 8px">
+                    <span class="pficon pficon-virtual-machine" style="color:green"></span>
+                    <strong>${ running_vm}</strong>Running  
+                  </div>`: ""}
+                </div>
+            `);
+
+            $("#{{ model}}-name-{{uuid}}").html(`${data.name}`);
+            $("#{{ model}}-description-{{uuid}}").html(`${data.description === null ? "None description" : `${data.description}`}`);
+            $("#{{ model}}-created-{{uuid}}").html(`${data.created}`);
+            $("#{{ model}}-updated-{{uuid}}").html(`${data.last_updated}`);
+          }
+
+
+          /**
+          * Virtual Machines
+          */
+          if (data.type === "virtual_machine") {
+            $(".{{ model}}-user-vm-status-{{uuid}}").html('<span class="fa fa-info" aria-hidden="true"></span>failed');
+
+            // FQDN
+            $("#{{ model }}-vm-fqdn-{{uuid}}").html("Not running");
+
+            // Status
+            $("#{{ model }}-vm-runner-status-{{ uuid }}").html("failed");
+
+            // Device Type 
+            $("#{{ model }}-vm-kind-{{ uuid }}").html("kind");
+
+            // Vendor
+            $("#{{ model }}-vm-hardware-vendor-{{ uuid }}").html("Unknown");
+
+            // Model
+            $("#{{ model }}-vm-hardware-model-{{ uuid }}").html("Unknown");
+
+            // Processors
+            $("#{{ model }}-vm-processor-{{ uuid }}").html("Unknown");
+
+            // Memory
+            $("#{{ model }}-vm-memory-real-total-{{ uuid }}").html("None");
+            $("#{{ model }}-memory-progress-bar-{{uuid}}").html("None");
+
+            // Mount
+            $("#{{ model }}-mount-device-{{uuid}}").html("");
+            $("#{{ model }}-mount-progress-bar-{{uuid}}").html("None");
+
+            // IPv4
+            $("#{{ model }}-vm-ipv4-{{ uuid }}").html("None");
+
+            // IPv6
+            $("#{{ model }}-vm-ipv6-{{ uuid }}").html("None");
+
+            // Interface
+            $("#{{ model }}-vm-interface-{{ uuid }}").html("None");
+
+          }
+
+        }
+
+        //running or starting
+        if (data.status == 'running' || data.status == 'starting') {
+
+          $("#{{ model }}-spinner-{{ uuid }}").html('<span class="spinner spinner-xs spinner-inline {{ model }}-spinner-{{ uuid }}" role="status" aria-hidden="true"></span>');
+
+        }
+
+      }
+
+    }).done(function (data) {
+      if (data.type === "virtual_machine") {
+
+        alert('aaaa');
+        let iaas_failed_vm_html = ``;
+        let iaas_running_vm_html = ``;
+
+        // FQDN
+        $("#{{ model }}-vm-fqdn-{{uuid}}").html("FQDN");
+
+        // Status
+
+        
+
+        // Device Type 
+        $("#{{ model }}-vm-kind-{{ uuid }}").html("kind");
+
+        // Vendor
+        $("#{{ model }}-vm-hardware-vendor-{{ uuid }}").html("Vendor");
+
+        // Model
+        $("#{{ model }}-vm-hardware-model-{{ uuid }}").html("Model");
+
+        // Processors
+        $("#{{ model }}-vm-processor-{{ uuid }}").html("Processors");
+
+        // Memory
+        $("#{{ model }}-vm-memory-real-total-{{ uuid }}").html("Memory");
+
+        // IPv4
+        $("#{{ model }}-vm-ipv4-{{ data.uuid }}").html("IPv4");
+
+        // IPv6
+        $("#{{ model }}-vm-ipv6-{{ data.uuid }}").html("IPv6");
+
+        // Interface
+        $("#{{ model }}-vm-interface-{{ data.uuid }}").html("Interface");
+
+        $("#{{ model }}-vm-interface-{{ data.uuid }}").html("Interface");
+        console.log('---------------------------');
+
+        console.log(`.iaas-iaas-vm-status${data.summary_fields.iaas.uuid}`);
+        console.log(data.status);
+        if (data.status === "failed") {
+          vm_failed_vm += 1;
+          $(`.iaas-iaas-vm-status${data.uuid}`).html(`<a href="#"  class="js-link-ahome-navigate" data-url="${data.url}">${data.name}</a> &nbsp;( <i class="fa fa-info" aria-hidden="true"></i> failed) `);
+          $(`.usercredential-user-credentials-ias-status-${data.summary_fields.iaas.uuid}`).html("&nbsp;failed)");
+          $("#{{ model }}-vm-runner-status-{{ uuid }}").html("failed");
+        } else if(data.status === 'running'){
+
+        } else {
+          vm_running_vm += 1;
+          $(`.iaas-iaas-vm-status${data.uuid}`).html(`<a href="#"  class="js-link-ahome-navigate" data-url="${data.url}">${data.name}</a> &nbsp;( <i class="fa fa-info" aria-hidden="true"></i> running) `);
+          $(`.usercredential-user-credentials-ias-status-${data.summary_fields.iaas.uuid}`).html("&nbsp;successful)");
+          $("#{{ model }}-vm-runner-status-{{ uuid }}").html("Successful");
+        }
+
+        if (vm_failed_vm > 0) {
+          iaas_failed_vm_html = `<div style="margin-right: 8px">`;
+          iaas_failed_vm_html += `<span class="pficon pficon-virtual-machine" style="color:#b51c10"></span>`;
+          iaas_failed_vm_html += `<strong>${vm_failed_vm}</strong>Stopped`;
+          iaas_failed_vm_html += `</div>`;
+        }
+        if (vm_running_vm > 0) {
+          iaas_running_vm_html = `<div style="margin-right: 8px">`;
+          iaas_running_vm_html += `<span class="pficon pficon-virtual-machine" style="color:green"></span>`;
+          iaas_running_vm_html += `<strong>${vm_running_vm}</strong>Running`;
+          iaas_running_vm_html += `</div>`;
+        }
+        $(`#iaas-vm-status-${data.summary_fields.iaas.uuid}`).html(iaas_failed_vm_html + iaas_running_vm_html);
+
+
+      }
+    });
+
+  }, 2000);
+
+</script>

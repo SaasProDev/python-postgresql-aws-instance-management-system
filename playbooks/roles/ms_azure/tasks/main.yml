@@ -1,0 +1,47 @@
+---
+# tasks file for playbooks/roles/ms_azure
+
+- include_tasks: "inc/connect.yml"
+  when:
+    ahome__action in ['check',]
+
+
+- include_tasks: "inc/remove.yml"
+  when:
+    ahome__action in ['reconfigure','stop']
+
+- include_tasks: "inc/activate.yml"
+  when:
+    ahome__action in ['reconfigure', 'start']
+
+
+- name: Copy inventory file
+  copy:
+    src: files/inventory/azure_rm.py
+    dest: /tmp/azure_rm.py
+    mode: u=rwx,g=rx,o=rx
+
+- name: Run inventory cmd
+  command: >
+     python /tmp/azure_rm.py --list --tags "ahome:{{ ahome__id }}"
+  register: r__inventory
+
+- debug: msg="python /tmp/azure_rm.py --list --tags ahome:{{ ahome__id }}"
+
+- debug: var=r__inventory.stdout
+
+- name: ahome callback
+  set_fact:
+    r__azure_facts:
+      ahome__id: "{{ ahome__id }}"
+      ahome__model: "{{ ahome__model }}"
+      instances: >-
+        {%- set vms = [] -%}
+        {%- set inventory = r__inventory.stdout | from_json -%}
+        {%- set k = inventory['_meta']['hostvars'] | list -%}
+        {%- for vm in k -%}
+          {%- set ignore = vms.append( inventory['_meta']['hostvars'][vm] ) -%}
+        {%- endfor -%}
+        {{ vms }}
+
+- debug: var=r__azure_facts

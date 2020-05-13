@@ -1,0 +1,633 @@
+
+image_groups:
+
+  - group_id: 1
+    group_name: distributions
+    group_label: Distributions
+    group_desc: |
+         Standard distributions ready to be deployed in your dev/test and production environments.
+
+  - group_id: 2
+    group_name: windows
+    group_label: Windows
+    group_desc: |
+         Standard microsoft Windows family images ready to be deployed in your dev/test and production environments.
+
+
+  - group_id: 3
+    group_name: platforms
+    group_label: Platforms
+    group_desc: |
+         Standard platforms ready to be deployed like blogs, web apps in dev/test and production environments.
+
+  - group_id: 4
+    group_name: others
+    group_label: Others
+    group_desc: |
+         Standard containers engine for your apps, blogs, web apps in dev/test and production environments.
+
+
+images:
+  - image_id: 1
+    name: ubuntu
+    label: Ubuntu
+    iconClass: ahome/assets/ubuntu-icon.svg
+    default: 18.04 LTS
+    version:
+      - 18.04 LTS
+      - 16.04 LTS
+      - 14.04 LTS
+    group_id: 1
+
+  - image_id: 2
+    name: debian
+    label: Debian
+    iconClass: ahome/assets/debian-icon.svg
+    default: 12 x64
+    version:
+      - 12 x64
+      - 11 x64
+      - 10 x64
+    group_id: 1
+
+  - image_id: 3
+    name: fedora
+    label: Fedora
+    iconClass: ahome/assets/fedora-icon.svg
+    default: 31 x64
+    version:
+      - 31 x64
+      - 30 x64
+      - 29 x64
+    group_id: 1
+
+  - image_id: 4
+    name: freebsd
+    label: FreeBSD
+    iconClass: ahome/assets/freebsd.svg
+    default: 12.0-RELEASE-amd64
+    version:
+      - 12.0-RELEASE-amd64
+      - 11.3-RELEASE-amd64
+      - 10.4-RELEASE-amd64
+    group_id: 1
+
+  - image_id: 5
+    name: centos
+    label: CentOS
+    iconClass: ahome/assets/centos-icon.svg
+    default: 8.0 x64
+    version:
+      - 8.0 x64
+      - 7.6 x64
+      - 6.9 x64
+    group_id: 1
+
+  - image_id: 6
+    name: redhat
+    label: Red Hat
+    iconClass: ahome/assets/redhat.svg
+    default: 8.1 x64
+    version:
+      - 8.1 x64
+      - 7.6 x64
+      - 6.9 x64
+    group_id: 1
+
+
+  - image_id: 7
+    name: microsoftwindows
+    label: Windows
+    iconClass: ahome/assets/microsoft-windows.svg
+    default: 10 x64
+    version:
+      - 10 x64
+      - 8.1 x64
+    group_id: 2
+
+
+  - image_id: 8
+    name: apache
+    label: Apache
+    iconClass: ahome/assets/apache.svg
+    apps: ['apache']
+    default: 2.4
+    version:
+      - 2.4
+    group_id: 3
+
+
+  - image_id: 9
+    name: openshift
+    label: OpenShift OKD
+    iconClass: ahome/assets/openshift.svg
+    apps: ['openshift']
+    default: 3.11
+    version:
+      - 3.11
+      - 3.10
+    group_id: 3
+
+  - image_id: 10
+    name: nginx
+    label: Nginx
+    iconClass: ahome/assets/nginx.svg
+    apps: ['nginx']
+    default: 1.17
+    version:
+      - 1.17
+      - 1.16
+    group_id: 3
+
+  - image_id: 11
+    name: coreos
+    label: CoreOS
+    iconClass: ahome/assets/coreos-icon.svg
+    default: 2303.3.0
+    version:
+      - 2303.3.0
+      - 2247.7.0
+    group_id: 4
+
+  - image_id: 12
+    name: elk
+    label: ELK
+    iconClass: ahome/assets/elasticsearch.svg
+    apps: ['docker', 'elk']
+    default: 7.5
+    version:
+      - 7.5
+      - 7.4
+    group_id: 3
+
+  - image_id: 13
+    name: satellite
+    label: Satellite 6
+    iconClass: ahome/assets/satellite.svg
+    apps: ['satellite_6']
+    default: 6.6.1
+    version:
+      - 6.6.1
+      - 6.5.3
+    group_id: 3
+
+  - image_id: 14
+    name: awx
+    label: AWX
+    iconClass: ahome/assets/awx.svg
+    apps: ['awx']
+    default: 9.2.0
+    version:
+      - 9.2.0
+      - 9.1.1
+      - 9.0.0
+    group_id: 3
+
+
+  - image_id: 15
+    name: django
+    label: Django
+    iconClass: ahome/assets/django.svg
+    apps: ['django']
+    default: 3.1
+    version:
+      - 3.1
+      - 3.0
+      - 2.2
+      - 1.11
+    group_id: 3
+
+  - image_id: 16
+    name: gitlab
+    label: Gitlab
+    iconClass: ahome/assets/gitlab.svg
+    apps: ['gitlab']
+    default: 12.7.5
+    version:
+      - 12.7.5
+      - 12.6.6
+      - 12.5.9
+    group_id: 3
+
+  - image_id: 17
+    name: wordpress
+    label: Wordpress
+    iconClass: ahome/assets/wordpress.svg
+    apps: [ 'docker', 'wordpress']
+    default: 5.3.2
+    version:
+      - 5.3.2
+    group_id: 3
+
+
+  - image_id: 18
+    name: mysql
+    label: MySql
+    iconClass: ahome/assets/mysql.svg
+    apps: ['mysql']
+    default: 8.0
+    version:
+      - 8.0
+      - 5.7
+      - 5.6
+      - 5.5
+    group_id: 3
+
+
+  - image_id: 19
+    name: postgresql
+    label: PostgreSQL
+    iconClass: ahome/assets/postgresql.svg
+    apps: ['postgresql']
+    default: 10.11
+    version:
+      - 10.11
+      - 9.6
+      - 9.5
+    group_id: 3
+
+
+  - image_id: 20
+    name: discourse
+    label: Discourse
+    iconClass: ahome/assets/discourse.svg
+    apps: ['discourse']
+    default: 2.3.9
+    version:
+      - 2.3.9
+      - 2.3.8
+    group_id: 3
+
+
+  - image_id: 21
+    name: microsoftsqlserver
+    label: SqlServer
+    iconClass: ahome/assets/microsoftsqlserver.svg
+    apps: ['microsoftsqlserver']
+    default: 15.0
+    version:
+      - 15.0
+      - 14.0
+      - 13.0
+    group_id: 2
+
+
+  - image_id: 15
+    name: rancher
+    label: Rancher
+    iconClass: ahome/assets/rancher.svg
+    apps: ['rancher']
+    default: 2.3.5
+    version:
+      - 2.3.5
+      - 2.3.4
+    group_id: 4
+
+  - image_id: 16
+    name: kubernetes
+    label: Kubernetes
+    iconClass: ahome/assets/kubernetes.svg
+    apps: ['kubernetes']
+    default: 1.17.0
+    version:
+      - 1.17.0
+    group_id: 4
+
+
+  - image_id: 17
+    name: zimbra
+    label: Zimbra
+    iconClass: ahome/assets/zimbra.png
+    apps: ['docker', 'zimbra']
+    default: 8.8.12
+    version:
+      - 8.8.12
+    group_id: 4
+
+
+plan_groups:
+
+  - plan_id: 1
+    plan_name: standard
+    plan_label: Standard
+    plan_desc: |
+         Standard virtual machines with a mix of memory and compute resources. Best for small projects that can handle variable levels of CPU performance, like blogs, web apps and dev/test environments.
+
+  - plan_id: 2
+    plan_name: general_purpose
+    plan_label: General purpose
+    plan_desc: |
+         Standard virtual machines with a mix of memory and compute resources. Best for small projects that can handle variable levels of CPU performance, like blogs, web apps and dev/test environments.
+
+
+  - plan_id: 3
+    plan_name: cpu_optimized
+    plan_label: CPU Optimized
+    plan_desc: |
+         Standard virtual machines with a mix of memory and compute resources. Best for small projects that can handle variable levels of CPU performance, like blogs, web apps and dev/test environments.
+
+  - plan_id: 4
+    plan_name: memory_optimized
+    plan_label: Memory Optimized
+    plan_desc: |
+         Standard virtual machines with a mix of memory and compute resources. Best for small projects that can handle variable levels of CPU performance, like blogs, web apps and dev/test environments.
+
+
+pricing:
+  - provider: amazon_ec2
+    plans:
+      - plan_id: 1
+        name: 1vcpu_1gb_10gb
+        price: 0.0116
+        rate: hour
+        vcpu: 1
+        memory: 1
+        disk: 10
+        traffic: unlimited traffic
+        currency: dollar
+
+      - plan_id: 1
+        name: 1vcpu_2gb_10gb
+        price: 0.023
+        rate: hour
+        vcpu: 1
+        memory: 2
+        disk: 10
+        traffic: unlimited traffic
+        currency: dollar
+
+
+      - plan_id: 1
+        name: 1vcpu_2gb_10gb
+        price: 0.0464
+        rate: hour
+        vcpu: 2
+        memory: 4
+        disk: 10
+        traffic: unlimited traffic
+        currency: dollar
+
+
+      - plan_id: 1
+        name: 1vcpu_2gb_10gb
+        price: 0.0928
+        rate: hour
+        vcpu: 2
+        memory: 8
+        disk: 10
+        traffic: unlimited traffic
+        currency: dollar
+
+
+      - plan_id: 2
+        name: 1vcpu_2gb_10gb
+        price: 0.010
+        rate: hour
+        vcpu: 1
+        memory: 2
+        disk: 10
+        traffic: unlimited traffic
+        currency: dollar
+
+      - plan_id: 3
+        name: 2vcpu_2gb_60gb
+        price: 0.020
+        rate: hour
+        vcpu: 2
+        memory: 2
+        disk: 60
+        traffic: unlimited traffic
+        currency: dollar
+
+      - plan_id: 4
+        name: 1vcpu_1gb_60gb
+        price: 0.006
+        rate: hour
+        vcpu: 1
+        memory: 2
+        disk: 60
+        traffic: unlimited traffic
+        currency: dollar
+
+      - plan_id: 5
+        name: 1vcpu_2gb_60gb
+        price: 0.006
+        rate: hour
+        vcpu: 1
+        memory: 1
+        disk: 60
+        traffic: unlimited traffic
+        currency: dollar
+
+
+  - provider: ms_azure
+    plans:
+      - plan_id: 1
+        name: 1vcpu_1gb_60gb
+        price: 0.0104
+        rate: hour
+        vcpu: 1
+        memory: 4
+        disk: 4
+        traffic: unlimited traffic
+        currency: dollar
+
+      - plan_id: 1
+        name: 1vcpu_2gb_60gb
+        price: 0.0208
+        rate: hour
+        vcpu: 1
+        memory: 2
+        disk: 4
+        traffic: unlimited traffic
+        currency: dollar
+
+      - plan_id: 1
+        name: 1vcpu_2gb_60gb
+        price: 0.0416
+        rate: hour
+        vcpu: 2
+        memory: 4
+        disk: 8
+        traffic: unlimited traffic
+        currency: dollar
+
+
+      - plan_id: 1
+        name: 1vcpu_2gb_60gb
+        price: 0.0832
+        rate: hour
+        vcpu: 2
+        memory: 8
+        disk: 16
+        traffic: unlimited traffic
+        currency: dollar
+
+      - plan_id: 2
+        name: 1vcpu_2gb_60gb
+        price: 0.0832
+        rate: hour
+        vcpu: 2
+        memory: 8
+        disk: 16
+        traffic: unlimited traffic
+        currency: dollar
+
+      - plan_id: 2
+        name: 1vcpu_2gb_60gb
+        price: 0.166
+        rate: hour
+        vcpu: 4
+        memory: 16
+        disk: 32
+        traffic: unlimited traffic
+        currency: dollar
+
+
+      - plan_id: 3
+        name: 1vcpu_2gb_60gb
+        price: 0.085
+        rate: hour
+        vcpu: 2
+        memory: 4
+        disk: 16
+        traffic: unlimited traffic
+        currency: dollar
+
+      - plan_id: 3
+        name: 1vcpu_2gb_60gb
+        price: 0.17
+        rate: hour
+        vcpu: 4
+        memory: 8
+        disk: 32
+        traffic: unlimited traffic
+        currency: dollar
+
+
+
+  - provider: kvm
+    plans:
+      - plan_id: 1
+        name: 1vcpu_1gb_60gb
+        price: 0.0001
+        rate: hour
+        vcpu: 1
+        memory: 2
+        disk: 60
+        traffic: unlimited traffic
+        currency: dollar
+
+      - plan_id: 1
+        name: 1vcpu_1gb_60gb
+        price: 0.002
+        rate: hour
+        vcpu: 2
+        memory: 4
+        disk: 60
+        traffic: unlimited traffic
+        currency: dollar
+
+      - plan_id: 1
+        name: 1vcpu_1gb_60gb
+        price: 0.005
+        rate: hour
+        vcpu: 4
+        memory: 8
+        disk: 60
+        traffic: unlimited traffic
+        currency: dollar
+
+
+
+      - plan_id: 2
+        name: 1vcpu_2gb_60gb
+        price: 0.0002
+        rate: hour
+        vcpu: 1
+        memory: 1
+        disk: 60
+        traffic: unlimited traffic
+        currency: dollar
+
+      - plan_id: 3
+        name: 1vcpu_2gb_60gb
+        price: 0.0006
+        rate: hour
+        vcpu: 1
+        memory: 1
+        disk: 60
+        traffic: unlimited traffic
+        currency: dollar
+
+      - plan_id: 4
+        name: 1vcpu_2gb_60gb
+        price: 0.0009
+        rate: hour
+        vcpu: 1
+        memory: 1
+        disk: 60
+        traffic: unlimited traffic
+        currency: dollar
+
+
+
+additional_storage:
+  - provider: amazon_ec2
+    plans:
+      - storage_id: 1
+        name: disk_ssd_100gb
+        price: 0.006
+        rate: hour
+        disk: 100
+        unit: GB
+        type: SSD
+        currency: dollar
+
+      - storage_id: 2
+        name: disk_ssd_1000gb
+        price: 0.05
+        rate: hour
+        disk: 1000
+        unit: GB
+        type: SSD
+        currency: dollar
+
+      - storage_id: 3
+        name: disk_ssd_2000gb
+        price: 0.09
+        rate: hour
+        disk: 2000
+        unit: GB
+        type: SSD
+        currency: dollar
+
+
+  - provider: kvm
+    plans:
+      - storage_id: 1
+        name: disk_ssd_10gb
+        price: 0.0001
+        rate: hour
+        disk: 10
+        unit: GB
+        type: SSD
+        currency: dollar
+
+      - storage_id: 2
+        name: disk_ssd_20gb
+        price: 0.05
+        rate: hour
+        disk: 20
+        unit: GB
+        type: SSD
+        currency: dollar
+
+      - storage_id: 3
+        name: disk_ssd_50gb
+        price: 0.09
+        rate: hour
+        disk: 50
+        unit: GB
+        type: SSD
+        currency: dollar

@@ -1,0 +1,151 @@
+{% load static %}
+<div class="row">
+  <div class="col-md-12">
+    <ol class="ahome-breadcrumb breadcrumb">
+      <li>
+        <a href="#admin-panel" data-url="{% url 'dashboard_user' %}">Home</a>
+      </li>
+      <li>Storages</li>
+    </ol>
+    <div class="actions pull-right">
+      <a href="#storage" class="instance-refresh-link" data-url="{% url 'storage' %}">
+        <span class="pficon pficon-refresh"></span>&nbsp;Refresh Results</a>
+    </div>
+    <h1>Storages</h1>
+  </div>
+</div>
+
+<!-- /toast notification -->
+<div id="ahome-toast-notification">
+</div>
+<!-- /.end toast -->
+
+
+
+<!-- /wizardbox -->
+<div id="ahome-wizardbox">
+  {% include 'frontend/includes/helpers/wizard-modal.html' %}
+</div>
+<!-- /.wizardbox -->
+
+
+<!-- /search-bar -->
+<div id="ahome-generic-search-bar">
+  {% include 'frontend/includes/helpers/search.html' %}
+</div>
+<!-- /.search-bar -->
+
+
+<!-- /providers -->
+<div id="pf-list-simple-expansion" class="list-group list-view-pf list-view-pf-view">
+
+  <div id="ahome-generic-list">
+    {% include include_path %}
+  </div>
+  {% if apidata.count %}
+  <form class="content-view-pf-pagination  clearfix" id="">
+    <div class="form-group">
+      <select class="selectpicker pagination-pf-pagesize">
+        <option value="10" selected>10</option>
+      </select>
+      <span>per page</span>
+    </div>
+    <div class="form-group" style="display:flex;align-items:center;">
+      <span>
+        <span class="pagination-pf-items-current">1-10</span> of
+        <span class="pagination-pf-items-total">{{apidata.count}}</span>
+      </span>
+      <ul class="pagination pagination-pf-back">
+        <li class="disabled">
+					<a href="javascript:;" title="First Page" class="first_page_btn">
+						<span class="i fa fa-angle-double-left"></span>
+					</a>
+				</li>
+        <li class="disabled">
+          <a href="javascript:;" title="Previous Page" class="previous_page_btn">
+            <span class="i fa fa-angle-left"></span>
+          </a>
+        </li>
+      </ul>
+      <label for="-page" class="sr-only">Current Page</label>
+      <input class="pagination-pf-page" type="text" value="1" id="-page" />
+      <span>of
+        <span class="pagination-pf-pages">
+        </span>
+      </span>
+      <ul class="pagination pagination-pf-forward">
+        <li>
+          <a href="javascript:;" title="Next Page" class="next_page_btn">
+            <span class="i fa fa-angle-right"></span>
+          </a>
+        </li>
+        <li>
+					<a href="javascript:;" title="Last Page" class="last_page_btn">
+						<span class="i fa fa-angle-double-right"></span>
+					</a>
+				</li>
+      </ul>
+    </div>
+  </form>
+  {% endif %}
+  <!-- /.providers -->
+
+
+  <!-- /modal -->
+  <div class="modal fade" id="modal-ahome-generic">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+  <!-- /.modal -->
+
+  {% csrf_token %}
+  <script>
+    var total_pagination = 0;
+    if ({{ apidata.count }} % 10 == 0) {
+      total_pagination = parseInt({{ apidata.count }} / 10);
+		} else {
+      total_pagination = parseInt({{ apidata.count }} / 10) + 1;
+		}
+    $('.pagination-pf-pages').html(total_pagination);
+    var current_page = 1;
+  </script>
+  <script src="{% static 'ahome/js/ahome-generics.js' %}"></script>
+  <script>
+
+    function render_view() {
+      $.ajax({
+        type: 'GET',
+        url: '/frontend/storages/list?page=' + current_page,
+        beforeSend: function () {
+          $("#ahome-overlay").fadeIn(300);
+        },
+        success: function (data) {
+          $('#ahome-generic-list').html(data);
+        }
+      }).done(function () {
+        setTimeout(function () {
+          $("#ahome-overlay").fadeOut(300);
+        }, 500);
+      });
+    }
+    $(".ahome-breadcrumb a").click(function () {
+      var btn = $(this);
+      $.ajax({
+        type: 'GET',
+        url: btn.attr("data-url"),
+        beforeSend: function () {
+          $("#ahome-overlay").fadeIn(300);
+        },
+        success: function (data) {
+          // console.log(data);
+          $("#ajax-responsive").html(data);
+        }
+      }).done(function () {
+        setTimeout(function () {
+          $("#ahome-overlay").fadeOut(300);
+        }, 500);
+      });
+    });
+  </script>

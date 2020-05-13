@@ -1,0 +1,53 @@
+
+
+{% if data.status == 'failed' %}
+
+      <div id="{{ model_name|lower }}-progress-description-{{ data.uuid }}" class="progress-description">
+
+        <div class="fa fa-circle {{ model_name|lower }}-spinner-{{ data.uuid }} run-failed" role="status" aria-hidden="true"></div> <strong>{{ data.action }} failed.</strong>
+
+      </div>
+
+      <div class="progress progress-label-top-right">
+
+        <div id="{{ model_name|lower }}-progress-bar-{{ data.uuid }}" class="progress-bar progress-bar-danger {{ model_name|lower }}-progress-bar-{{ data.uuid }}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+        </div>
+
+      </div>
+
+
+
+{% elif data.status == 'successful' %}
+
+      <div id="{{ model_name|lower }}-progress-description-{{ data.uuid }}" class="progress-description">
+
+        <div class="fa fa-circle {{ model_name|lower }}-spinner-{{ data.uuid }} run-success" role="status" aria-hidden="true"></div> <strong>{{ data.action }} successful.</strong>
+
+      </div>
+
+      <div class="progress progress-label-top-right">
+
+        <div id="{{ model_name|lower }}-progress-bar-{{ data.uuid }}" class="progress-bar progress-bar-success {{ model_name|lower }}-progress-bar-{{ data.uuid }}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+        </div>
+
+      </div>
+
+
+{% else %}
+
+      <div id="{{ model_name|lower }}-progress-description-{{ data.uuid }}" class="progress-description">
+
+        <div class="spinner spinner-xs spinner-inline spinner-{{ data.uuid }}"></div> <strong>Processing...</strong>
+
+      </div>
+
+      <div class="progress progress-label-top-right">
+
+        <div id="{{ model_name|lower }}-progress-bar-{{ data.uuid }}" class="progress-bar {{ model_name|lower }}-progress-bar-{{ data.uuid }}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+        </div>
+
+      </div>
+
+
+{% endif %}
+

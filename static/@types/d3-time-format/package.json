@@ -1,0 +1,97 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "@types/d3-time-format@*",
+        "scope": "@types",
+        "escapedName": "@types%2fd3-time-format",
+        "name": "@types/d3-time-format",
+        "rawSpec": "*",
+        "spec": "*",
+        "type": "range"
+      },
+      "/Users/danny/ownCloud/ahome.patternfly3/node_modules/@types/d3"
+    ]
+  ],
+  "_from": "@types/d3-time-format@*",
+  "_hasShrinkwrap": false,
+  "_id": "@types/d3-time-format@2.1.1",
+  "_inCache": true,
+  "_location": "/@types/d3-time-format",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/d3-time-format_2.1.1_1550081672440_0.6109158437945834"
+  },
+  "_npmUser": {
+    "name": "types",
+    "email": "ts-npm-types@microsoft.com"
+  },
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "@types/d3-time-format@*",
+    "scope": "@types",
+    "escapedName": "@types%2fd3-time-format",
+    "name": "@types/d3-time-format",
+    "rawSpec": "*",
+    "spec": "*",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/@types/d3"
+  ],
+  "_resolved": "https://registry.npmjs.org/@types/d3-time-format/-/d3-time-format-2.1.1.tgz",
+  "_shasum": "dd2c79ec4575f1355484ab6b10407824668eba42",
+  "_shrinkwrap": null,
+  "_spec": "@types/d3-time-format@*",
+  "_where": "/Users/danny/ownCloud/ahome.patternfly3/node_modules/@types/d3",
+  "bugs": {
+    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
+  },
+  "contributors": [
+    {
+      "name": "Tom Wanzek",
+      "url": "https://github.com/tomwanzek"
+    },
+    {
+      "name": "Alex Ford",
+      "url": "https://github.com/gustavderdrache"
+    },
+    {
+      "name": "Boris Yankov",
+      "url": "https://github.com/borisyankov"
+    }
+  ],
+  "dependencies": {},
+  "description": "TypeScript definitions for d3JS d3-time-format module",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-tJSyXta8ZyJ52wDDHA96JEsvkbL6jl7wowGmuf45+fAkj5Y+SQOnz0N7/H68OWmPshPsAaWMQh+GAws44IzH3g==",
+    "shasum": "dd2c79ec4575f1355484ab6b10407824668eba42",
+    "tarball": "https://registry.npmjs.org/@types/d3-time-format/-/d3-time-format-2.1.1.tgz",
+    "fileCount": 4,
+    "unpackedSize": 12373,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJcZF6JCRA9TVsSAnZWagAAkIUP/ijIOiN0LnWR/3ru1Qmb\nY+6ZSQAER0oK9RKB7l7DZL1SJyRGt+/RDVWB8biEFMruluBt/aJartm32/IX\n/jghXKo9QiW4MqDBGvG1pRXJOfEZAvUCAU3ii7ifgMGOmRbTGAmlWh3xnq4P\neVDab77dEN4e8SJMubKGlTA/E2Nhp7t3NNIv8gbnlXUYP+gYuMPQTX9uZm56\nMqkb6bwM0r0hubXBCpsVPPa5nC8letVxbvusNMjVHsKJOK8vk2XmgdghrBLX\n21x/o86mkt+73Q1yuxEbY5UDkIOBjmd6C5ZrTHc4JReu+wXqbvNVQJDfroO2\ngUL2Kg5QJlFlw08vMRbIcKMSOiRcI9URcrtB/Bj4Qc4T+DGBcjg7MiKj89Io\nnYMv13iOOM95GPh96unzWp0CutTtd6CnnBspuSqmqK1p4AV7YnPn/5wlP0w+\nuWi7je56M9D6XqDgTkf5jFvJFGY1xt9bitpYWvs1d5S0NuOT1pQpSuLipnxq\nMps07YReDmrkYvWzCURVHVMMb0TyCyXlMZKDr/6yKJvzxkgUcelR1hWefQ/y\nbQlJ2YY5tpEIPVDGNiiOUfBWF1XeTuahFOG1rIbwvva1AGQwnTo2vhlTPBth\nhSuy3ywrzRdot+a6dqTmeLcaV3BQ2wumPURu5fhMLMzk8ecm0V70S0KxoaJy\naylz\r\n=If7A\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped#readme",
+  "license": "MIT",
+  "main": "",
+  "maintainers": [
+    {
+      "name": "types",
+      "email": "ts-npm-types@microsoft.com"
+    }
+  ],
+  "name": "@types/d3-time-format",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+  },
+  "scripts": {},
+  "typeScriptVersion": "2.0",
+  "types": "index",
+  "typesPublisherContentHash": "9060112c35db03fe0d763a6d41b2022fa7dc78fd4f9922c9cc0b09c159b94642",
+  "version": "2.1.1"
+}

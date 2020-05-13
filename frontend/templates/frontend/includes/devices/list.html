@@ -1,0 +1,662 @@
+{% load static %}
+
+
+
+{% for data in apidata.results %}
+
+
+
+  <div class="list-group-item">
+    <div class="list-view-pf-checkbox">
+      <input type="checkbox">
+    </div>
+    <div class="list-view-pf-actions">
+      {% if data.runner.rc == 4 %}
+      <span class="pficon pficon-error-circle-o"></span>
+      {% endif %}
+
+      {% if data.runner.rc == 0 %}
+      <span class="fa fa-circle" style="color:green"></span>
+      {% endif %}
+
+
+
+
+
+
+      {% if data.runner.rc == 0 %}
+      <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="show device"><span class="pficon pficon-ok"></span> Show</button>
+      {% else %}
+      <button class="btn btn-primary js-link-ahome-generic-run-activate" data-url="{{ data.run.activate }}" data-toggle="tooltip" data-placement="top" title="activate device"> Activate</button>
+      {% endif %}
+      <div class="dropdown pull-right dropdown-kebab-pf">
+  <button class="btn btn-link dropdown-toggle" type="button" id="dropdownKebabRight1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <span class="fa fa-ellipsis-v"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebabRight1">
+    <li><a href="#" class="js-link-ahome-generic-update" data-url="{% url url_update data.id %}"><span class="glyphicon glyphicon-pencil"></span> &nbsp; Edit</a></li>
+    <li><a href="#" class="js-link-ahome-generic-credential" data-url="{% url url_credential data.id %}"><span class="glyphicon glyphicon-pencil"></span> &nbsp; Credentials</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#" class="js-link-ahome-generic-run-synchronize" data-url="{{ data.run.synchronize }}" ><span class="fa fa-refresh"></span> &nbsp; Synchronize</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#" class="btn-sm js-link-ahome-generic-delete" data-url="{% url url_delete data.id %}" >
+          <span class="glyphicon glyphicon-trash"></span> &nbsp; Decommission
+        </a>
+    </li>
+  </ul>
+</div>
+
+    </div>
+    <div class="list-view-pf-main-info">
+      <div class="list-view-pf-left">
+        <span class="fa pficon-cluster list-view-pf-icon-sm"></span>
+      </div>
+      <div class="list-view-pf-body">
+        <div class="list-view-pf-description">
+          <div class="list-group-item-heading">
+            {{ data.label }}
+          </div>
+          <div class="list-group-item-text">
+            {{ data.description }}<br/><b>{{ data.primary_ip }} &nbsp;&nbsp;&nbsp; {{ data.primary_ip6 }}</b>
+          </div>
+        </div>
+        <div class="list-view-pf-additional-info">
+          <div class="list-view-pf-additional-info-item">
+            <div class="list-view-pf-expand">
+              <span class="fa fa-angle-right"></span>
+              <span class="pficon pficon-virtual-machine"></span>
+              <strong>{{data.virtualmachines|length }}</strong> Virtual Hosts
+            </div>
+          </div>
+          <div class="list-view-pf-additional-info-item">
+            <div class="list-view-pf-expand">
+              <span class="fa fa-angle-right"></span>
+              <span class="pficon pficon-image"></span>
+              <strong>0</strong> Containers
+              
+            </div>
+          </div>
+          <div class="list-view-pf-additional-info-item">
+            <div class="list-view-pf-expand">
+              <span class="fa fa-angle-right"></span>
+              <span class="pficon pficon-cpu"></span>
+               <strong>{% widthratio data.processors.processor|length 3 1 %}</strong> Cores
+            </div>
+          </div>
+          <div class="list-view-pf-additional-info-item">
+            <div class="list-view-pf-expand">
+              <span class="fa fa-angle-right"></span>
+              <span class="pficon pficon-memory"></span>
+              <strong>{% widthratio data.memory.real.total 1000 1 %}</strong> GB
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="list-group-item-container container-fluid hidden">
+      <div class="close">
+        <span class="pficon pficon-close"></span>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <b>Virtual Machines</b>
+          <ul>
+            {% for vm in data.virtualmachines|dictsort:"name" %}
+            <li>{{ vm.name }}</li>
+            {% endfor %}
+          </ul>
+          <b>Virtual Networks</b>
+          <ul>
+            {% for net in data.sdn|dictsort:"name" %}
+            <li>{{ net.name }}</li>
+            {% endfor %}
+          </ul>
+
+        </div>
+        <div class="col-md-9">
+          <dl class="dl-horizontal">
+            <dt>Hostname</dt>
+            <dd>{{ data.fqdn }}</dd>
+            <dt>Device Type</dt>
+            <dd>{{ data.kind }}</dd>
+            <dt>Vendor</dt>
+            <dd>{{ data.hardware.vendor }}</dd>
+            <dt>Model</dt>
+            <dd>{{ data.hardware.model }}</dd>
+            <dt>Processors</dt>
+            <dd>{{ data.processors.processor }}</dd>
+            <dt>Memory</dt>
+            <dd>{{ data.memory.real.total }} MB </dd>
+
+            <dt>&nbsp;</dt>
+            <dd>
+
+              {% widthratio data.memory.real.used data.memory.real.total 100 as mem_used %}
+              {% widthratio data.memory.real.free data.memory.real.total 100 as mem_free %}
+
+
+              <div class="progress-description">
+                Memory
+              </div>
+              <div class="progress progress-label-top-right">
+                <div class="progress-bar {% if mem_used|add:"0" >= 80 %} progress-bar-danger {% endif %}" role="progressbar" aria-valuenow="{{ mem_used }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ mem_used }}%;"  data-toggle="tooltip" title="{{ mem_used }}% Used">
+                  <span><strong>{{data.memory.real.used}} of {{data.memory.real.total}} MB</strong> Used</span>
+                </div>
+                <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="{{ mem_free }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ mem_free }}%;" data-toggle="tooltip" title="{{ mem_free }}% Available">
+                  <span class="sr-only">{{ mem_free }}% Available</span>
+                </div>
+              </div>
+
+
+
+
+            </dd>
+
+
+            {% for mount in data.mounts %}
+
+              <dt>{{ mount.device }}</dt>
+              <dd>
+
+                {% widthratio mount.block_used mount.block_total 100 as disk_used %}
+                {% widthratio mount.block_available mount.block_total 100 as disk_free %}
+
+                <div class="progress-description">
+                  {{ mount.mount }}
+                </div>
+                <div class="progress progress-label-top-right">
+                  <div class="progress-bar {% if disk_used|add:"0" > 80 %}progress-bar-danger{% endif %}" role="progressbar" aria-valuenow="{{ disk_used }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ disk_used }}%;"  data-toggle="tooltip" title="{{ disk_used }}% Used">
+                    <span><strong>{{ mount.size_available |filesizeformat }} of {{ mount.size_total |filesizeformat }}</strong> Available</span>
+                  </div>
+                  <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="{{ disk_free }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ disk_free }}%;" data-toggle="tooltip" title="{{ disk_free }}% Available">
+                    <span class="sr-only">{{ disk_free }}% Available</span>
+                  </div>
+                </div>
+
+
+
+              </dd>
+
+
+
+
+
+
+
+            {% endfor %}
+
+
+
+
+
+
+
+            <dt>IPv4</dt>
+            <dd>{% for ipv4 in data.ipaddresses.ipv4 %} {{ ipv4 }} &nbsp; {% endfor %}</dd>
+            <dt>IPv6</dt>
+            <dd>{% for ipv6 in data.ipaddresses.ipv6 %} {{ ipv6 }} &nbsp; {% endfor %}</dd>
+            <dt>Interfaces</dt>
+            <dd>{% for iface in data.interfaces %} {{ iface.device }} &nbsp; {% endfor %}</dd>
+
+          </dl>
+          <p>
+
+
+
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="list-group-item-container container-fluid hidden">
+      <div class="close">
+        <span class="pficon pficon-close"></span>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <b>Virtual Machines</b>
+          <ul>
+            {% for vm in data.virtualmachines|dictsort:"name" %}
+            <li>{{ vm.name }}</li>
+            {% endfor %}
+          </ul>
+          <b>Virtual Networks</b>
+          <ul>
+            {% for net in data.sdn|dictsort:"name" %}
+            <li>{{ net.name }}</li>
+            {% endfor %}
+          </ul>
+
+        </div>
+        <div class="col-md-9">
+          <dl class="dl-horizontal">
+            <dt>Hostname</dt>
+            <dd>{{ data.fqdn }}</dd>
+            <dt>Device Type</dt>
+            <dd>{{ data.kind }}</dd>
+            <dt>Vendor</dt>
+            <dd>{{ data.hardware.vendor }}</dd>
+            <dt>Model</dt>
+            <dd>{{ data.hardware.model }}</dd>
+            <dt>Processors</dt>
+            <dd>{{ data.processors.processor }}</dd>
+            <dt>Memory</dt>
+            <dd>{{ data.memory.real.total }} MB </dd>
+
+            <dt>&nbsp;</dt>
+            <dd>
+
+              {% widthratio data.memory.real.used data.memory.real.total 100 as mem_used %}
+              {% widthratio data.memory.real.free data.memory.real.total 100 as mem_free %}
+
+
+              <div class="progress-description">
+                Memory
+              </div>
+              <div class="progress progress-label-top-right">
+                <div class="progress-bar {% if mem_used|add:"0" >= 80 %} progress-bar-danger {% endif %}" role="progressbar" aria-valuenow="{{ mem_used }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ mem_used }}%;"  data-toggle="tooltip" title="{{ mem_used }}% Used">
+                  <span><strong>{{data.memory.real.used}} of {{data.memory.real.total}} MB</strong> Used</span>
+                </div>
+                <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="{{ mem_free }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ mem_free }}%;" data-toggle="tooltip" title="{{ mem_free }}% Available">
+                  <span class="sr-only">{{ mem_free }}% Available</span>
+                </div>
+              </div>
+
+
+
+
+            </dd>
+
+
+            {% for mount in data.mounts %}
+
+              <dt>{{ mount.device }}</dt>
+              <dd>
+
+                {% widthratio mount.block_used mount.block_total 100 as disk_used %}
+                {% widthratio mount.block_available mount.block_total 100 as disk_free %}
+
+                <div class="progress-description">
+                  {{ mount.mount }}
+                </div>
+                <div class="progress progress-label-top-right">
+                  <div class="progress-bar {% if disk_used|add:"0" > 80 %}progress-bar-danger{% endif %}" role="progressbar" aria-valuenow="{{ disk_used }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ disk_used }}%;"  data-toggle="tooltip" title="{{ disk_used }}% Used">
+                    <span><strong>{{ mount.size_available |filesizeformat }} of {{ mount.size_total |filesizeformat }}</strong> Available</span>
+                  </div>
+                  <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="{{ disk_free }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ disk_free }}%;" data-toggle="tooltip" title="{{ disk_free }}% Available">
+                    <span class="sr-only">{{ disk_free }}% Available</span>
+                  </div>
+                </div>
+
+
+
+              </dd>
+
+
+
+
+
+
+
+            {% endfor %}
+
+
+
+
+
+
+
+            <dt>IPv4</dt>
+            <dd>{% for ipv4 in data.ipaddresses.ipv4 %} {{ ipv4 }} &nbsp; {% endfor %}</dd>
+            <dt>IPv6</dt>
+            <dd>{% for ipv6 in data.ipaddresses.ipv6 %} {{ ipv6 }} &nbsp; {% endfor %}</dd>
+            <dt>Interfaces</dt>
+            <dd>{% for iface in data.interfaces %} {{ iface.device }} &nbsp; {% endfor %}</dd>
+
+          </dl>
+          <p>
+
+
+
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="list-group-item-container container-fluid hidden">
+      <div class="close">
+        <span class="pficon pficon-close"></span>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <b>Virtual Machines</b>
+          <ul>
+            {% for vm in data.virtualmachines|dictsort:"name" %}
+            <li>{{ vm.name }}</li>
+            {% endfor %}
+          </ul>
+          <b>Virtual Networks</b>
+          <ul>
+            {% for net in data.sdn|dictsort:"name" %}
+            <li>{{ net.name }}</li>
+            {% endfor %}
+          </ul>
+
+        </div>
+        <div class="col-md-9">
+          <dl class="dl-horizontal">
+            <dt>Hostname</dt>
+            <dd>{{ data.fqdn }}</dd>
+            <dt>Device Type</dt>
+            <dd>{{ data.kind }}</dd>
+            <dt>Vendor</dt>
+            <dd>{{ data.hardware.vendor }}</dd>
+            <dt>Model</dt>
+            <dd>{{ data.hardware.model }}</dd>
+            <dt>Processors</dt>
+            <dd>{{ data.processors.processor }}</dd>
+            <dt>Memory</dt>
+            <dd>{{ data.memory.real.total }} MB </dd>
+
+            <dt>&nbsp;</dt>
+            <dd>
+
+              {% widthratio data.memory.real.used data.memory.real.total 100 as mem_used %}
+              {% widthratio data.memory.real.free data.memory.real.total 100 as mem_free %}
+
+
+              <div class="progress-description">
+                Memory
+              </div>
+              <div class="progress progress-label-top-right">
+                <div class="progress-bar {% if mem_used|add:"0" >= 80 %} progress-bar-danger {% endif %}" role="progressbar" aria-valuenow="{{ mem_used }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ mem_used }}%;"  data-toggle="tooltip" title="{{ mem_used }}% Used">
+                  <span><strong>{{data.memory.real.used}} of {{data.memory.real.total}} MB</strong> Used</span>
+                </div>
+                <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="{{ mem_free }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ mem_free }}%;" data-toggle="tooltip" title="{{ mem_free }}% Available">
+                  <span class="sr-only">{{ mem_free }}% Available</span>
+                </div>
+              </div>
+
+
+
+
+            </dd>
+
+
+            {% for mount in data.mounts %}
+
+              <dt>{{ mount.device }}</dt>
+              <dd>
+
+                {% widthratio mount.block_used mount.block_total 100 as disk_used %}
+                {% widthratio mount.block_available mount.block_total 100 as disk_free %}
+
+                <div class="progress-description">
+                  {{ mount.mount }}
+                </div>
+                <div class="progress progress-label-top-right">
+                  <div class="progress-bar {% if disk_used|add:"0" > 80 %}progress-bar-danger{% endif %}" role="progressbar" aria-valuenow="{{ disk_used }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ disk_used }}%;"  data-toggle="tooltip" title="{{ disk_used }}% Used">
+                    <span><strong>{{ mount.size_available |filesizeformat }} of {{ mount.size_total |filesizeformat }}</strong> Available</span>
+                  </div>
+                  <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="{{ disk_free }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ disk_free }}%;" data-toggle="tooltip" title="{{ disk_free }}% Available">
+                    <span class="sr-only">{{ disk_free }}% Available</span>
+                  </div>
+                </div>
+
+
+
+              </dd>
+
+
+
+
+
+
+
+            {% endfor %}
+
+
+
+
+
+
+
+            <dt>IPv4</dt>
+            <dd>{% for ipv4 in data.ipaddresses.ipv4 %} {{ ipv4 }} &nbsp; {% endfor %}</dd>
+            <dt>IPv6</dt>
+            <dd>{% for ipv6 in data.ipaddresses.ipv6 %} {{ ipv6 }} &nbsp; {% endfor %}</dd>
+            <dt>Interfaces</dt>
+            <dd>{% for iface in data.interfaces %} {{ iface.device }} &nbsp; {% endfor %}</dd>
+
+          </dl>
+          <p>
+
+
+
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="list-group-item-container container-fluid hidden">
+      <div class="close">
+        <span class="pficon pficon-close"></span>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <b>Virtual Machines</b>
+          <ul>
+            {% for vm in data.virtualmachines|dictsort:"name" %}
+            <li>{{ vm.name }}</li>
+            {% endfor %}
+          </ul>
+          <b>Virtual Networks</b>
+          <ul>
+            {% for net in data.sdn|dictsort:"name" %}
+            <li>{{ net.name }}</li>
+            {% endfor %}
+          </ul>
+
+        </div>
+        <div class="col-md-9">
+          <dl class="dl-horizontal">
+            <dt>Hostname</dt>
+            <dd>{{ data.fqdn }}</dd>
+            <dt>Device Type</dt>
+            <dd>{{ data.kind }}</dd>
+            <dt>Vendor</dt>
+            <dd>{{ data.hardware.vendor }}</dd>
+            <dt>Model</dt>
+            <dd>{{ data.hardware.model }}</dd>
+            <dt>Processors</dt>
+            <dd>{{ data.processors.processor }}</dd>
+            <dt>Memory</dt>
+            <dd>{{ data.memory.real.total }} MB </dd>
+
+            <dt>&nbsp;</dt>
+            <dd>
+
+              {% widthratio data.memory.real.used data.memory.real.total 100 as mem_used %}
+              {% widthratio data.memory.real.free data.memory.real.total 100 as mem_free %}
+
+
+              <div class="progress-description">
+                Memory
+              </div>
+              <div class="progress progress-label-top-right">
+                <div class="progress-bar {% if mem_used|add:"0" >= 80 %} progress-bar-danger {% endif %}" role="progressbar" aria-valuenow="{{ mem_used }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ mem_used }}%;"  data-toggle="tooltip" title="{{ mem_used }}% Used">
+                  <span><strong>{{data.memory.real.used}} of {{data.memory.real.total}} MB</strong> Used</span>
+                </div>
+                <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="{{ mem_free }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ mem_free }}%;" data-toggle="tooltip" title="{{ mem_free }}% Available">
+                  <span class="sr-only">{{ mem_free }}% Available</span>
+                </div>
+              </div>
+
+
+
+
+            </dd>
+
+
+            {% for mount in data.mounts %}
+
+              <dt>{{ mount.device }}</dt>
+              <dd>
+
+                {% widthratio mount.block_used mount.block_total 100 as disk_used %}
+                {% widthratio mount.block_available mount.block_total 100 as disk_free %}
+
+                <div class="progress-description">
+                  {{ mount.mount }}
+                </div>
+                <div class="progress progress-label-top-right">
+                  <div class="progress-bar {% if disk_used|add:"0" > 80 %}progress-bar-danger{% endif %}" role="progressbar" aria-valuenow="{{ disk_used }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ disk_used }}%;"  data-toggle="tooltip" title="{{ disk_used }}% Used">
+                    <span><strong>{{ mount.size_available |filesizeformat }} of {{ mount.size_total |filesizeformat }}</strong> Available</span>
+                  </div>
+                  <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="{{ disk_free }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ disk_free }}%;" data-toggle="tooltip" title="{{ disk_free }}% Available">
+                    <span class="sr-only">{{ disk_free }}% Available</span>
+                  </div>
+                </div>
+
+
+
+              </dd>
+
+
+
+
+
+
+
+            {% endfor %}
+
+
+
+
+
+
+
+            <dt>IPv4</dt>
+            <dd>{% for ipv4 in data.ipaddresses.ipv4 %} {{ ipv4 }} &nbsp; {% endfor %}</dd>
+            <dt>IPv6</dt>
+            <dd>{% for ipv6 in data.ipaddresses.ipv6 %} {{ ipv6 }} &nbsp; {% endfor %}</dd>
+            <dt>Interfaces</dt>
+            <dd>{% for iface in data.interfaces %} {{ iface.device }} &nbsp; {% endfor %}</dd>
+
+          </dl>
+          <p>
+
+
+
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% empty %}
+
+
+
+<div class="blank-slate-pf " id="">
+  <div class="blank-slate-pf-icon">
+    <span class="pficon pficon pficon-add-circle-o"></span>
+  </div>
+  <h1>
+    No {{model_name}}
+  </h1>
+  <p>
+    Please add an {{model_name}} to start using ahome enterprise edition.
+  </p>
+  <p>
+    Learn more about this <a href="#">in the documentation</a>.
+  </p>
+  <div id="ahome-generic-create" class="blank-slate-pf-main-action js-link-ahome-generic-create" data-url="{% url url_create %}">
+    <button class="btn btn-primary btn-lg"> Add {{model_name}} </button>
+  </div>
+</div>
+
+
+{% endfor %}
+
+
+
+
+
+<script>
+$(function () {
+
+  $(".js-link-ahome-generic-create").click(function () {
+    $.ajax({
+      url: "{% url url_create %}",
+      type: 'get',
+      dataType: 'json',
+      beforeSend: function () {
+        $("#modal-ahome-generic").modal("show");
+      },
+      success: function (data) {
+        $("#modal-ahome-generic .modal-content").html(data.html_form);
+      }
+    });
+  });
+
+});
+
+</script>
+
+
+<script>
+  $(document).ready(function () {
+    // Row Checkbox Selection
+    $("#pf-list-compound-expansion input[type='checkbox']").change(function (e) {
+      if ($(this).is(":checked")) {
+        $(this).closest('.list-group-item').addClass("active");
+      } else {
+        $(this).closest('.list-group-item').removeClass("active");
+      }
+    });
+    // toggle dropdown menu
+    $("#pf-list-compound-expansion .list-view-pf-actions").on("show.bs.dropdown", function () {
+      var $this = $(this);
+      var $dropdown = $this.find(".dropdown");
+      var space = $(window).height() - $dropdown[0].getBoundingClientRect().top - $this.find(".dropdown-menu").outerHeight(true);
+      $dropdown.toggleClass("dropup", space < 10);
+    });
+    // compound expansion
+    $("#pf-list-compound-expansion .list-view-pf-expand").on("click", function () {
+      var $this = $(this);
+      var $heading = $(this).parents(".list-group-item");
+      //var $row = $heading.parent();
+      var $subPanels = $heading.find(".list-group-item-container");
+      var index = $heading.find(".list-view-pf-expand").index(this);
+
+      //Remove all active status
+      $heading.find(".list-view-pf-expand.active").find(".fa-angle-right").removeClass("fa-angle-down")
+        .end().removeClass("active")
+          .end().removeClass("list-view-pf-expand-active");
+      // Add active to the clicked item
+      $(this).addClass("active")
+        .parents(".list-group-item").addClass("list-view-pf-expand-active")
+          .end().find(".fa-angle-right").addClass("fa-angle-down");
+      // check if it needs to hide
+      if($subPanels.eq(index).hasClass("hidden")){
+        $heading.find(".list-group-item-container:visible").addClass("hidden");
+        $subPanels.eq(index).removeClass("hidden");
+      } else {
+        $subPanels.eq(index).addClass("hidden");
+        $heading.find(".list-view-pf-expand.active").find(".fa-angle-right").removeClass("fa-angle-down")
+         .end().removeClass("active")
+          .end().removeClass("list-view-pf-expand-active");
+      }
+    });
+
+    // click close button to close the panel
+    $("#pf-list-compound-expansion .list-group-item-container .close").on("click", function (){
+      var $this = $(this);
+      var $panel = $this.parent();
+
+      // close the container and remove the active status
+      $panel.addClass("hidden")
+        .parent().removeClass("list-view-pf-expand-active")
+          .find(".list-view-pf-expand.active").removeClass("active")
+            .find(".fa-angle-right").removeClass("fa-angle-down")
+    });
+  });
+</script>

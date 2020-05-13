@@ -1,0 +1,76 @@
+---
+# tasks file for /ahome_devel/playbooks/roles/wordpress
+
+- sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    sysctl_set: yes
+    state: present
+    reload: yes
+
+- sysctl:
+    name: vm.max_map_count
+    value: "262144"
+    sysctl_set: yes
+    state: present
+    reload: yes
+
+# install usual packages
+- name: default packages
+  yum: name={{item}} state=present
+  loop:
+    - "{{ rpms }}"
+
+
+# Install (docker-py) python package.
+- name: upgrade pip
+  pip:
+    name: 
+      - pip
+    state: latest
+    executable: pip3
+
+
+- name: install pip docker
+  pip:
+    name: 
+      - docker
+      - docker-compose
+      - jsondiff
+      - pyyaml
+    state: latest
+    executable: pip3
+
+
+- name: Copy docker-compose file
+  template:
+    src: templates/docker-compose.yml
+    dest: /opt/docker-compose.yml
+
+
+- name: Deploy stack from a compose file
+  docker_compose:
+    project_src: /opt/
+    state: present
+  register: output
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+
+- debug:
+    var: output
+
+- name: ahome callback
+  set_fact:
+    r__app_facts:
+      ahome_id: "{{ ahome__id }}"
+      ahome_model: "{{ ahome__model }}"
+      svc:
+        - ahome_inventory: "{{ lookup('env','INVENTORY') }}"
+          svc_path: "/"
+          svc_port: "8000"
+          svc_url: "http://{{ lookup('env','INVENTORY') }}:8000/"
+          ahome_tags: "{{ lookup('env','TAGS') }}"
+
+
+- debug: var=r__app_facts

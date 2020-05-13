@@ -1,0 +1,28 @@
+---
+# defaults file for playbooks/roles/elk
+
+rpms: 
+    - htop
+    - atop
+    - rsync
+    # - ansible
+    - pyOpenSSL
+    - wget
+    - git
+    - bash-completion
+    - bridge-utils
+    - bind-utils
+    - net-tools
+    - vim
+    # - python2-pip
+    - python36-pip
+#    - python34-pip.noarch
+    - python-virtualenv.noarch
+    - python-virtualenvwrapper.noarch
+    - curl
+    - python-netaddr
+    - certbot
+    - screen
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2

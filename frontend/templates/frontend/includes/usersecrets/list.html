@@ -1,0 +1,244 @@
+{% load static %}
+{% load frontend_extras %}
+
+
+
+
+
+{% for data in apidata.results %}
+
+  <div class="list-group-item">
+    <div class="list-group-item-header">
+      <div class="list-view-pf-expand">
+        <span class="fa fa-angle-right"></span>
+      </div>
+      <div class="list-view-pf-checkbox">
+        <input type="checkbox">
+      </div>
+      <div class="list-view-pf-actions">
+
+      {% if data.kind == 'sshkey' %}
+
+        <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Download Private Key"><span class="fa fa-download"></span> Download</button>
+        <button class="btn btn-primary js-link-ahome-generic-run-copy" data-url="{{ data.run.deploy }}" data-toggle="tooltip" data-placement="top" title="Copy Pub Key"><span class="fa fa-clipboard"></span> Copy</button>
+
+      {% else %}
+
+        <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Reveal secret"><span class="fa fa-eye"></span> Reveal </button>
+
+        <button class="btn btn-primary js-link-ahome-generic-run-copy" data-url="{{ data.run.deploy }}" data-toggle="tooltip" data-placement="top" title="Copy Secret"><span class="fa fa-clipboard"></span> Copy</button>
+
+      {% endif %}
+
+        <div class="dropdown pull-right dropdown-kebab-pf">
+          <button class="btn btn-link dropdown-toggle" type="button" id="dropdownKebabRight9" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="true">
+            <span class="fa fa-ellipsis-v"></span>
+          </button>
+
+          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebabRight9">
+
+            <li><a href="#" class="blank-slate-pf-main-action js-link-ahome-navigate" data-url="{{ data.frontend.detail }}"><span class="fa fa-external-link"></span> &nbsp; Detail</a></li>
+            <li><a href="#" class="js-link-ahome-generic-update" data-url="{{ data.frontend.update }}"><span class="glyphicon glyphicon-pencil"></span> &nbsp; Edit</a></li>
+            <li><a href="#" class="js-link-ahome-generic-credential" data-url="{{ data.frontend.credential }}"><span class="fa pficon-key"></span> &nbsp; Credentials</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#" class="js-link-ahome-generic-run-synchronize" data-url="{{ data.run.synchronize }}" ><span class="fa fa-refresh"></span> &nbsp; Synchronize</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#" class="btn-sm js-link-ahome-generic-delete"
+                          data-url="{{ data.frontend.delete }}" >
+                          <span class="glyphicon glyphicon-trash"></span> &nbsp; Decommission
+                </a>
+            </li>
+
+          </ul>
+        </div>
+
+
+      </div>
+      <div class="list-view-pf-main-info">
+        <div class="list-view-pf-left">
+          <span class="fa pficon-key list-view-pf-icon-sm"></span>
+        </div>
+        <div class="list-view-pf-body">
+          <div class="list-view-pf-description">
+            <div class="list-group-item-heading">
+              {{ data.name }}
+              <small>{{ data.inputs.fingerprint }}</small>
+            </div>
+            <div class="list-group-item-text">
+              <span class="fa pficon-enterprise"></span>
+              {{ data.summary_fields.organization.name }}
+              <br/>
+              {{ data.description }}
+            </div>
+
+
+
+          </div>
+          <div class="list-view-pf-additional-info">
+
+          {% if data.kind == 'sshkey' %}
+
+
+            <div class="list-view-pf-additional-info-item">
+              <small>
+                <span class="label label-info">{{ data.inputs.keykind }}</span>
+                <span class="label label-success">{{ data.inputs.keysize }}</span>
+              </small>
+            </div>
+
+          {% else %}          
+
+
+            <div class="list-view-pf-additional-info-item">
+              <small>
+                <span class="label label-info">Basic Auth</span>
+              </small>
+            </div>
+
+
+          {% endif %}
+
+
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-virtual-machine" style="color:green"></span>
+              Instances
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="list-group-item-container container-fluid hidden">
+      <div class="close">
+        <span class="pficon pficon-close"></span>
+      </div>
+      <div class="row">
+
+        <div class="col-md-6">
+          <dl class="dl-horizontal">
+            <dt>ORG NAME</dt>
+            <dd><strong><a href="#"  class="js-link-ahome-navigate" data-url="{% url 'organization' %}?id={{ data.summary_fields.organization.id }}">{{ data.summary_fields.organization.name }}</a></strong></dd>
+            <dt>Name</dt>
+            <dd>{{ data.name }}</dd>
+            <dt>Description</dt>
+            <dd>{{ data.description }}</dd>
+            <dt>Created</dt>
+            <dd>{{ data.created }}</dd>
+            <dt>Updated</dt>
+            <dd>{{ data.last_updated }}</dd>
+            <dt>Status</dt>
+            <dd id="{{ model_name | lower }}-runner-status-{{ data.uuid }}">{{ data.runner.status }}</dd>
+
+          </dl>        
+        </div>
+
+
+        <div class="col-md-6">
+          <dl class="dl-horizontal">
+
+          </dl>
+
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+
+{% empty %}
+
+
+
+<div class="blank-slate-pf " id="">
+  <div class="blank-slate-pf-icon">
+    <span class="pficon pficon pficon-add-circle-o"></span>
+  </div>
+  <h1>
+    No {{model_name}}
+  </h1>
+  <p>
+    Please add an {{model_name}} to start using ahome enterprise edition.
+  </p>
+  <p>
+    Learn more about this <a href="#">in the documentation</a>.
+  </p>
+  <div id="ahome-generic-create" class="blank-slate-pf-main-action js-link-ahome-generic-create" data-url="{% url url_create %}">
+    <button class="btn btn-primary btn-lg"> Add Credentials </button>
+  </div>
+</div>
+
+
+
+{% endfor %}
+
+
+<script>
+$(function () {
+
+  $(".js-link-ahome-generic-create").click(function () {
+    $.ajax({
+      url: "{% url url_create %}",
+      type: 'get',
+      dataType: 'json',
+      beforeSend: function () {
+        $("#modal-ahome-generic").modal("show");
+      },
+      success: function (data) {
+        $("#modal-ahome-generic .modal-content").html(data.html_form);
+      }
+    });
+  });
+
+});
+
+</script>
+
+
+<script>
+  $(document).ready(function () {
+    // Row Checkbox Selection
+    $("#pf-list-simple-expansion input[type='checkbox']").change(function (e) {
+      if ($(this).is(":checked")) {
+        $(this).closest('.list-group-item').addClass("active");
+      } else {
+        $(this).closest('.list-group-item').removeClass("active");
+      }
+    });
+    // toggle dropdown menu
+    $("#pf-list-simple-expansion .list-view-pf-actions").on('show.bs.dropdown', function () {
+      var $this = $(this);
+      var $dropdown = $this.find('.dropdown');
+      var space = $(window).height() - $dropdown[0].getBoundingClientRect().top - $this.find('.dropdown-menu').outerHeight(true);
+      $dropdown.toggleClass('dropup', space < 10);
+    });
+
+    // click the list-view heading then expand a row
+    $("#pf-list-simple-expansion .list-group-item-header").click(function(event){
+      if(!$(event.target).is("button, a, input, .fa-ellipsis-v")){
+        $(this).find(".fa-angle-right").toggleClass("fa-angle-down")
+          .end().parent().toggleClass("list-view-pf-expand-active")
+            .find(".list-group-item-container").toggleClass("hidden");
+      } else {
+      }
+    })
+
+    // click the close button, hide the expand row and remove the active status
+    $("#pf-list-simple-expansion .list-group-item-container .close").on("click", function (){
+      $(this).parent().addClass("hidden")
+        .parent().removeClass("list-view-pf-expand-active")
+          .find(".fa-angle-right").removeClass("fa-angle-down");
+    })
+
+  });
+</script>
+

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>python-socketio test</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+            var socket0 = io.connect("http://127.0.0.1:3000/");
+                socket0.on('my_response', function(msg) {
+                $('#log').append('<br>00 Received: ' + msg.data);
+                console.log("Received", msg.data)
+            });
+            var socket = io.connect("http://127.0.0.1:3000/notifications");
+
+            socket.on('connect', function() {
+                socket.emit('my_event', {data: 'I\'m connected!'});
+            });
+            socket.on('disconnect', function() {
+                $('#log').append('<br>Disconnected');
+            });
+
+            socket.on('notifications', function(msg) {
+                $('#log').append('<br>Received: ' + msg.data);
+                console.log("notifications Received", msg.data)
+            });
+            socket.on('/notifications/notification', function(msg) {
+                $('#log').append('<br>Received: ' + msg.data);
+                console.log("notifications c Received", msg.data)
+            });
+            socket.on('my_response', function(msg) {
+                $('#log').append('<br>Received: ' + msg.data);
+                console.log("Received", msg.data)
+            });
+            socket.on('notifications/my_response', function(msg) {
+                $('#log').append('<br>Received: ' + msg.data);
+                console.log("Received", msg.data)
+            });
+            socket.on('/notifications/my_response', function(msg) {
+                $('#log').append('<br>Received: ' + msg.data);
+                console.log("Received", msg.data)
+            });
+
+            socket.on('notification', function(msg) {
+                $('#log').append('<br>notifications: ' + msg.data);
+                console.log("notifications", msg.data)
+            });
+            socket.on('notifications/notification', function(msg) {
+                $('#log').append('<br>notifications: ' + msg.data);
+                console.log("notifications", msg.data)
+            });
+             socket.on('/notifications/notification', function(msg) {
+                $('#log').append('<br>notifications: ' + msg.data);
+                console.log("notifications", msg.data)
+            });
+            $('form#emit').submit(function(event) {
+                socket0.emit('test_event', {data: $('#emit_data').val()});
+                return false;
+            });
+            $('form#note').submit(function(event) {
+                socket.emit('notification', {data: $('#emit_note').val()});
+                return false;
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <h1>python-socketio test</h1>
+    <h2>Send:</h2>
+
+    <form id="emit" method="POST" action='#'>
+        <input type="text" name="emit_data" id="emit_data" placeholder="Message">
+        <input type="submit" value="Send">
+    </form>
+
+    <form id="note" method="POST" action='#'>
+        <input type="text" name="emit_note" id="emit_note" placeholder="Notification">
+        <input type="submit" value="Send">
+    </form>
+
+    <h2>Receive:</h2>
+    <div><p id="log"></p></div>
+</body>
+</html>

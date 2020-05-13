@@ -1,0 +1,401 @@
+{% load static %}
+{% load frontend_extras %}
+
+
+{% for data in apidata.results %}
+
+  <div class="list-group-item">
+    <div class="list-group-item-header">
+      <div class="list-view-pf-expand">
+        <span class="fa fa-angle-right"></span>
+      </div>
+      <div class="list-view-pf-checkbox">
+        <input type="checkbox">
+      </div>
+      <div class="list-view-pf-actions">
+
+        {% if data.billing.rate_month  %}
+                  <span class="badge" style="width: 60px;" data-toggle="tooltip" data-placement="top" title="${{ data.billing.rate_month }}/mo"><i class="fa fa-dollar"></i> {{ data.billing.total }}</span>
+        {% endif %}
+
+        &nbsp;&nbsp;
+
+        {% snippet__row_header_spinner_adv %}
+
+      </div>
+
+
+
+
+
+
+      <div class="list-view-pf-main-info">
+        <div class="list-view-pf-left">
+          <img src="{{ data.icons.iaas.small }}" class="list-view-pf-icon-sm" style="width: 25px; height: 25px;">
+        </div>
+        <div class="list-view-pf-body">
+          <div class="list-view-pf-description">
+            <div class="list-group-item-heading">
+              {{ data.name }}
+            </div>
+            <div class="list-group-item-text">
+              {{ data.summary_fields.provider.name }}
+
+              <div class="{{ model_name | lower}}-setfacts-url-{{data.uuid}}">
+                {% for app,url in data.setfacts.items %}
+
+                <div class="list-view-pf-additional-info-item">
+                  <small>
+                    <a href="{{ url }}" target="_blank">{{ url |truncatechars:50 }} &nbsp;<i style="font-size: 10px;" class="fa pficon-arrow"></i></a>
+                  </small>
+                </div>
+  
+              {% endfor %}
+              </div>
+              
+
+            </div>
+          </div>
+          <div class="list-view-pf-additional-info">
+
+            
+
+            <div class="list-view-pf-additional-info-item">
+
+
+              <img src="/static/{{ data.inputs.icon }}" style="width: 25px; height: 25px;" class="list-view-pf-icon-sm">&nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="pficon pficon-virtual-machine"></span>
+              <span id="{{ model_name | lower}}-vm-count-status-{{data.uuid}}">
+                {% with  total_vm=data.summarized_fields.virtualmachine %}
+                <strong>{{ total_vm }}</strong>
+                {% if total_vm > 1 %}
+                  Instances
+                {% else %}
+                  Instance
+                {% endif %}
+              {% endwith %}
+              </span>
+              
+            </div>
+            <div class="list-view-pf-additional-info-item" id="{{ model_name | lower}}-vm-status-{{data.uuid}}">
+                {% if data.summarized_fields.failed_vm > 0 %}
+                  <div style="margin-right: 8px">
+                    <span class="pficon pficon-virtual-machine" style="color:#b51c10"></span>
+                    <strong>{{ data.summarized_fields.failed_vm }}</strong>Stopped
+                  </div>
+                {% endif %}
+    
+                {% if data.summarized_fields.running_vm > 0 %}
+                  <div style="margin-right: 8px">
+                    <span class="pficon pficon-virtual-machine" style="color:green"></span>
+                    <strong>{{ data.summarized_fields.running_vm }}</strong> Running
+                  </div>
+                {% endif %}
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+    </div>
+
+    <div id="details_{{ vm.uuid }}" class="list-group-item-container container-fluid hidden">
+      <div class="close">
+        <span class="pficon pficon-close"></span>
+      </div>
+      <div class="row">
+
+        <img style="display: inline; margin: 0 5px; height:50px; width:50px;" src="{{ data.icons.iaas.large }}" class="pficon list-view-pf-icon-sm">
+        <strong>{{data.instance.image_label}}</strong>  <strong>{{ data.instance.type_label }}</strong>
+
+
+        <div class="col-md-6">
+          <dl class="dl-horizontal">
+            <dt>PROVIDER</dt>
+            <dd><strong><a href="#"  class="js-link-ahome-navigate" data-url="{% url 'usercredential' %}">{{ data.summary_fields.usercredential.name }}</a></strong></dd>
+            <dt>Name</dt>
+            <dd id="{{ model_name | lower }}-name-{{data.uuid}}">{{ data.name }}</dd>
+            <dt>Description</dt>
+            <dd id="{{ model_name | lower }}-description-{{data.uuid}}">{{ data.description }}</dd>
+            <dt>Project</dt>
+            <dd>{{ data.project_info.name }}</dd>
+
+            <dt>Created</dt>
+            <dd id="{{ model_name | lower }}-created-{{data.uuid}}">{{ data.created }}</dd>
+            <dt>Updated</dt>
+            <dd id="{{ model_name | lower }}-updated-{{data.uuid}}">{{ data.last_updated }}</dd>
+            <dt>Status</dt>
+            <dd id="{{ model_name | lower }}-runner-status-{{ data.uuid }}">{{ data.runner.status }}</dd>
+            <dt>State</dt>
+            <dd id="{{ model_name | lower }}-runner-state-{{ data.uuid }}">{{ data.runner.status }}</dd>
+
+            <dt>Living time</dt>
+            <dd id="{{ model_name | lower }}-billing-live{{ data.uuid }}">{{ data.billing.live_time.human }}</dd>
+
+            <dt>Billing Total</dt>
+            <dd id="{{ model_name | lower }}-billing-total{{ data.uuid }}"><i class="fa fa-dollar"></i> {{ data.billing.total }}</dd>
+              <dt>Billing Rate</dt>
+            <dd id="{{ model_name | lower }}-billing-rate{{ data.uuid }}"><i class="fa fa-dollar"></i> {{ data.billing.rate_month }} / month ( <i class="fa fa-dollar"></i> {{ data.billing.rate_hour }} / hour) </dd>
+
+          </dl>
+
+        </div>
+
+        <div class="col-md-6">
+          <dl class="dl-horizontal">
+            <ul>
+              <li>
+                <label id="f-modal-plan-vcpu" name="f-modal-plan-vcpu"> {{ data.inputs.plan.vcpu | default:"1" }} </label> x <span class="pficon pficon-cpu" data-toggle="tooltip" data-placement="top" title="cpu"></span> &nbsp;
+              <label id="f-modal-plan-memory" name="f-modal-plan-memory"> {{ data.inputs.plan.memory | default:"2" }} </label> GB <span class="pficon pficon-memory" data-toggle="tooltip" data-placement="top" title="memory"></span> &nbsp;
+              <label id="f-modal-plan-disk" name="f-modal-plan-disk"> {{ data.inputs.plan.disk | default:"10" }} </label> GB <span class="pficon pficon-volume" data-toggle="tooltip" data-placement="top" title="disk"></span> &nbsp;
+              <label id="f-modal-plan-traffic" name="f-modal-plan-traffic"> {{ data.inputs.plan.traffic | default:"unlimited traffic" }} </label> <span class="pficon pficon-resources-almost-empty" data-toggle="tooltip" data-placement="top" title="traffic"></span>
+              &nbsp; ~ &nbsp; <strong>$ <label id="f-modal-plan-price" name="f-modal-plan-price"> {{ data.inputs.plan.price | default:"0.001" }} </label>/<label id="f-modal-plan-rate" name="f-modal-plan-rate">h</label></strong>
+             </li>
+            </ul>
+            <b><a href="#virtualmachines"  class="js-link-ahome-navigate" data-url="{% url 'virtualmachine' %}">Virtual Machines (instances)</a></b>
+            <ul class="{{model_name | lower}}-ul-iaas-vm-status{{data.uuid}}">
+              {% for vm in data.related.virtualmachine|dictsort:"name" %}
+              <li class="{{model_name | lower}}-iaas-vm-status{{vm.uuid}}">
+                  <a href="#"  class="js-link-ahome-navigate" data-url="{% url 'virtualmachine' %}?id={{ vm.id }}&iaas={{ data.id }}">{{ vm.name }}</a> &nbsp;
+
+
+                 ( <i class="fa fa-info" aria-hidden="true"></i> {{ vm.status }} )
+
+                    {% if vm.status == 'successful' or vm.status == 'running' %}
+                    &nbsp; &nbsp;
+                    <span id="get_console_{{ vm.uuid }}" title="connect" class="_websshbutton fa fa-external-link" style="font-weight: bolder; color: #0e90d2"></span>
+                    {% endif %}
+              </li>
+              {% endfor %}
+            </ul>
+          </dl>
+
+          {% snippet__row_content_progressbar %}
+
+        </div>
+
+
+
+      </div>
+
+
+    </div>
+
+
+   </div>
+
+
+
+    {% for vm in data.related.virtualmachine|dictsort:"name" %}
+     <div id="console_panel_{{ vm.uuid }}" class="_websshconsole  container-fluid hidden">
+       <div class="row">
+           <div class="col-md-12">
+           <a id="console_link_{{ vm.uuid }}" target="_blank" href="">console</a>
+               </div>
+       </div>
+       <div class="row">
+            <div id="console_{{ vm.uuid}}"></div>
+       </div>
+     </div>
+
+    {% endfor %}
+
+
+{% empty %}
+
+
+
+<div class="blank-slate-pf " id="">
+  <div class="blank-slate-pf-icon">
+    <span class="pficon pficon pficon-add-circle-o"></span>
+  </div>
+  <h1>
+    No {{model_name}}
+  </h1>
+  <p>
+    Please add an {{model_name}} to start using ahome enterprise edition.
+  </p>
+  <p>
+    Learn more about this <a href="#">in the documentation</a>.
+  </p>
+
+  <div id="ahome-generic-create" class="blank-slate-pf-main-action js-link-ahome-navigate" data-url="{% url 'iaas_wizardbox_create' %}">
+    <button class="btn btn-primary btn-lg"> Add {{model_name}} </button>
+  </div>
+
+
+</div>
+
+
+
+{% endfor %}
+
+<div class="modal fade" id="myConsoleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="background:#fff !important;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" style="font-size:25px;">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="margin-top:15px;">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="show_console_wrapper">
+  
+              </div>
+            </div>
+          </div>
+  
+        </div>
+        <div class="modal-footer">
+          <button id="go_to_full_screen" class="btn btn-primary">Go to Full Screen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+$(function () {
+
+  $(".js-link-ahome-generic-create").click(function () {
+    $.ajax({
+      url: "{% url url_create %}",
+      type: 'get',
+      dataType: 'json',
+      beforeSend: function () {
+        $("#modal-ahome-generic").modal("show");
+      },
+      success: function (data) {
+        $("#modal-ahome-generic .modal-content").html(data.html_form);
+      }
+    });
+  });
+
+});
+
+</script>
+<script>
+
+function compose_webssh_iframe(id, url) {
+  return '<iframe class="webssh_wrapper" id="' + id + '" name="' + id + '" src="' + url + '"></iframe>'
+
+
+
+    
+
+}
+
+
+
+function start_webssh(vm_uuid) {
+     $.ajax({
+        type: 'GET',
+        url: '/frontend/vm/connect/?uuid=' + vm_uuid,
+        beforeSend: function () {},
+        success: function (data) {
+            console.log(data)
+            display_webssh_window(data)
+        }
+      });
+}
+var ssh_new_fane_url = '';
+function display_webssh_window(data) {
+    if (data.status === "OK") {
+      $("#myConsoleModal").modal("show");
+        var vm_uuid = data.uuid;
+        var url = data.connect;
+        //     console_panel = $("#console_panel_" + vm_uuid),
+        //     console_wrapper = $("#console_" + vm_uuid),
+        //     console_link = $("#console_link_" + vm_uuid),
+        //     details = $("#details_" + vm_uuid)
+
+        // console_panel.toggleClass("hidden")
+        // console_wrapper.html(compose_webssh_iframe(vm_uuid, url))
+        // console_link.attr("href", url)
+        // details.toggleClass("hidden")
+        ssh_new_fane_url = url;
+        $('.show_console_wrapper').html(compose_webssh_iframe(vm_uuid, url))
+        console.log($('#' + vm_uuid));
+        {#console.log("details", details)#}
+        {#console.log("console_link", console_link)#}
+    }
+}
+$("#go_to_full_screen").on('click', function(){
+  var win = window.open(ssh_new_fane_url, '_blank');
+  if (win) {
+      //Browser has allowed it to be opened
+      win.focus();
+  } else {
+      //Browser has blocked it
+      alert('Please allow popups for this website');
+  }
+
+})
+
+</script>
+
+<script>
+  $(document).ready(function () {
+    // Row Checkbox Selection
+    $("#pf-list-simple-expansion input[type='checkbox']").change(function (e) {
+      if ($(this).is(":checked")) {
+        $(this).closest('.list-group-item').addClass("active");
+      } else {
+        $(this).closest('.list-group-item').removeClass("active");
+      }
+      {#alert("#3")#}
+    });
+    // toggle dropdown menu
+    $("#pf-list-simple-expansion .list-view-pf-actions").on('show.bs.dropdown', function () {
+      var $this = $(this);
+      var $dropdown = $this.find('.dropdown');
+      var space = $(window).height() - $dropdown[0].getBoundingClientRect().top - $this.find('.dropdown-menu').outerHeight(true);
+      $dropdown.toggleClass('dropup', space < 10);
+
+      {#alert("#2")#}
+    });
+
+    // click the list-view heading then expand a row
+    $("#pf-list-simple-expansion .list-group-item-header").click(function(event){
+      if(!$(event.target).is("button, a, input, .fa-ellipsis-v")){
+        $(this).find(".fa-angle-right").toggleClass("fa-angle-down")
+          .end().parent().toggleClass("list-view-pf-expand-active")
+            .find(".list-group-item-container").toggleClass("hidden");
+      } else {
+      }
+      {#alert("#1")#}
+      {#  console.log("THIS", this)#}
+    })
+
+    // click the close button, hide the expand row and remove the active status
+    $("#pf-list-simple-expansion .list-group-item-container .close").on("click", function (){
+      $(this).parent().addClass("hidden")
+        .parent().removeClass("list-view-pf-expand-active")
+          .find(".fa-angle-right").removeClass("fa-angle-down");
+       {#alert("#4")#}
+    })
+
+    $("._websshbutton").on("click", function (event){
+            var button_id = event.target.id,
+                vm_uuid = button_id.slice("get_console_".length)
+            start_webssh(vm_uuid)
+      })
+
+  });
+</script>
+
+<style>
+ .webssh_wrapper {
+     width: 100%;
+     height: 400px;
+     background-color: white;
+ }
+</style>
+

@@ -1,0 +1,87 @@
+{% load static %}
+{% load frontend_extras %}
+
+
+
+
+      <p>
+        Standard storage for virtual machines or applications.
+      </p>
+
+      <div class="col-xs-12 col-sm-3 col-md-2">
+          <div
+              class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-storage-select active">
+              <div class="card-pf-body">
+                  <h2 class="card-pf-title">
+
+                    <!--// hidden fields -->
+
+                    <input type="hidden" class="applauncher-pf-storage" value="{{ storage|default:'{}' }}">
+                    <input type="hidden" class="applauncher-pf-storage-name" value="{{ storage.name|default:'nil' }}">
+                    <input type="hidden" class="applauncher-pf-storage-disk" value="{{ storage.disk|default:'0' }}">
+                    <input type="hidden" class="applauncher-pf-storage-type" value="{{ storage.type|default:'SSD' }}">
+                    <input type="hidden" class="applauncher-pf-storage-unit" value="{{ storage.unit|default:'GB' }}">
+                    <input type="hidden" class="applauncher-pf-storage-price" value="{{ storage.price|default:'0' }}">
+                    <input type="hidden" class="applauncher-pf-storage-rate" value="{{ storage.rate|default:'hour' }}">
+
+                    <!-- hidden fields //-->
+
+
+                      <div class="ahome-plan-heading">
+                          <p>
+                              <span class="dollar">$</span>
+                              <span class="pricing-value">0</span>
+                              <span class="pricing-limit">/mo</span>
+                          </p>
+                          <p class="pricing">$0.00 /hour</p>
+                      </div>
+                  </h2>
+              </div>
+              <div class="card-pf-footer">
+                  <ul class="ahome-plan-resources">
+                      <li class="ahome-plan-resource">0 GB SSD</li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+
+      {% for storage in api.storages %}
+
+        <div class="col-xs-12 col-sm-3 col-md-2">
+            <div
+                class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-storage-select">
+                <div class="card-pf-body">
+                    <h2 class="card-pf-title">
+
+                      <!--// hidden fields -->
+
+                      <input type="hidden" class="applauncher-pf-storage" value="{{ storage|default:'{}' }}">
+                      <input type="hidden" class="applauncher-pf-storage-name" value="{{ storage.name|default:'unknown' }}">
+                      <input type="hidden" class="applauncher-pf-storage-disk" value="{{ storage.disk|default:'0' }}">
+                      <input type="hidden" class="applauncher-pf-storage-type" value="{{ storage.type|default:'SSD' }}">
+                      <input type="hidden" class="applauncher-pf-storage-unit" value="{{ storage.unit|default:'GB' }}">
+                      <input type="hidden" class="applauncher-pf-storage-price" value="{{ storage.price|default:'0' }}">
+                      <input type="hidden" class="applauncher-pf-storage-rate" value="{{ storage.rate|default:'hour' }}">
+
+                      <!-- hidden fields //-->
+
+                        <div class="ahome-plan-heading">
+                            <p>
+                                <span class="dollar">$</span>
+                                <span class="pricing-value">{% widthratio storage.price 1 730 %}</span>
+                                <span class="pricing-limit">/mo</span>
+                            </p>
+                            <p class="pricing">${{ storage.price }}/{{ storage.rate }}</p>
+                        </div>
+                    </h2>
+                </div>
+                <div class="card-pf-footer">
+                    <ul class="ahome-plan-resources">
+                        <li class="ahome-plan-resource">{{ storage.disk }} {{ storage.unit }} {{ storage.type }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+      {% endfor %}
+

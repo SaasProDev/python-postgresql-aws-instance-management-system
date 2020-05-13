@@ -1,0 +1,163 @@
+[
+{
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+        "name": "ADMINISTRATOR"
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+        "name": "User"
+    }
+},
+{
+    "model": "account.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$4wQz92TQwHY9$dYAUGonWoKf4g01gu55V9Eml3LQcixHYGZypDTrP4LI=",
+        "last_login": "2019-11-22T14:23:00.700Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2019-11-22T14:08:11.634Z",
+        "uuid": "63e9a567-f4ef-4075-abe6-3060fab8ea38",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "account.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$9VghOBEI3kVv$8WZOZMFuSum+XyoY/o9FDgrgSeIlcYsEcY+FNTvIZVw=",
+        "last_login": "2019-11-28T12:13:13.942Z",
+        "is_superuser": false,
+        "username": "auditor",
+        "first_name": "Super",
+        "last_name": "Auditor",
+        "email": "auditor@system.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2019-11-22T14:30:11.342Z",
+        "uuid": "4ae2c814-f2a9-498e-a19e-57fbadafbd4d",
+        "groups": [
+            2
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "account.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$9VghOBEI3kVv$8WZOZMFuSum+XyoY/o9FDgrgSeIlcYsEcY+FNTvIZVw=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "user",
+        "first_name": "Just",
+        "last_name": "User",
+        "email": "user@system.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-11-22T14:30:11.342Z",
+        "uuid": "4ae2c814-f2a9-498e-a19e-57fbadafbd5d",
+        "groups": [
+            2
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "account.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$9VghOBEI3kVv$8WZOZMFuSum+XyoY/o9FDgrgSeIlcYsEcY+FNTvIZVw=",
+        "last_login": "2019-12-02T09:00:49.340Z",
+        "is_superuser": false,
+        "username": "writer",
+        "first_name": "Just",
+        "last_name": "Writer",
+        "email": "writer@system.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-11-22T14:30:11.342Z",
+        "uuid": "4ae2c814-f2a9-498e-a19e-57fbadafbd6d",
+        "groups": [
+            2
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "account.team",
+    "pk": 1,
+    "fields": {
+        "created": "2019-12-03T14:19:52.451Z",
+        "uuid": "b561ba92-7843-4119-b0e3-ae111e13a2ee",
+        "name": "Whole General",
+        "description": "Default Team",
+        "organization": 1
+    }
+},
+{
+    "model": "account.organization",
+    "pk": 1,
+    "fields": {
+        "created": "2019-12-03T14:19:52.443Z",
+        "uuid": "975480e4-5fe8-4ae5-8915-009f8d9a6276",
+        "name": "General",
+        "description": "General Organisation for simple Users",
+        "location": "",
+        "contact": "",
+        "phone": "",
+        "email": "",
+        "info": "",
+        "status": "DEFAULT",
+        "kind": "stub",
+        "headquarter": null
+    }
+},
+
+{
+    "model": "core.project",
+    "pk": 1,
+    "fields": {
+        "created": "2019-12-18T14:18:47.901Z",
+        "last_updated": "2019-12-18T14:18:47.901Z",
+        "name": "Your First Project",
+        "uuid": "fbc359da-9ceb-42e1-b4fa-8805288366d6",
+        "description": "The test project - just for tests  :)",
+        "kind": "default",
+        "organization": 1
+    }
+},
+{
+    "model": "core.userproject",
+    "pk": 1,
+    "fields": {
+        "project": 1,
+        "user": 4,
+        "role": "owner"
+    }
+},
+{
+    "model": "core.userproject",
+    "pk": 2,
+    "fields": {
+        "project": 1,
+        "user": 3,
+        "role": "visitor"
+    }
+}
+
+
+]

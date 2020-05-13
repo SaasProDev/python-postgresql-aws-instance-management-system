@@ -1,0 +1,9 @@
+- name: Undefine existing VM
+  command: " virsh --connect qemu:///system {{ item }} {{ outer_ahome_vm }} "
+  with_items:
+  - destroy
+  - undefine
+  ignore_errors: yes
+
+- name: Remove VM data dir where store vm information
+  file: "state=absent path={{ vm_data_dir }}/{{ outer_ahome_vm }} force=yes"

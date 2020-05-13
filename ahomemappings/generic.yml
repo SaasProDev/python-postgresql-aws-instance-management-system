@@ -1,0 +1,71 @@
+---
+name: ansible generic facts
+title: ansible facts
+description: |
+    Ansible Facts
+cloud: false
+version: 1.0
+
+
+headers:
+  - label: Location
+    icon: xcxcxcxd
+    sum: ec2_facts.status
+
+infos:
+  - label: Location
+    value: ec2_facts.status
+
+
+
+
+registered_vars:
+
+  r__ansible_facts:
+
+    name: ansible_facts
+
+    # model: core.virtualmachine
+    entrypoint: ansible_facts
+
+    adhoc: true
+    # auto_prefix_remove: ansible_
+
+    # unique_keys:
+    #   - instance_id
+    #   - primary_ip
+
+    # defaults:
+    #   - name: name
+    #     value: instance_id
+
+    #   - name: kind
+    #     value: generic
+    #     static: yes
+
+
+
+    # inputs:
+    #   - name: username
+    #     value: ec2-user
+    #     static: yes
+
+    #   - name: password
+    #     value: nopass
+    #     static: no
+
+    #   - name: inventory
+    #     value: public_dns_name
+
+
+
+
+    expose:
+
+      - name: ipv6_addresses
+        ref: ansible_all_ipv6_addresses
+        
+      - name: ipv4_addresses
+        ref: ansible_all_ipv4_addresses
+
+

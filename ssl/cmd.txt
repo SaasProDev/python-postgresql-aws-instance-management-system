@@ -1,0 +1,4 @@
+openssl req -out ahome.csr -newkey rsa:2048 -nodes -keyout ahome.key -config san.cnf
+
+
+openssl x509 -req -days 365 -in ahome.csr -signkey ahome.key -out ahome.pem

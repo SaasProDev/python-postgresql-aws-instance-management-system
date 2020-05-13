@@ -1,0 +1,939 @@
+{% load static %}
+{% load frontend_extras %}
+
+<h1>1. Choose distribution</h1>
+
+<div class="container-fluid">
+
+  <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas ahome-distribution">
+    <div
+      class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-distrib-select">
+      <div class="card-pf-body image-icon-iaas">
+
+        <div class="card-pf-top-element">
+
+        </div>
+
+        <div class="card-pf-heading-kebab">
+          <div class="dropdown pull-right dropdown-kebab-pf">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+              <span class="fa fa-ellipsis-v"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+              <li><a href="#">Ubuntu 18 x64</a></li>
+              <li><a href="#">Ubuntu 16 x64</a></li>
+              <li><a href="#">Ubuntu 14 x64</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Latest x64</a></li>
+            </ul>
+          </div>
+
+          <h2 class="card-pf-title">
+            <img src="{% static 'ahome/assets/ubuntu-icon.svg' %}" class="image-icon" alt="Ubuntu">
+          </h2>
+        </div>
+        <p>
+          <a class="applauncher-pf-link" href="#" data-url="{% url 'wizardboxesform_provider' 'kvm' 'usercredential' %}"
+            data-app="ubuntu_18_x64"><strong>Ubuntu 18 x64</strong></a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas ahome-distribution">
+    <div
+      class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-distrib-select">
+      <div class="card-pf-body image-icon-iaas">
+
+        <div class="card-pf-top-element">
+
+        </div>
+
+        <div class="card-pf-heading-kebab">
+          <div class="dropdown pull-right dropdown-kebab-pf">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+              <span class="fa fa-ellipsis-v"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+              <li><a href="#">Debian 9 x64</a></li>
+              <li><a href="#">Debian 10 x64</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Latest x64</a></li>
+            </ul>
+          </div>
+
+          <h2 class="card-pf-title">
+            <img src="{% static 'ahome/assets/debian-icon.svg' %}" class="image-icon" alt="Debian">
+          </h2>
+        </div>
+        <p>
+          <a class="applauncher-pf-link" href="#" data-url="{% url 'wizardboxesform_provider' 'kvm' 'usercredential' %}"
+            data-app="debian_10_x64"><strong>Debian 10 x64</strong></a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas ahome-distribution">
+    <div
+      class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-distrib-select">
+      <div class="card-pf-body image-icon-iaas">
+
+        <div class="card-pf-top-element">
+
+        </div>
+
+        <div class="card-pf-heading-kebab">
+          <div class="dropdown pull-right dropdown-kebab-pf">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+              <span class="fa fa-ellipsis-v"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+              <li><a href="#">Fedora 30 x64</a></li>
+              <li><a href="#">Fedora 29 x64</a></li>
+              <li><a href="#">Fedora 28 x64</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Latest x64</a></li>
+            </ul>
+          </div>
+
+          <h2 class="card-pf-title">
+            <img src="{% static 'ahome/assets/fedora-icon.svg' %}" class="image-icon" alt="Fedora">
+          </h2>
+        </div>
+        <p>
+          <a class="applauncher-pf-link" href="#" data-url="{% url 'wizardboxesform_provider' 'kvm' 'usercredential' %}"
+            data-app="fedora_30_x64"><strong>Fedora 30 x64</strong></a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas ahome-distribution">
+    <div
+      class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-distrib-select">
+      <div class="card-pf-body image-icon-iaas">
+
+        <div class="card-pf-top-element">
+
+        </div>
+
+        <div class="card-pf-heading-kebab">
+          <div class="dropdown pull-right dropdown-kebab-pf">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+              <span class="fa fa-ellipsis-v"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+              <li><a href="#">FreeBSD 12 amd64</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Latest amd64</a></li>
+            </ul>
+          </div>
+
+          <h2 class="card-pf-title">
+            <img src="{% static 'ahome/assets/freebsd.svg' %}" class="image-icon" alt="FreeBSD">
+          </h2>
+        </div>
+        <p>
+          <a class="applauncher-pf-link" href="#" data-url="{% url 'wizardboxesform_provider' 'kvm' 'usercredential' %}"
+            data-app="freebsd_12_amd64"><strong>FreeBSD 12 amd64</strong></a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas ahome-distribution">
+    <div
+      class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-distrib-select">
+      <div class="card-pf-body image-icon-iaas">
+
+        <div class="card-pf-top-element">
+
+        </div>
+
+        <div class="card-pf-heading-kebab">
+          <div class="dropdown pull-right dropdown-kebab-pf">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+              <span class="fa fa-ellipsis-v"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+              <li><a href="#">centos 7 x64</a></li>
+              <li><a href="#">centos 6 x64</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Latest x64</a></li>
+            </ul>
+          </div>
+
+          <h2 class="card-pf-title">
+            <img src="{% static 'ahome/assets/centos-icon.svg' %}" class="image-icon" alt="CentOS">
+          </h2>
+        </div>
+        <p>
+          <a class="applauncher-pf-link" href="#" data-url="{% url 'wizardboxesform_provider' 'kvm' 'usercredential' %}"
+            data-app="centos_7_x64"><strong>CentOS 7 x64</strong></a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas ahome-distribution">
+    <div
+      class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-distrib-select">
+      <div class="card-pf-body image-icon-iaas">
+
+        <div class="card-pf-top-element">
+
+        </div>
+
+        <div class="card-pf-heading-kebab">
+          <div class="dropdown pull-right dropdown-kebab-pf">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+              <span class="fa fa-ellipsis-v"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+              <li><a href="#">RedHat 7 x64</a></li>
+              <li><a href="#">RedHat 8 x64</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Latest x64</a></li>
+            </ul>
+          </div>
+
+          <h2 class="card-pf-title">
+            <img src="{% static 'ahome/assets/redhat.svg' %}" class="image-icon" alt="RedHat">
+          </h2>
+        </div>
+        <p>
+          <a class="applauncher-pf-link" href="#" data-url="{% url 'wizardboxesform_provider' 'kvm' 'usercredential' %}"
+            data-app="redhat_8_x64"><strong>RedHat 8 x64</strong></a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas ahome-distribution">
+    <div
+      class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-distrib-select">
+      <div class="card-pf-body image-icon-iaas">
+
+        <div class="card-pf-top-element">
+
+        </div>
+
+        <div class="card-pf-heading-kebab">
+          <div class="dropdown pull-right dropdown-kebab-pf">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+              <span class="fa fa-ellipsis-v"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+              <li><a href="#">Windows 7 x64</a></li>
+              <li><a href="#">Windows 8 x64</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Latest x64</a></li>
+            </ul>
+          </div>
+
+          <h2 class="card-pf-title">
+            <img src="{% static 'ahome/assets/microsoft-windows.svg' %}" class="image-icon" alt="Windows">
+          </h2>
+        </div>
+        <p>
+          <a class="applauncher-pf-link" href="#" data-url="{% url 'wizardboxesform_provider' 'kvm' 'usercredential' %}"
+            data-app="windows_7_x64"><strong>Windows 7 x64</strong></a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+</div>
+
+<h1>2. Choose provider</h1>
+
+
+<div class="container-fluid">
+
+  {% for usercredential in api.usercredentials.results %}
+
+  <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas">
+    <div
+      class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-provider-select">
+      <div class="card-pf-body image-icon-iaas">
+
+        <div class="card-pf-top-element">
+
+        </div>
+
+        <div class="card-pf-heading-kebab">
+          <div class="dropdown pull-right dropdown-kebab-pf">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+              <span class="fa fa-ellipsis-v"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+              <li><a href="#" used="76">Connector A</a></li>
+              <li><a href="#" used="19">Connector B</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#" used="43">Default Connector</a></li>
+            </ul>
+          </div>
+
+          <h2 class="card-pf-title">
+            <img src="{{ usercredential.icons.usercredential.image }}" class="image-icon"
+              alt="{{ usercredential.kind }}">
+          </h2>
+        </div>
+        <p>
+          <a class="applauncher-pf-link" href="#"
+            data-url="{% url 'wizardboxesform_generate' usercredential.kind 'usercredential' usercredential.id %}"
+            data-app="{{ usercredential.kind }}_credentials_01"><strong>{{ usercredential.name }}</strong></a>
+        </p>
+      </div>
+
+      <div class="card-pf-footer">
+        <div class="progress-pf-legend">
+          <div class="progress">
+            <div class="progress-bar progress-bar-completed" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+              aria-valuemax="100" style="width: 25%;" data-toggle="tooltip" title="25% Used">
+              <span class="sr-only">25% Used</span>
+            </div>
+            <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+              aria-valuemax="100" style="width: 75%;" data-toggle="tooltip" title="75% Available">
+              <span class="sr-only">75% Available</span>
+            </div>
+          </div>
+          <script>
+            // Initialize Tooltip
+            jQuery(document).ready(function () {
+              jQuery('[data-toggle="tooltip"]').tooltip();
+            });
+          </script>
+
+          <p class="displayed_progress"><span class="pficon pficon-warning-triangle-o"></span> <strong>25%</strong> in
+            use</p>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+  {% empty %}
+
+
+
+  <div class="blank-slate-pf" id="">
+    <div class="blank-slate-pf-icon">
+      <span class="pficon pficon pficon-add-circle-o"></span>
+    </div>
+    <h1>
+      No Credentials set for Providers
+    </h1>
+    <p>
+      Please add a credential for a provider.
+    </p>
+    <p>
+      Learn more about this <a href="#">in the documentation</a>.
+    </p>
+
+
+    <button class="btn btn-primary js-link-ahome-navigate" data-url="{% url 'usercredential' %}" type="button">
+      <span class="glyphicon glyphicon-plus"></span>
+      Add Credentials
+    </button>
+
+
+
+  </div>
+
+
+
+  {% endfor %}
+
+
+  <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas hidden">
+    <div
+      class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-provider-select">
+      <div class="card-pf-body image-icon-iaas">
+
+        <div class="card-pf-top-element">
+
+        </div>
+
+        <div class="card-pf-heading-kebab">
+          <div class="dropdown pull-right dropdown-kebab-pf">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+              <span class="fa fa-ellipsis-v"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+              <li><a href="#" used="8">Connector A</a></li>
+              <li><a href="#" used="39">Connector B</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#" used="95">Default Connector</a></li>
+            </ul>
+          </div>
+
+          <h2 class="card-pf-title">
+            <img src="{% static 'ahome/assets/azure-icon.svg' %}" class="image-icon" alt="Ms Azure">
+          </h2>
+        </div>
+        <p>
+          <a class="applauncher-pf-link" href="#" data-url="{% url 'wizardboxesform_provider' 'ms_azure' 'provider' %}"
+            data-app="azure_credentials_01"><strong>Azure limited api</strong></a>
+        </p>
+      </div>
+
+      <div class="card-pf-footer">
+        <div class="progress-pf-legend">
+          <div class="progress">
+            <div class="progress-bar progress-bar-completed" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+              aria-valuemax="100" style="width: 75%;" data-toggle="tooltip" title="75% Used">
+              <span class="sr-only">75% Used</span>
+            </div>
+            <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+              aria-valuemax="100" style="width: 25%;" data-toggle="tooltip" title="25% Available">
+              <span class="sr-only">25% Available</span>
+            </div>
+          </div>
+          <script>
+            // Initialize Tooltip
+            jQuery(document).ready(function () {
+              jQuery('[data-toggle="tooltip"]').tooltip();
+            });
+          </script>
+
+          <p class="displayed_progress"><span class="pficon pficon-warning-triangle-o"></span> <strong>75%</strong> in
+            use</p>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas hidden">
+    <div
+      class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-provider-select">
+      <div class="card-pf-body image-icon-iaas">
+
+        <div class="card-pf-top-element">
+
+        </div>
+
+        <div class="card-pf-heading-kebab">
+          <div class="dropdown pull-right dropdown-kebab-pf">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+              <span class="fa fa-ellipsis-v"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+              <li><a href="#" used="56">Connector A</a></li>
+              <li><a href="#" used="32">Connector B</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#" used="02">Default Connector</a></li>
+            </ul>
+          </div>
+
+          <h2 class="card-pf-title">
+            <img src="{% static 'ahome/assets/google-cloud.svg' %}" class="image-icon" alt="Google Cloud">
+          </h2>
+        </div>
+        <p>
+          <a class="applauncher-pf-link" href="#" data-url="{% url 'wizardboxesform_provider' 'google_ce' 'provider' %}"
+            data-app="google_ce_credentials_01"><strong>Google Cloud api</strong></a>
+        </p>
+      </div>
+
+      <div class="card-pf-footer">
+        <div class="progress-pf-legend">
+          <div class="progress">
+            <div class="progress-bar progress-bar-completed" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+              aria-valuemax="100" style="width: 75%;" data-toggle="tooltip" title="75% Used">
+              <span class="sr-only">75% Used</span>
+            </div>
+            <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+              aria-valuemax="100" style="width: 25%;" data-toggle="tooltip" title="25% Available">
+              <span class="sr-only">25% Available</span>
+            </div>
+          </div>
+          <script>
+            // Initialize Tooltip
+            jQuery(document).ready(function () {
+              jQuery('[data-toggle="tooltip"]').tooltip();
+            });
+          </script>
+
+          <p class="displayed_progress"><span class="pficon pficon-warning-triangle-o"></span> <strong>75%</strong> in
+            use</p>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+  <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas hidden">
+    <div
+      class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-provider-select">
+      <div class="card-pf-body image-icon-iaas">
+
+        <div class="card-pf-top-element">
+
+        </div>
+
+        <div class="card-pf-heading-kebab">
+          <div class="dropdown pull-right dropdown-kebab-pf">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+              <span class="fa fa-ellipsis-v"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+              <li><a href="#" used="98">Connector A</a></li>
+              <li><a href="#" used="45">Connector B</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#" used="40">Default Connector</a></li>
+            </ul>
+          </div>
+
+          <h2 class="card-pf-title">
+            <img src="{% static 'ahome/assets/containership.svg' %}" class="image-icon" alt="KVM">
+          </h2>
+        </div>
+        <p>
+          <a class="applauncher-pf-link" href="#" data-url="{% url 'wizardboxesform_provider' 'virt' 'provider' %}"
+            data-app="kvm_credentials_01"><strong>KVM api</strong></a>
+        </p>
+      </div>
+
+      <div class="card-pf-footer">
+        <div class="progress-pf-legend">
+          <div class="progress">
+            <div class="progress-bar progress-bar-completed" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+              aria-valuemax="100" style="width: 75%;" data-toggle="tooltip" title="75% Used">
+              <span class="sr-only">75% Used</span>
+            </div>
+            <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+              aria-valuemax="100" style="width: 25%;" data-toggle="tooltip" title="25% Available">
+              <span class="sr-only">25% Available</span>
+            </div>
+          </div>
+          <script>
+            // Initialize Tooltip
+            jQuery(document).ready(function () {
+              jQuery('[data-toggle="tooltip"]').tooltip();
+            });
+          </script>
+
+          <p class="displayed_progress"><span class="pficon pficon-warning-triangle-o"></span> <strong>75%</strong> in
+            use</p>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+  <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas hidden">
+    <div
+      class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-provider-select">
+      <div class="card-pf-body image-icon-iaas">
+
+        <div class="card-pf-top-element">
+
+        </div>
+
+        <div class="card-pf-heading-kebab">
+          <div class="dropdown pull-right dropdown-kebab-pf">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+              <span class="fa fa-ellipsis-v"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+              <li><a href="#" used="33">Connector A</a></li>
+              <li><a href="#" used="54">Connector B</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#" used="22">Default Connector</a></li>
+            </ul>
+          </div>
+
+          <h2 class="card-pf-title">
+            <img src="{% static 'ahome/assets/digital-ocean-icon.svg' %}" class="image-icon" alt="Digital Ocean">
+          </h2>
+        </div>
+        <p>
+          <a class="applauncher-pf-link" href="#"
+            data-url="{% url 'wizardboxesform_provider' 'digital_ocean' 'provider' %}"
+            data-app="digital_ocean_credentials_01"><strong>Digital Ocean api</strong></a>
+        </p>
+      </div>
+
+      <div class="card-pf-footer">
+        <div class="progress-pf-legend">
+          <div class="progress">
+            <div class="progress-bar progress-bar-completed" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+              aria-valuemax="100" style="width: 75%;" data-toggle="tooltip" title="75% Used">
+              <span class="sr-only">75% Used</span>
+            </div>
+            <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+              aria-valuemax="100" style="width: 25%;" data-toggle="tooltip" title="25% Available">
+              <span class="sr-only">25% Available</span>
+            </div>
+          </div>
+          <script>
+            // Initialize Tooltip
+            jQuery(document).ready(function () {
+              jQuery('[data-toggle="tooltip"]').tooltip();
+            });
+          </script>
+
+          <p class="displayed_progress"><span class="pficon pficon-warning-triangle-o"></span> <strong>75%</strong> in
+            use</p>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+  <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas hidden">
+    <div
+      class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-provider-select">
+      <div class="card-pf-body image-icon-iaas">
+
+        <div class="card-pf-top-element">
+
+        </div>
+
+        <div class="card-pf-heading-kebab">
+          <div class="dropdown pull-right dropdown-kebab-pf">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+              <span class="fa fa-ellipsis-v"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+              <li><a href="#" used="83">Connector A</a></li>
+              <li><a href="#" used="31">Connector B</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#" used="12">Default Connector</a></li>
+            </ul>
+          </div>
+
+          <h2 class="card-pf-title">
+            <img src="{% static 'ahome/assets/redhat-icon.svg' %}" class="image-icon" alt="RHEV">
+          </h2>
+        </div>
+        <p>
+          <a class="applauncher-pf-link" href="#" data-url="{% url 'wizardboxesform_provider' 'rhev' 'provider' %}"
+            data-app="redhat_credentials_01"><strong>RHEV api</strong></a>
+        </p>
+      </div>
+
+      <div class="card-pf-footer">
+        <div class="progress-pf-legend">
+          <div class="progress">
+            <div class="progress-bar progress-bar-completed" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+              aria-valuemax="100" style="width: 75%;" data-toggle="tooltip" title="75% Used">
+              <span class="sr-only">75% Used</span>
+            </div>
+            <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+              aria-valuemax="100" style="width: 25%;" data-toggle="tooltip" title="25% Available">
+              <span class="sr-only">25% Available</span>
+            </div>
+          </div>
+          <script>
+            // Initialize Tooltip
+            jQuery(document).ready(function () {
+              jQuery('[data-toggle="tooltip"]').tooltip();
+            });
+          </script>
+
+          <p class="displayed_progress"><span class="pficon pficon-warning-triangle-o"></span> <strong>75%</strong> in
+            use</p>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+
+
+
+</div>
+
+<h1>3. Choose a plan</h1>
+{% snippet_ahome_pricing_plan %}
+
+<h1>4. Let's deploy</h1>
+
+
+<div class="container-fluid">
+
+  <p>
+    <button class="hidden" name="hidden-view-distrib" id="hidden-view-distrib"></button>
+    <button class="hidden" name="hidden-view-provider" id="hidden-view-provider"></button>
+    <button class="hidden" name="hidden-view-plan" id="hidden-view-plan"></button>
+    <div name="hidden-view-summary" id="hidden-view-summary"></div>
+
+    <button class="btn btn-primary disabled" type="button" name="btn-launch-wizard" id="btn-launch-wizard"
+      data-url="{% url 'wizardboxesform_provider' 'kvm' 'provider' %}">Launch Wizard</button>
+
+  </p>
+
+
+</div>
+
+
+
+<style type="text/css">
+  .image-icon-fedora {
+    /*background-image: url({% static 'ahome/assets/icons/iconfinder_fedora_395212.svg' %});*/
+    /*background-size: cover;*/
+    /*opacity: 0.8;*/
+    /*       background-position: center center;
+       background-repeat: no-repeat; 
+       -webkit-background-size: cover;
+       -moz-background-size: cover;
+       -o-background-size: cover;
+       background-size: cover;*/
+    /*color: #444;*/
+  }
+
+  .image-icon-centos {
+    background-image: url({% static 'ahome/assets/centos.svg' %});
+    /*background-size: cover;*/
+    /*opacity: 0.8;*/
+    /*       background-position: center center;
+       background-repeat: no-repeat; 
+       -webkit-background-size: cover;
+       -moz-background-size: cover;
+       -o-background-size: cover;
+       background-size: cover;*/
+    /*color: #444;*/
+  }
+
+
+  /*  .image-icon-fedora {
+    padding-left: 32px;
+    position: relative;
+  }
+  .image-icon-fedora:before {
+    position: absolute;
+    font-family: 'FontAwesome';
+    top: 0;
+    left: 10px;
+    content: "\f005";
+  }*/
+
+  .card-box-iaas {
+    width: 200px;
+
+  }
+
+  .image-icon-iaas {
+    text-align: center;
+
+  }
+
+  img.image-icon {
+    width: 50px;
+    height: 50px;
+
+  }
+</style>
+
+<script src="{% static 'custom/custom.js'%}"></script>
+
+<script>
+    $(function () {
+      // matchHeight the contents of each .card-pf and then the .card-pf itself
+      $(".row-cards-pf > [class*='col'] > .card-pf > .card-pf-body").matchHeight();
+    });
+    // Card Single Select
+    // $('.card-pf-view-single-select').click(function() {
+    //   if ($(this).hasClass('active'))
+    //   { $(this).removeClass('active'); }
+    //   else
+    //   { $('.card-pf-view-single-select').removeClass('active'); $(this).addClass('active'); }
+    // });
+  
+  
+    $('#btn-launch-wizard').prop('disabled', true);
+  
+  
+    $(function () {
+  
+      function enableButton() {
+  
+        // console.log( $('#hidden-view-distrib').hasClass('active') );
+  
+        if ($('#hidden-view-distrib').hasClass('active')
+          && $('#hidden-view-provider').hasClass('active')
+          && $('#hidden-view-plan').hasClass('active')) {
+          // console.log( "all items selected" );
+          $("#btn-launch-wizard").removeClass('disabled');
+          $('#btn-launch-wizard').prop('disabled', false);
+  
+        } else {
+  
+          $("#btn-launch-wizard").addClass('disabled');
+          $('#btn-launch-wizard').prop('disabled', true);
+  
+        }
+  
+      };
+  
+      $('.card-pf-view-provider-select').click(function () {
+  
+        //
+        // console.log( $( this  ).find('.applauncher-pf-link').attr("data-app") );
+        //
+        $('.card-pf-view-provider-select').removeClass('active');
+        $(this).addClass('active');
+        $('#hidden-view-provider').addClass('active');
+  
+        $('#hidden-view-provider').html($(this).find('.applauncher-pf-link').attr("data-app"));
+  
+        $('#btn-launch-wizard').attr('data-url', $(this).find('.applauncher-pf-link').attr("data-url"));
+  
+  
+        enableButton();
+  
+        // if ($(this).hasClass('active'))
+        // { $(this).removeClass('active'); }
+        // else
+        // { $('.card-pf-view-provider-select').removeClass('active'); $(this).addClass('active'); }
+  
+  
+      });
+  
+      $('.card-pf-view-distrib-select').click(function () {
+  
+        //
+        // console.log( $( this  ).find('.applauncher-pf-link').attr("data-app") );
+        //
+  
+        $('.card-pf-view-distrib-select').removeClass('active');
+        $(this).addClass('active');
+        $('#hidden-view-distrib').addClass('active');
+        $('#hidden-view-distrib').html($(this).find('.applauncher-pf-link').attr("data-app"));
+        enableButton();
+  
+        // if ($(this).hasClass('active'))
+        // { $(this).removeClass('active'); }
+        // else
+        // { $('.card-pf-view-distrib-select').removeClass('active'); $(this).addClass('active'); }
+  
+  
+  
+      });
+  
+      $('.card-pf-view-plan-select').click(function () {
+        $('.card-pf-view-plan-select').removeClass('active');
+        $(this).addClass('active');
+        $('#hidden-view-plan').addClass('active');
+        $('#hidden-view-plan').html($(this).find('.applauncher-pf-link').attr("data-app"));
+        enableButton();
+      });
+  
+    });
+  </script>
+
+
+
+<script type="text/javascript">
+  var loadWizardBoxForm = function () {
+    var btn = $(this);
+    //btn.attr("data-url")
+    // console.log(btn.attr("data-url"));
+    $.ajax({
+      url: btn.attr("data-url"),
+      type: 'get',
+      dataType: 'json',
+      // beforeSend: function () {
+      //   $("#complete").modal("show");
+      // },
+      success: function (data) {
+        $("#ahome-wizardbox .modal-content").html(data.html_form);
+        // $( ".btn.wizard-pf-complete" ).click();
+        // alert(data.html_form);
+      },
+      complete: function (data) {
+        // $("#ahome-wizardbox").html(data.html_form);
+        $(".btn.wizard-pf-complete").click();
+        // console.log(data.html_form);
+      }
+    });
+  };
+
+  // $("#ahome-generic-list").on("click", ".js-link-ahome-generic-update", loadForm);
+
+  $("#btn-launch-wizard").on('click', loadWizardBoxForm);
+
+
+  /**
+   *  Detect changes on IAAS
+   * */
+
+  if (typeof (iaasCardBoxes) == "undefined") {
+    const iaasCardBoxes = document.querySelectorAll(".card-box-iaas");
+
+    iaasCardBoxes.forEach(card => {
+      const distribution_list = card.querySelectorAll(".dropdown-kebab-pf .dropdown-menu");
+      const selected_distribution = card.querySelector("p a strong");
+      distribution_list[0].addEventListener("click", event => {
+        event.preventDefault();
+        const clickedElement = event.target;
+        if (clickedElement.nodeName.toLowerCase() === "a") {
+          selected_distribution.textContent = clickedElement.textContent;
+          if (card.classList.contains("ahome-provider")) {
+            detectChangeOnProviders(card, clickedElement);
+          }
+        }
+      });
+    });
+
+    // Mettre à jour les contenus des providers
+    const detectChangeOnProviders = (providerCard, link) => {
+      const progress_completed = providerCard.querySelector(".progress-bar-completed");
+      const progress_remaining = providerCard.querySelector(".progress-bar-remaining");
+      const usedValue = link.getAttribute("used");
+
+      progress_completed.style.width = usedValue + "%";
+      progress_remaining.style.width = (100 - usedValue) + "%";
+      if (usedValue < 75) {
+        providerCard.querySelector(".displayed_progress span").setAttribute("class", "pficon pficon-ok");
+      } else {
+        providerCard.querySelector(".displayed_progress span").setAttribute("class",
+          "pficon pficon-warning-triangle-o");
+      }
+      providerCard.querySelector(".displayed_progress strong").textContent = usedValue + "%";
+    }
+  }
+</script>

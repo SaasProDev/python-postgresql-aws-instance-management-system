@@ -1,0 +1,447 @@
+<div class="row row-cards-pf">
+  <!-- Important:  if you need to nest additional .row within a .row.row-cards-pf, do *not* use .row-cards-pf on the nested .row  -->
+    <div class="col-xs-12 col-sm-6 col-md-3">
+    <div class="card-pf card-pf-accented card-pf-aggregate-status">
+      <h2 class="card-pf-title">
+        <span class="fa fa-shield"></span><span class="card-pf-aggregate-status-count">10</span> Aggregates
+      </h2>
+      <div class="card-pf-body">
+        <p class="card-pf-aggregate-status-notifications">
+          <span class="card-pf-aggregate-status-notification"><a href="#" class="add" data-toggle="tooltip" data-placement="top" title="Aggregate Prefix"><span class="pficon pficon-add-circle-o"></span></a></span>
+        </p>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+
+
+<!-- SEARCH ENGINE -->
+
+      <div class="container-fluid">
+        <div class="row toolbar-pf">
+          <div class="col-sm-12">
+            <form class="toolbar-pf-actions">
+              <div class="form-group toolbar-pf-filter">
+                <label class="sr-only" for="filter">Name</label>
+                <div class="input-group">
+                  <div class="input-group-btn">
+                    <button type="button" class="btn btn-default dropdown-toggle" id="input-filter-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Name <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li class="selected"><a href="#">Name</a></li>
+                      <li><a href="#">Type</a></li>
+                      <li><a href="#">Color</a></li>
+                    </ul>
+                  </div><!-- /btn-group -->
+                  <input type="text" class="form-control" id="filter" placeholder="Filter By Name...">
+                </div><!-- /input-group -->
+              </div>
+              <div class="form-group">
+                <div class="dropdown btn-group">
+                  <button type="button" class="btn btn-default dropdown-toggle" id="filter-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Name <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li class="selected"><a href="#">Name</a></li>
+                    <li><a href="#">Type</a></li>
+                    <li><a href="#">Last Modified</a></li>
+                  </ul>
+                </div>
+                <button class="btn btn-link" type="button">
+                  <span class="fa fa-sort-alpha-asc"></span>
+                </button>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-default" type="button">Action</button>
+                <button class="btn btn-default" type="button">Action</button>
+                <div class="dropdown btn-group  dropdown-kebab-pf">
+  <button class="btn btn-link dropdown-toggle" type="button" id="dropdownKebab" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <span class="fa fa-ellipsis-v"></span>
+  </button>
+  <ul class="dropdown-menu " aria-labelledby="dropdownKebab">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another Action</a></li>
+    <li><a href="#">Something Else Here</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated Link</a></li>
+  </ul>
+</div>
+
+              </div>
+              
+              
+              <div class="toolbar-pf-action-right">
+                <div class="form-group toolbar-pf-find">
+                  <button class="btn btn-link btn-find" type="button">
+                    <span class="fa fa-search"></span>
+                  </button>
+                  <div class="find-pf-dropdown-container">
+                    <input type="text" class="form-control" id="find" placeholder="Find By Keyword...">
+                    <div class="find-pf-buttons">
+                      <span class="find-pf-nums">1 of 3</span>
+                      <button class="btn btn-link" type="button">
+                        <span class="fa fa-angle-up"></span>
+                      </button>
+                      <button class="btn btn-link" type="button">
+                        <span class="fa fa-angle-down"></span>
+                      </button>
+                      <button class="btn btn-link btn-find-close" type="button">
+                        <span class="pficon pficon-close"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group toolbar-pf-view-selector">
+                  <button class="btn btn-link "><i class="fa fa-th"></i></button>
+                  <button class="btn btn-link "><i class="fa fa-th-large"></i></button>
+                  <button class="btn btn-link "><i class="fa fa-th-list"></i></button>
+                </div>
+              </div>
+            </form>
+            <div class="row toolbar-pf-results">
+              <div class="col-sm-12">
+                <h5>40 Results</h5>
+                <p>Active filters:</p>
+                <ul class="list-inline">
+                  <li>
+                    <span class="label label-info">
+                      Name: nameofthething
+                      <a href="#"><span class="fa fa-times"></span></a>
+                    </span>
+                  </li>
+                  <li>
+                    <span class="label label-info">
+                      Name: nameofthething
+                      <a href="#"><span class="fa fa-times"></span></a>
+                    </span>
+                  </li>
+                  <li>
+                    <span class="label label-info">
+                      Name: nameofthething
+                      <a href="#"><span class="fa fa-times"></span></a>
+                    </span>
+                  </li>
+                </ul>
+                <p><a href="#">Clear All Filters</a></p>
+              </div><!-- /col -->
+            </div><!-- /row -->
+          </div><!-- /col -->
+        </div><!-- /row -->
+      </div><!-- /container -->
+
+
+
+
+<!-- END SEARCH ENGINE -->
+
+
+<!-- LIST-GROUP -->
+
+<div id="pf-list-simple-expansion" class="list-group list-view-pf list-view-pf-view">
+
+
+  <div class="list-group-item">
+    <div class="list-group-item-header">
+      <div class="list-view-pf-expand">
+        <span class="fa fa-angle-right"></span>
+      </div>
+      <div class="list-view-pf-checkbox">
+        <input type="checkbox">
+      </div>
+      <div class="list-view-pf-actions">
+        <button class="btn btn-default">Action</button>
+        <div class="dropdown pull-right dropdown-kebab-pf">
+  <button class="btn btn-link dropdown-toggle" type="button" id="dropdownKebabRight9" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <span class="fa fa-ellipsis-v"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebabRight9">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another Action</a></li>
+    <li><a href="#">Something Else Here</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated Link</a></li>
+  </ul>
+</div>
+
+      </div>
+      <div class="list-view-pf-main-info">
+        <div class="list-view-pf-left">
+          <span class="fa pficon-network list-view-pf-icon-sm"></span>
+        </div>
+        <div class="list-view-pf-body">
+          <div class="list-view-pf-description">
+            <div class="list-group-item-heading">
+              192.168.0.0/24
+            </div>
+            <div class="list-group-item-text">
+              Guest WIFI network
+            </div>
+          </div>
+          <div class="list-view-pf-additional-info">
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-screen"></span>
+              <strong>8</strong> Hosts
+            </div>
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-cluster"></span>
+              <strong>6</strong> Clusters
+            </div>
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-container-node"></span>
+              <strong>10</strong> Nodes
+            </div>
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-image"></span>
+              <strong>8</strong> Images
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="list-group-item-container container-fluid hidden">
+      <div class="close">
+        <span class="pficon pficon-close"></span>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div id="utilizationDonutChart11" class="example-donut-chart-utilization"></div>
+
+
+<script>
+  var c3ChartDefaults = $().c3ChartDefaults();
+
+  // Donut configuration 1
+  var donutConfig1 = c3ChartDefaults.getDefaultDonutConfig('A');
+
+  donutConfig1.bindto = '#utilizationDonutChart11';
+  donutConfig1.data = {
+    type: "donut",
+    columns: [
+      ["Used", 150],
+      ["Available", 254],
+    ],
+    groups: [
+      ["used", "available"]
+    ],
+    order: null
+  };
+  donutConfig1.size = {
+    width: 180,
+    height: 180
+  };
+
+  donutConfig1.tooltip = {
+    contents: $().pfGetUtilizationDonutTooltipContentsFn('IP')
+  };
+
+  c3.generate(donutConfig1);
+  $().pfSetDonutChartTitle("#utilizationDonutChart11", "150", "IPv4 Used");
+
+
+</script>
+
+        </div>
+        <div class="col-md-9">
+          <dl class="dl-horizontal">
+            <dt>Prefix</dt>
+            <dd>192.168.0.0/24</dd>
+            <dt>Label</dt>
+            <dd>Wifi-Guest</dd>
+            <dt>Network</dt>
+            <dd>192.168.0.0</dd>
+            <dt>Broadcast</dt>
+            <dd>192.168.0.255</dd>
+            <dt>Gateway</dt>
+            <dd>192.168.0.1</dd>
+            <dt>Vlan</dt>
+            <dd>NONE</dd>
+
+          </dl>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="list-group-item">
+    <div class="list-group-item-header">
+      <div class="list-view-pf-expand">
+        <span class="fa fa-angle-right"></span>
+      </div>
+      <div class="list-view-pf-checkbox">
+        <input type="checkbox">
+      </div>
+      <div class="list-view-pf-actions">
+        <button class="btn btn-default">Action</button>
+        <div class="dropdown pull-right dropdown-kebab-pf">
+  <button class="btn btn-link dropdown-toggle" type="button" id="dropdownKebabRight9" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <span class="fa fa-ellipsis-v"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebabRight9">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another Action</a></li>
+    <li><a href="#">Something Else Here</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated Link</a></li>
+  </ul>
+</div>
+
+      </div>
+      <div class="list-view-pf-main-info">
+        <div class="list-view-pf-left">
+          <span class="fa pficon-network list-view-pf-icon-sm"></span>
+        </div>
+        <div class="list-view-pf-body">
+          <div class="list-view-pf-description">
+            <div class="list-group-item-heading">
+              10.10.10.0/24
+            </div>
+            <div class="list-group-item-text">
+              PROD network
+            </div>
+          </div>
+          <div class="list-view-pf-additional-info">
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-screen"></span>
+              <strong>10</strong> Hosts
+            </div>
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-cluster"></span>
+              <strong>8</strong> Clusters
+            </div>
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-container-node"></span>
+              <strong>17</strong> Nodes
+            </div>
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-image"></span>
+              <strong>4</strong> Images
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="list-group-item-container container-fluid hidden">
+      <div class="close">
+        <span class="pficon pficon-close"></span>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div id="utilizationDonutChart21" class="example-donut-chart-utilization"></div>
+
+
+<script>
+  var c3ChartDefaults = $().c3ChartDefaults();
+
+  // Donut configuration 1
+  var donutConfig1 = c3ChartDefaults.getDefaultDonutConfig('A');
+
+  donutConfig1.bindto = '#utilizationDonutChart21';
+  donutConfig1.data = {
+    type: "donut",
+    columns: [
+      ["Used", 200],
+      ["Available", 254],
+    ],
+    groups: [
+      ["used", "available"]
+    ],
+    order: null
+  };
+  donutConfig1.size = {
+    width: 180,
+    height: 180
+  };
+
+  donutConfig1.tooltip = {
+    contents: $().pfGetUtilizationDonutTooltipContentsFn('IP')
+  };
+
+  c3.generate(donutConfig1);
+  $().pfSetDonutChartTitle("#utilizationDonutChart21", "200", "IPv4 Used");
+
+
+</script>
+
+        </div>
+        <div class="col-md-9">
+          <dl class="dl-horizontal">
+            <dt>Prefix</dt>
+            <dd>10.10.10.0/24</dd>
+            <dt>Label</dt>
+            <dd>PRODUCTION</dd>
+            <dt>Network</dt>
+            <dd>10.10.10.0</dd>
+            <dt>Broadcast</dt>
+            <dd>10.10.10.255</dd>
+            <dt>Gateway</dt>
+            <dd>10.10.10.1</dd>
+            <dt>Vlan</dt>
+            <dd>NONE</dd>
+
+          </dl>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<!-- END LIST-GROUP -->
+
+<script>
+  $(document).ready(function () {
+    // Row Checkbox Selection
+    $("#pf-list-simple-expansion input[type='checkbox']").change(function (e) {
+      if ($(this).is(":checked")) {
+        $(this).closest('.list-group-item').addClass("active");
+      } else {
+        $(this).closest('.list-group-item').removeClass("active");
+      }
+    });
+    // toggle dropdown menu
+    $("#pf-list-simple-expansion .list-view-pf-actions").on('show.bs.dropdown', function () {
+      var $this = $(this);
+      var $dropdown = $this.find('.dropdown');
+      var space = $(window).height() - $dropdown[0].getBoundingClientRect().top - $this.find('.dropdown-menu').outerHeight(true);
+      $dropdown.toggleClass('dropup', space < 10);
+    });
+
+    // click the list-view heading then expand a row
+    $("#pf-list-simple-expansion .list-group-item-header").click(function(event){
+      if(!$(event.target).is("button, a, input, .fa-ellipsis-v")){
+        $(this).find(".fa-angle-right").toggleClass("fa-angle-down")
+          .end().parent().toggleClass("list-view-pf-expand-active")
+            .find(".list-group-item-container").toggleClass("hidden");
+      } else {
+      }
+    })
+
+    // click the close button, hide the expand row and remove the active status
+    $("#pf-list-simple-expansion .list-group-item-container .close").on("click", function (){
+      $(this).parent().addClass("hidden")
+        .parent().removeClass("list-view-pf-expand-active")
+          .find(".fa-angle-right").removeClass("fa-angle-down");
+    })
+
+  });
+</script>

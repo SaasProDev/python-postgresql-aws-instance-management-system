@@ -1,0 +1,347 @@
+Step 1/22 : FROM centos:latest
+ ---> 0f3e07c0138f
+Step 2/22 : WORKDIR /
+ ---> Using cache
+ ---> 58217a9f34c9
+Step 3/22 : ADD build_context/ .
+ ---> Using cache
+ ---> 17482dfd54a5
+Step 4/22 : RUN yum install epel-release -y &&     yum update -y &&     yum install -y gcc make 				   screen 				   openssh-clients 				   git 				   python36-pip.noarch 				   python36-devel 				   postgresql-contrib 				   postgresql-devel 				   python-devel 				   python-pip 				   python-psutil 				   python-psycopg2 				   python-setuptools 				   python36-devel 				   python36-setuptools 				   rsync 				   setools-libs 				   vim 				   openssh 				   openssh-clients 				   bash-completion-extras 				   python36-psutil 				   libvirt-devel 				   curl-devel 				   libxml2-devel 				   krb5-devel 				   bubblewrap 				   nginx 				   && 	mkdir -p /venv && chmod g+w /venv && 		pip3 install virtualenv flake8 && 		python3 -m venv --system-site-packages /venv/ansible && 		/venv/ansible/bin/pip3 install --ignore-installed -r requirements.txt && 		/venv/ansible/bin/pip3 install supervisor Twisted[http2,tls]
+ ---> Running in bc3ebe68b57b
+CentOS-8 - AppStream                            195 kB/s | 6.3 MB     00:32    
+CentOS-8 - Base                                 307 kB/s | 7.9 MB     00:26    
+CentOS-8 - Extras                               418  B/s | 2.1 kB     00:05    
+Dependencies resolved.
+================================================================================
+ Package               Arch            Version            Repository       Size
+================================================================================
+Installing:
+ epel-release          noarch          8-5.el8            extras           22 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 22 k
+Installed size: 30 k
+Downloading Packages:
+epel-release-8-5.el8.noarch.rpm                  10 kB/s |  22 kB     00:02    
+--------------------------------------------------------------------------------
+Total                                           5.9 kB/s |  22 kB     00:03     
+[91mwarning: /var/cache/dnf/extras-cbfb2f07b0021b7e/packages/epel-release-8-5.el8.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID 8483c65d: NOKEY
+[0mCentOS-8 - Extras                               1.6 MB/s | 1.6 kB     00:00    
+[91mImporting GPG key 0x8483C65D:
+ Userid     : "CentOS (CentOS Official Signing Key) <security@centos.org>"
+ Fingerprint: 99DB 70FA E1D7 CE22 7FB6 4882 05B5 55B3 8483 C65D
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+[0mKey imported successfully
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : epel-release-8-5.el8.noarch                            1/1 
+  Running scriptlet: epel-release-8-5.el8.noarch                            1/1 
+  Verifying        : epel-release-8-5.el8.noarch                            1/1 
+
+Installed:
+  epel-release-8-5.el8.noarch                                                   
+
+Complete!
+Extra Packages for Enterprise Linux 8 - x86_64  270 kB/s | 3.2 MB     00:12    
+Last metadata expiration check: 0:00:04 ago on Sat Nov  2 18:53:11 2019.
+Dependencies resolved.
+================================================================================
+ Package             Arch      Version                       Repository    Size
+================================================================================
+Upgrading:
+ bash                x86_64    4.4.19-8.el8_0                BaseOS       1.5 M
+ bind-export-libs    x86_64    32:9.11.4-17.P2.el8_0.1       BaseOS       1.1 M
+ dracut              x86_64    049-10.git20190115.el8_0.1    BaseOS       361 k
+ dracut-network      x86_64    049-10.git20190115.el8_0.1    BaseOS        96 k
+ dracut-squash       x86_64    049-10.git20190115.el8_0.1    BaseOS        52 k
+ iptables-libs       x86_64    1.8.2-9.el8_0.1               BaseOS        97 k
+ kmod                x86_64    25-11.el8_0.2                 BaseOS       127 k
+ kmod-libs           x86_64    25-11.el8_0.2                 BaseOS        69 k
+ libdnf              x86_64    0.22.5-5.el8_0                BaseOS       574 k
+ p11-kit             x86_64    0.23.14-5.el8_0               BaseOS       272 k
+ p11-kit-trust       x86_64    0.23.14-5.el8_0               BaseOS       139 k
+ platform-python     x86_64    3.6.8-4.el8_0                 BaseOS        79 k
+ python3-hawkey      x86_64    0.22.5-5.el8_0                BaseOS        86 k
+ python3-libdnf      x86_64    0.22.5-5.el8_0                BaseOS       618 k
+ python3-libs        x86_64    3.6.8-4.el8_0                 BaseOS       7.9 M
+ python3-rpm         x86_64    4.14.2-11.el8_0               BaseOS       147 k
+ rpm                 x86_64    4.14.2-11.el8_0               BaseOS       537 k
+ rpm-build-libs      x86_64    4.14.2-11.el8_0               BaseOS       150 k
+ rpm-libs            x86_64    4.14.2-11.el8_0               BaseOS       333 k
+ setup               noarch    2.12.2-2.el8                  BaseOS       180 k
+ systemd             x86_64    239-13.el8_0.5                BaseOS       3.4 M
+ systemd-libs        x86_64    239-13.el8_0.5                BaseOS       551 k
+ systemd-pam         x86_64    239-13.el8_0.5                BaseOS       222 k
+ systemd-udev        x86_64    239-13.el8_0.5                BaseOS       1.3 M
+ epel-release        noarch    8-7.el8                       epel          21 k
+Installing dependencies:
+ xkeyboard-config    noarch    2.24-3.el8                    AppStream    828 k
+ kbd-legacy          noarch    2.0.4-8.el8                   BaseOS       481 k
+ kbd-misc            noarch    2.0.4-8.el8                   BaseOS       1.4 M
+Installing weak dependencies:
+ libxkbcommon        x86_64    0.8.2-1.el8                   AppStream    116 k
+ diffutils           x86_64    3.6-5.el8                     BaseOS       359 k
+ hardlink            x86_64    1:1.3-6.el8                   BaseOS        29 k
+ kbd                 x86_64    2.0.4-8.el8                   BaseOS       392 k
+ kpartx              x86_64    0.7.8-7.el8_0.2               BaseOS       100 k
+ pigz                x86_64    2.4-2.el8                     BaseOS        79 k
+
+Transaction Summary
+================================================================================
+Install   9 Packages
+Upgrade  25 Packages
+
+Total download size: 24 M
+Downloading Packages:
+(1/34): libxkbcommon-0.8.2-1.el8.x86_64.rpm      47 kB/s | 116 kB     00:02    
+(2/34): hardlink-1.3-6.el8.x86_64.rpm            26 kB/s |  29 kB     00:01    
+(3/34): diffutils-3.6-5.el8.x86_64.rpm           99 kB/s | 359 kB     00:03    
+(4/34): xkeyboard-config-2.24-3.el8.noarch.rpm  158 kB/s | 828 kB     00:05    
+(5/34): kbd-legacy-2.0.4-8.el8.noarch.rpm       164 kB/s | 481 kB     00:02    
+(6/34): kbd-2.0.4-8.el8.x86_64.rpm              122 kB/s | 392 kB     00:03    
+(7/34): kpartx-0.7.8-7.el8_0.2.x86_64.rpm       111 kB/s | 100 kB     00:00    
+(8/34): pigz-2.4-2.el8.x86_64.rpm               105 kB/s |  79 kB     00:00    
+(9/34): bash-4.4.19-8.el8_0.x86_64.rpm          160 kB/s | 1.5 MB     00:09    
+(10/34): kbd-misc-2.0.4-8.el8.noarch.rpm        116 kB/s | 1.4 MB     00:12    
+(11/34): dracut-network-049-10.git20190115.el8_ 101 kB/s |  96 kB     00:00    
+(12/34): dracut-049-10.git20190115.el8_0.1.x86_ 183 kB/s | 361 kB     00:01    
+(13/34): dracut-squash-049-10.git20190115.el8_0  81 kB/s |  52 kB     00:00    
+(14/34): bind-export-libs-9.11.4-17.P2.el8_0.1.  93 kB/s | 1.1 MB     00:12    
+(15/34): iptables-libs-1.8.2-9.el8_0.1.x86_64.r 115 kB/s |  97 kB     00:00    
+(16/34): kmod-libs-25-11.el8_0.2.x86_64.rpm     102 kB/s |  69 kB     00:00    
+(17/34): kmod-25-11.el8_0.2.x86_64.rpm           95 kB/s | 127 kB     00:01    
+(18/34): p11-kit-trust-0.23.14-5.el8_0.x86_64.r  65 kB/s | 139 kB     00:02    
+(19/34): p11-kit-0.23.14-5.el8_0.x86_64.rpm      97 kB/s | 272 kB     00:02    
+(20/34): python3-hawkey-0.22.5-5.el8_0.x86_64.r 120 kB/s |  86 kB     00:00    
+(21/34): platform-python-3.6.8-4.el8_0.x86_64.r  58 kB/s |  79 kB     00:01    
+(22/34): libdnf-0.22.5-5.el8_0.x86_64.rpm       114 kB/s | 574 kB     00:05    
+(23/34): python3-rpm-4.14.2-11.el8_0.x86_64.rpm  90 kB/s | 147 kB     00:01    
+(24/34): python3-libdnf-0.22.5-5.el8_0.x86_64.r 143 kB/s | 618 kB     00:04    
+(25/34): rpm-build-libs-4.14.2-11.el8_0.x86_64. 137 kB/s | 150 kB     00:01    
+(26/34): rpm-4.14.2-11.el8_0.x86_64.rpm         130 kB/s | 537 kB     00:04    
+(27/34): rpm-libs-4.14.2-11.el8_0.x86_64.rpm    137 kB/s | 333 kB     00:02    
+(28/34): setup-2.12.2-2.el8.noarch.rpm          105 kB/s | 180 kB     00:01    
+(29/34): systemd-libs-239-13.el8_0.5.x86_64.rpm 104 kB/s | 551 kB     00:05    
+(30/34): systemd-pam-239-13.el8_0.5.x86_64.rpm   87 kB/s | 222 kB     00:02    
+(31/34): systemd-239-13.el8_0.5.x86_64.rpm      286 kB/s | 3.4 MB     00:12    
+(32/34): epel-release-8-7.el8.noarch.rpm         24 kB/s |  21 kB     00:00    
+(33/34): systemd-udev-239-13.el8_0.5.x86_64.rpm 176 kB/s | 1.3 MB     00:07    
+(34/34): python3-libs-3.6.8-4.el8_0.x86_64.rpm  231 kB/s | 7.9 MB     00:34    
+--------------------------------------------------------------------------------
+Total                                           375 kB/s |  24 MB     01:04     
+[91mwarning: /var/cache/dnf/epel-05da96c052a128d8/packages/epel-release-8-7.el8.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID 2f86d6a1: NOKEY
+[0mExtra Packages for Enterprise Linux 8 - x86_64  1.6 MB/s | 1.6 kB     00:00    
+[91mImporting GPG key 0x2F86D6A1:
+ Userid     : "Fedora EPEL (8) <epel@fedoraproject.org>"
+ Fingerprint: 94E2 79EB 8D8F 25B2 1810 ADF1 21EA 45AB 2F86 D6A1
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-8
+[0mKey imported successfully
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Running scriptlet: bash-4.4.19-8.el8_0.x86_64                             1/1 
+  Upgrading        : bash-4.4.19-8.el8_0.x86_64                            1/59 
+  Running scriptlet: bash-4.4.19-8.el8_0.x86_64                            1/59 
+  Upgrading        : platform-python-3.6.8-4.el8_0.x86_64                  2/59 
+  Running scriptlet: platform-python-3.6.8-4.el8_0.x86_64                  2/59 
+  Upgrading        : python3-libs-3.6.8-4.el8_0.x86_64                     3/59 
+  Upgrading        : kmod-libs-25-11.el8_0.2.x86_64                        4/59 
+  Running scriptlet: kmod-libs-25-11.el8_0.2.x86_64                        4/59 
+  Upgrading        : kmod-25-11.el8_0.2.x86_64                             5/59 
+  Installing       : diffutils-3.6-5.el8.x86_64                            6/59 
+  Running scriptlet: diffutils-3.6-5.el8.x86_64                            6/59 
+  Installing       : kpartx-0.7.8-7.el8_0.2.x86_64                         7/59 
+  Upgrading        : rpm-libs-4.14.2-11.el8_0.x86_64                       8/59 
+  Running scriptlet: rpm-libs-4.14.2-11.el8_0.x86_64                       8/59 
+  Upgrading        : rpm-4.14.2-11.el8_0.x86_64                            9/59 
+  Upgrading        : libdnf-0.22.5-5.el8_0.x86_64                         10/59 
+  Upgrading        : python3-libdnf-0.22.5-5.el8_0.x86_64                 11/59 
+  Upgrading        : rpm-build-libs-4.14.2-11.el8_0.x86_64                12/59 
+  Running scriptlet: rpm-build-libs-4.14.2-11.el8_0.x86_64                12/59 
+  Upgrading        : systemd-libs-239-13.el8_0.5.x86_64                   13/59 
+  Running scriptlet: systemd-libs-239-13.el8_0.5.x86_64                   13/59 
+  Upgrading        : p11-kit-0.23.14-5.el8_0.x86_64                       14/59 
+  Running scriptlet: p11-kit-0.23.14-5.el8_0.x86_64                       14/59 
+  Upgrading        : iptables-libs-1.8.2-9.el8_0.1.x86_64                 15/59 
+  Installing       : pigz-2.4-2.el8.x86_64                                16/59 
+  Installing       : kbd-misc-2.0.4-8.el8.noarch                          17/59 
+  Installing       : kbd-legacy-2.0.4-8.el8.noarch                        18/59 
+  Installing       : kbd-2.0.4-8.el8.x86_64                               19/59 
+  Installing       : hardlink-1:1.3-6.el8.x86_64                          20/59 
+  Installing       : xkeyboard-config-2.24-3.el8.noarch                   21/59 
+  Installing       : libxkbcommon-0.8.2-1.el8.x86_64                      22/59 
+  Upgrading        : systemd-pam-239-13.el8_0.5.x86_64                    23/59 
+  Running scriptlet: systemd-239-13.el8_0.5.x86_64                        24/59 
+  Upgrading        : systemd-239-13.el8_0.5.x86_64                        24/59 
+  Running scriptlet: systemd-239-13.el8_0.5.x86_64                        24/59 
+  Upgrading        : systemd-udev-239-13.el8_0.5.x86_64                   25/59 
+  Running scriptlet: systemd-udev-239-13.el8_0.5.x86_64                   25/59 
+  Upgrading        : dracut-049-10.git20190115.el8_0.1.x86_64             26/59 
+  Upgrading        : dracut-network-049-10.git20190115.el8_0.1.x86_64     27/59 
+  Upgrading        : dracut-squash-049-10.git20190115.el8_0.1.x86_64      28/59 
+  Upgrading        : p11-kit-trust-0.23.14-5.el8_0.x86_64                 29/59 
+  Running scriptlet: p11-kit-trust-0.23.14-5.el8_0.x86_64                 29/59 
+  Upgrading        : python3-rpm-4.14.2-11.el8_0.x86_64                   30/59 
+  Upgrading        : python3-hawkey-0.22.5-5.el8_0.x86_64                 31/59 
+  Upgrading        : epel-release-8-7.el8.noarch                          32/59 
+  Upgrading        : setup-2.12.2-2.el8.noarch                            33/59 
+  Running scriptlet: setup-2.12.2-2.el8.noarch                            33/59 
+warning: /etc/shadow created as /etc/shadow.rpmnew
+
+  Upgrading        : bind-export-libs-32:9.11.4-17.P2.el8_0.1.x86_64      34/59 
+  Running scriptlet: bind-export-libs-32:9.11.4-17.P2.el8_0.1.x86_64      34/59 
+  Cleanup          : dracut-network-049-10.git20190115.el8.x86_64         35/59 
+  Cleanup          : dracut-squash-049-10.git20190115.el8.x86_64          36/59 
+  Cleanup          : dracut-049-10.git20190115.el8.x86_64                 37/59 
+  Cleanup          : systemd-udev-239-13.el8.x86_64                       38/59 
+  Running scriptlet: systemd-udev-239-13.el8.x86_64                       38/59 
+  Running scriptlet: systemd-239-13.el8.x86_64                            39/59 
+  Cleanup          : systemd-239-13.el8.x86_64                            39/59 
+  Cleanup          : python3-rpm-4.14.2-9.el8.x86_64                      40/59 
+  Cleanup          : python3-hawkey-0.22.5-4.el8.x86_64                   41/59 
+  Cleanup          : python3-libdnf-0.22.5-4.el8.x86_64                   42/59 
+  Cleanup          : p11-kit-trust-0.23.14-4.el8.x86_64                   43/59 
+  Running scriptlet: p11-kit-trust-0.23.14-4.el8.x86_64                   43/59 
+  Cleanup          : epel-release-8-5.el8.noarch                          44/59 
+  Cleanup          : setup-2.12.2-1.el8.noarch                            45/59 
+  Cleanup          : python3-libs-3.6.8-1.el8.0.1.x86_64                  46/59 
+  Cleanup          : platform-python-3.6.8-1.el8.0.1.x86_64               47/59 
+  Running scriptlet: platform-python-3.6.8-1.el8.0.1.x86_64               47/59 
+  Cleanup          : rpm-build-libs-4.14.2-9.el8.x86_64                   48/59 
+  Running scriptlet: rpm-build-libs-4.14.2-9.el8.x86_64                   48/59 
+  Cleanup          : libdnf-0.22.5-4.el8.x86_64                           49/59 
+  Cleanup          : rpm-4.14.2-9.el8.x86_64                              50/59 
+  Cleanup          : rpm-libs-4.14.2-9.el8.x86_64                         51/59 
+  Running scriptlet: rpm-libs-4.14.2-9.el8.x86_64                         51/59 
+  Cleanup          : systemd-libs-239-13.el8.x86_64                       52/59 
+  Cleanup          : kmod-25-11.el8.x86_64                                53/59 
+  Cleanup          : bash-4.4.19-7.el8.x86_64                             54/59 
+  Running scriptlet: bash-4.4.19-7.el8.x86_64                             54/59 
+  Cleanup          : p11-kit-0.23.14-4.el8.x86_64                         55/59 
+  Running scriptlet: p11-kit-0.23.14-4.el8.x86_64                         55/59 
+  Cleanup          : iptables-libs-1.8.2-9.el8.x86_64                     56/59 
+  Cleanup          : kmod-libs-25-11.el8.x86_64                           57/59 
+  Running scriptlet: kmod-libs-25-11.el8.x86_64                           57/59 
+  Cleanup          : systemd-pam-239-13.el8.x86_64                        58/59 
+  Cleanup          : bind-export-libs-32:9.11.4-16.P2.el8.x86_64          59/59 
+  Running scriptlet: bind-export-libs-32:9.11.4-16.P2.el8.x86_64          59/59 
+  Running scriptlet: systemd-239-13.el8_0.5.x86_64                        59/59 
+  Running scriptlet: systemd-udev-239-13.el8_0.5.x86_64                   59/59 
+  Verifying        : libxkbcommon-0.8.2-1.el8.x86_64                       1/59 
+  Verifying        : xkeyboard-config-2.24-3.el8.noarch                    2/59 
+  Verifying        : diffutils-3.6-5.el8.x86_64                            3/59 
+  Verifying        : hardlink-1:1.3-6.el8.x86_64                           4/59 
+  Verifying        : kbd-2.0.4-8.el8.x86_64                                5/59 
+  Verifying        : kbd-legacy-2.0.4-8.el8.noarch                         6/59 
+  Verifying        : kbd-misc-2.0.4-8.el8.noarch                           7/59 
+  Verifying        : kpartx-0.7.8-7.el8_0.2.x86_64                         8/59 
+  Verifying        : pigz-2.4-2.el8.x86_64                                 9/59 
+  Verifying        : bash-4.4.19-8.el8_0.x86_64                           10/59 
+  Verifying        : bash-4.4.19-7.el8.x86_64                             11/59 
+  Verifying        : bind-export-libs-32:9.11.4-17.P2.el8_0.1.x86_64      12/59 
+  Verifying        : bind-export-libs-32:9.11.4-16.P2.el8.x86_64          13/59 
+  Verifying        : dracut-049-10.git20190115.el8_0.1.x86_64             14/59 
+  Verifying        : dracut-049-10.git20190115.el8.x86_64                 15/59 
+  Verifying        : dracut-network-049-10.git20190115.el8_0.1.x86_64     16/59 
+  Verifying        : dracut-network-049-10.git20190115.el8.x86_64         17/59 
+  Verifying        : dracut-squash-049-10.git20190115.el8_0.1.x86_64      18/59 
+  Verifying        : dracut-squash-049-10.git20190115.el8.x86_64          19/59 
+  Verifying        : iptables-libs-1.8.2-9.el8_0.1.x86_64                 20/59 
+  Verifying        : iptables-libs-1.8.2-9.el8.x86_64                     21/59 
+  Verifying        : kmod-25-11.el8_0.2.x86_64                            22/59 
+  Verifying        : kmod-25-11.el8.x86_64                                23/59 
+  Verifying        : kmod-libs-25-11.el8_0.2.x86_64                       24/59 
+  Verifying        : kmod-libs-25-11.el8.x86_64                           25/59 
+  Verifying        : libdnf-0.22.5-5.el8_0.x86_64                         26/59 
+  Verifying        : libdnf-0.22.5-4.el8.x86_64                           27/59 
+  Verifying        : p11-kit-0.23.14-5.el8_0.x86_64                       28/59 
+  Verifying        : p11-kit-0.23.14-4.el8.x86_64                         29/59 
+  Verifying        : p11-kit-trust-0.23.14-5.el8_0.x86_64                 30/59 
+  Verifying        : p11-kit-trust-0.23.14-4.el8.x86_64                   31/59 
+  Verifying        : platform-python-3.6.8-4.el8_0.x86_64                 32/59 
+  Verifying        : platform-python-3.6.8-1.el8.0.1.x86_64               33/59 
+  Verifying        : python3-hawkey-0.22.5-5.el8_0.x86_64                 34/59 
+  Verifying        : python3-hawkey-0.22.5-4.el8.x86_64                   35/59 
+  Verifying        : python3-libdnf-0.22.5-5.el8_0.x86_64                 36/59 
+  Verifying        : python3-libdnf-0.22.5-4.el8.x86_64                   37/59 
+  Verifying        : python3-libs-3.6.8-4.el8_0.x86_64                    38/59 
+  Verifying        : python3-libs-3.6.8-1.el8.0.1.x86_64                  39/59 
+  Verifying        : python3-rpm-4.14.2-11.el8_0.x86_64                   40/59 
+  Verifying        : python3-rpm-4.14.2-9.el8.x86_64                      41/59 
+  Verifying        : rpm-4.14.2-11.el8_0.x86_64                           42/59 
+  Verifying        : rpm-4.14.2-9.el8.x86_64                              43/59 
+  Verifying        : rpm-build-libs-4.14.2-11.el8_0.x86_64                44/59 
+  Verifying        : rpm-build-libs-4.14.2-9.el8.x86_64                   45/59 
+  Verifying        : rpm-libs-4.14.2-11.el8_0.x86_64                      46/59 
+  Verifying        : rpm-libs-4.14.2-9.el8.x86_64                         47/59 
+  Verifying        : setup-2.12.2-2.el8.noarch                            48/59 
+  Verifying        : setup-2.12.2-1.el8.noarch                            49/59 
+  Verifying        : systemd-239-13.el8_0.5.x86_64                        50/59 
+  Verifying        : systemd-239-13.el8.x86_64                            51/59 
+  Verifying        : systemd-libs-239-13.el8_0.5.x86_64                   52/59 
+  Verifying        : systemd-libs-239-13.el8.x86_64                       53/59 
+  Verifying        : systemd-pam-239-13.el8_0.5.x86_64                    54/59 
+  Verifying        : systemd-pam-239-13.el8.x86_64                        55/59 
+  Verifying        : systemd-udev-239-13.el8_0.5.x86_64                   56/59 
+  Verifying        : systemd-udev-239-13.el8.x86_64                       57/59 
+  Verifying        : epel-release-8-7.el8.noarch                          58/59 
+  Verifying        : epel-release-8-5.el8.noarch                          59/59 
+
+Upgraded:
+  bash-4.4.19-8.el8_0.x86_64                                                    
+  bind-export-libs-32:9.11.4-17.P2.el8_0.1.x86_64                               
+  dracut-049-10.git20190115.el8_0.1.x86_64                                      
+  dracut-network-049-10.git20190115.el8_0.1.x86_64                              
+  dracut-squash-049-10.git20190115.el8_0.1.x86_64                               
+  iptables-libs-1.8.2-9.el8_0.1.x86_64                                          
+  kmod-25-11.el8_0.2.x86_64                                                     
+  kmod-libs-25-11.el8_0.2.x86_64                                                
+  libdnf-0.22.5-5.el8_0.x86_64                                                  
+  p11-kit-0.23.14-5.el8_0.x86_64                                                
+  p11-kit-trust-0.23.14-5.el8_0.x86_64                                          
+  platform-python-3.6.8-4.el8_0.x86_64                                          
+  python3-hawkey-0.22.5-5.el8_0.x86_64                                          
+  python3-libdnf-0.22.5-5.el8_0.x86_64                                          
+  python3-libs-3.6.8-4.el8_0.x86_64                                             
+  python3-rpm-4.14.2-11.el8_0.x86_64                                            
+  rpm-4.14.2-11.el8_0.x86_64                                                    
+  rpm-build-libs-4.14.2-11.el8_0.x86_64                                         
+  rpm-libs-4.14.2-11.el8_0.x86_64                                               
+  setup-2.12.2-2.el8.noarch                                                     
+  systemd-239-13.el8_0.5.x86_64                                                 
+  systemd-libs-239-13.el8_0.5.x86_64                                            
+  systemd-pam-239-13.el8_0.5.x86_64                                             
+  systemd-udev-239-13.el8_0.5.x86_64                                            
+  epel-release-8-7.el8.noarch                                                   
+
+Installed:
+  libxkbcommon-0.8.2-1.el8.x86_64           diffutils-3.6-5.el8.x86_64          
+  hardlink-1:1.3-6.el8.x86_64               kbd-2.0.4-8.el8.x86_64              
+  kpartx-0.7.8-7.el8_0.2.x86_64             pigz-2.4-2.el8.x86_64               
+  xkeyboard-config-2.24-3.el8.noarch        kbd-legacy-2.0.4-8.el8.noarch       
+  kbd-misc-2.0.4-8.el8.noarch              
+
+Complete!
+Last metadata expiration check: 0:01:37 ago on Sat Nov  2 18:53:11 2019.
+No match for argument: python36-pip.noarch
+No match for argument: python-devel
+No match for argument: python-pip
+No match for argument: python-psutil
+No match for argument: python-psycopg2
+No match for argument: python-setuptools
+No match for argument: python36-setuptools
+No match for argument: setools-libs
+No match for argument: bash-completion-extras
+No match for argument: python36-psutil
+[91mError: Unable to find a match
+[0m

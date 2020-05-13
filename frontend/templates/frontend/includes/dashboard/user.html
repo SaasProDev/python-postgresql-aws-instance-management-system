@@ -1,0 +1,474 @@
+{% load static %}
+{% load frontend_extras %}
+
+<div class="row">
+  <div class="col-md-12">
+    <ol class="ahome-breadcrumb breadcrumb">
+<!--       <li><a href="#dashboard" data-url="{% url 'dashboard' %}">Home</a></li> -->
+<li><a href="#dashboard-user">Home</a></li>
+      <li>Dashboard</li>
+    </ol>
+    <div class="actions pull-right">
+      <a href="#dashboard-user" class="instance-refresh-link" data-url="{% url 'dashboard_user' %}"><span
+          class="pficon pficon-refresh"></span>&nbsp;Refresh Results</a>
+    </div>
+    <h1>User Dashboard</h1>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="user-dashboard-card__container container-fluid container-cards-pf">
+  <div class="row row-cards-pf">
+
+
+
+    <div class="col-xs-6 col-sm-4 col-md-2">
+      <div class="card-pf card-pf-accented card-pf-aggregate-status">
+        <h2 class="card-pf-title">
+
+          <a href="#user-credentials" class="instance-refresh-link" data-url="{% url 'usercredential' %}"><span class="fa fa-shield"></span><span class="card-pf-aggregate-status-count">
+
+<!--           <a class="js-link-ahome-nav-pf" data-url="{% url 'usercredential' %}" href="#"><span class="fa fa-shield"></span><span class="card-pf-aggregate-status-count"> -->
+
+              {{ api.usercredentials.count }}
+          </span>
+            {% if api.usersecrets.count == 1  %}
+                  Credential
+              {% else %}
+                  Credentials
+              {% endif %}
+          </a>
+        </h2>
+        <div class="card-pf-body">
+          <p class="card-pf-aggregate-status-notifications">
+            <span class="card-pf-aggregate-status-notification"><span class="pficon pficon-ok"></span></span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  <div class="col-xs-6 col-sm-4 col-md-2">
+      <div class="card-pf card-pf-accented card-pf-aggregate-status">
+        <h2 class="card-pf-title">
+
+          <a href="#user-secrets" class="instance-refresh-link" data-url="{% url 'usersecret' %}"><span class="fa pficon-key"></span><span class="card-pf-aggregate-status-count">
+
+<!--           <a class="js-link-ahome-nav-pf" data-url="{% url 'usersecret' %}" href="#"><span class="fa pficon-key"></span><span class="card-pf-aggregate-status-count"> -->
+
+              {{ api.usersecrets.count }}
+          </span>
+              {% if api.usersecrets.count == 1  %}
+                  Key
+              {% else %}
+                  Keys
+              {% endif %}
+          </a>
+        </h2>
+        <div class="card-pf-body">
+          <p class="card-pf-aggregate-status-notifications">
+            <span class="card-pf-aggregate-status-notification"><span class="pficon pficon-ok"></span></span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-4 col-md-2">
+      <div class="card-pf card-pf-accented card-pf-aggregate-status">
+        <h2 class="card-pf-title">
+
+          <a href="#iaas" class="instance-refresh-link" data-url="{% url 'iaas' %}"><span class="fa pficon-service"></span><span class="card-pf-aggregate-status-count">
+
+<!--           <a class="js-link-ahome-nav-pf" data-url="{% url 'iaas' %}"  href="#"><span class="fa pficon-service"></span><span class="card-pf-aggregate-status-count"> -->
+
+            {{ api.iaas.count }}
+          </span> Iaas</a>
+        </h2>
+
+
+
+        <div class="card-pf-body">
+          <p class="card-pf-aggregate-status-notifications">
+{##}
+{#            <span class="card-pf-aggregate-status-notification"><a href="#">#}
+{#                {% if api.info.counts.iaas.failed %}#}
+{#                <span class="pficon pficon-error-circle-o"></span>{{ api.info.counts.iaas.failed }}#}
+{#                {% endif %}#}
+{#            </a></span>#}
+
+              <span class="card-pf-aggregate-status-notification"><a href="#">
+                {% if api.info.counts.iaas.running %}
+                <span class="pficon pficon-process-automation"></span>{{ api.info.counts.iaas.running }}
+                {% endif %}
+
+              {% if not api.info.counts.iaas.running %}
+                <span class="pficon pficon-error-circle-o"></span>{{ api.info.counts.iaas.failed }}
+              {% endif %}
+            </a></span>
+
+            <span class="card-pf-aggregate-status-notification"><a href="#"><span
+                  class="pficon pficon-ok"></span>
+            {{ api.info.counts.iaas.successful }}
+            </a></span>
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+
+    <div class="col-xs-6 col-sm-4 col-md-2">
+      <div class="card-pf card-pf-accented card-pf-aggregate-status">
+        <h2 class="card-pf-title">
+
+          <a href="#virtual-machines" class="instance-refresh-link" data-url="{% url 'virtualmachine' %}"><span class="fa pficon-virtual-machine"></span><span class="card-pf-aggregate-status-count">
+
+<!--           <a class="js-link-ahome-nav-pf" data-url="{% url 'virtualmachine' %}"  href="#"><span class="fa pficon-virtual-machine"></span><span class="card-pf-aggregate-status-count"> -->
+
+              {{ api.virtualmachines.count }}
+          </span>
+            Virtual machines</a>
+        </h2>
+
+        <div class="card-pf-body">
+          <p class="card-pf-aggregate-status-notifications">
+            <span class="card-pf-aggregate-status-notification"><a href="#">
+{#                <span class="pficon pficon-error-circle-o"></span>#}
+{#                <span class="pficon pficon-warning-triangle-o"></span>#}
+                <span class="pficon pficon-process-automation"></span>
+                 {{ api.info.counts.virtualmachines.running }}
+
+            </a></span>
+            <span class="card-pf-aggregate-status-notification"><a href="#"><span
+                  class="pficon pficon-ok"></span>
+                 {{ api.info.counts.virtualmachines.successful }}
+            </a></span>
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="col-xs-6 col-sm-4 col-md-2">
+      <div class="card-pf card-pf-accented card-pf-aggregate-status">
+        <h2 class="card-pf-title">
+          <a href="#"><span class="fa fa-cubes"></span><span class="card-pf-aggregate-status-count">
+              {{ api.info.counts.applications.total }}
+          </span>
+            Applications</a>
+        </h2>
+        <div class="card-pf-body">
+          <p class="card-pf-aggregate-status-notifications">
+            <span class="card-pf-aggregate-status-notification"><span class="pficon pficon-ok"></span></span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+      <div class="col-xs-6 col-sm-4 col-md-2">
+      <div class="card-pf card-pf-accented card-pf-aggregate-status">
+        <h2 class="card-pf-title">
+          <a href="#"><span class="fa fa-dollar"></span><span class="card-pf-aggregate-status-count">
+          </span>
+            Billing</a>
+        </h2>
+
+      <div class="card-pf-body">
+          <p class="card-pf-aggregate-status-notifications">
+            <span style="font-size: 12px" class="label label-success"><i class="fa fa-dollar" style="font-size: 10px;"></i>200</span><br/>
+            <span class="card-pf-aggregate-status-notification"><span
+                  class="fa fa-clock-o"></span>
+                <span class="badge" data-placement="top">{{ api.info.counts.iaas.billing.total |floatformat:2 }}</span>
+                <span class="badge" data-placement="top">{{ api.info.counts.iaas.billing.rate_month |floatformat:2 }} / month</span>
+
+            </span>
+          </p>
+        </div>
+
+
+      </div>
+    </div>
+
+
+
+  </div><!-- /row -->
+</div><!-- /container -->
+
+<div class="container-fluid container-cards-pf no-side-padding">
+  <div class="row row-cards-pf">
+    <div class="col-md-8 hidden">
+      <div class="card-pf user-dashboard-visualisation">
+        <div>
+          <h2>User Global usage statistics</h2>
+        </div>
+        <div id="area-chart-4" class="line-chart-pf"></div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="row row-cards-pf">
+        <div class="col-xs-6 col-sm-4 col-md-12">
+          <div class="card-pf">
+            <div class="card-pf-heading">
+              <h2 class="card-pf-title">
+                Top Utilized Instances
+              </h2>
+            </div>
+            <div class="card-pf-body">
+
+              {% for virtualmachine in api.virtualmachines_usage %}
+
+              <div class="progress-description">
+                {{ virtualmachine.name }}
+                {% if virtualmachine.disk_root_total_gb == 0 %}
+                <i class="pficon-warning-triangle-o"></i>
+                {% endif %}
+              </div>
+              <div class="progress progress-label-top-right">
+                <div class="progress-bar {{ virtualmachine.disk_root_css }}" role="progressbar" aria-valuenow="{{ virtualmachine.disk_root_usage_percentage }}" aria-valuemin="0"
+                  aria-valuemax="100" style="width: {{ virtualmachine.disk_root_usage_percentage }}%;" data-toggle="tooltip" title="{{ virtualmachine.disk_root_usage_percentage }}% Used">
+                  <span><strong>{{ virtualmachine.disk_root_usage_gb|floatformat:0 }} of {{ virtualmachine.disk_root_total_gb|floatformat:0 }} GB</strong> Used</span>
+                </div>
+                <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="{{ virtualmachine.disk_root_available_percentage }}" aria-valuemin="0"
+                  aria-valuemax="100" style="width: {{ virtualmachine.disk_root_available_percentage }}%;" data-toggle="tooltip" title="{{ virtualmachine.disk_root_available_percentage }}% Available">
+                  <span class="sr-only">{{ virtualmachine.disk_root_available_percentage }}% Available</span>
+                </div>
+              </div>
+
+              {% endfor %}
+
+            </div>
+          </div>
+        </div>
+      </div><!-- /row -->
+    </div>
+    <div class="col-md-8">
+
+      <div class="row row-cards-pf">
+        <div class="col-xs-6 col-sm-4 col-md-12">
+          <div class="card-pf">
+            <div class="card-pf-heading">
+              <h2 class="card-pf-title">
+                Recently provisioned Hosts
+              </h2>
+            </div>
+            <div class="card-pf-body">
+              <table class="table table-borderless table-hover">
+                <thead>
+
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">IP</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">&nbsp;</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                {% for item in api.vmhosts %}
+                  <tr>
+
+                    <td>
+                        <a class="instance-refresh-link" data-url="{% url 'virtualmachine' %}?id={{ item.id }}" href="#">
+                        {{ item.name }}
+                        </a></td>
+                      {% if item.status == 'failed' %}
+                    <td><i class="pficon-warning-triangle-o"></i></td>
+                      {% else %}
+                    <td><i class="pficon pficon-ok"></i></td>
+                      {% endif %}
+                    <td>{{ item.ip }}</td>
+                    <td>{{ item.image }} </td>
+                    <td>
+                        {% if item.status == 'successful' %}
+                        <span style="color: deepskyblue" onclick="web_ssh_connect('{{ item.uuid }}')" href=""><span class="fa fa-external-link"></span></span>
+                        {% endif %}
+                    </td>
+                  </tr>
+                 {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div><!-- /row -->
+    </div>
+
+  </div>
+</div>
+<div class="container-fluid container-cards-pf no-side-padding">
+  <div class="row row-cards-pf">
+
+    <div class="col-md-4">
+
+
+    </div>
+  </div>
+</div>
+
+<!--
+
+  <div class="no-side-padding container-fluid container-cards-pf" id="card-container">
+  <div class="row row-cards-pf">
+    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+      <div class="card-pf card-pf-view card-pf card-pf-accented card-pf-aggregate-status ">
+        <div class="card-pf-body">
+          <div class="card-pf-top-element">
+            <span class="fa fa-birthday-cake card-pf-icon-circle"></span>
+          </div>
+          <h2 class="card-pf-title text-center">
+            Cake Service
+          </h2>
+          <div class="card-pf-items text-center">
+            <div class="card-pf-item">
+              <span class="pficon pficon-screen"></span>
+              <span class="card-pf-item-text">8</span>
+            </div>
+            <div class="card-pf-item">
+              <span class="fa fa-check"></span>
+            </div>
+          </div>
+          <p class="card-pf-info text-center"><strong>Created On</strong> 2015-03-01 02:00 AM <br /> Never Expires
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+      <div class="card-pf card-pf-view card-pf card-pf-accented card-pf-aggregate-status ">
+        <div class="card-pf-body">
+          <div class="card-pf-top-element">
+            <span class="fa fa-birthday-cake card-pf-icon-circle"></span>
+          </div>
+          <h2 class="card-pf-title text-center">
+            Cake Service
+          </h2>
+          <div class="card-pf-items text-center">
+            <div class="card-pf-item">
+              <span class="pficon pficon-screen"></span>
+              <span class="card-pf-item-text">8</span>
+            </div>
+            <div class="card-pf-item">
+              <span class="fa fa-check"></span>
+            </div>
+          </div>
+          <p class="card-pf-info text-center"><strong>Created On</strong> 2015-03-01 02:00 AM <br /> Never Expires
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+      <div class="card-pf card-pf-view card-pf card-pf-accented card-pf-aggregate-status ">
+        <div class="card-pf-body">
+          <div class="card-pf-top-element">
+            <span class="fa fa-birthday-cake card-pf-icon-circle"></span>
+          </div>
+          <h2 class="card-pf-title text-center">
+            Cake Service
+          </h2>
+          <div class="card-pf-items text-center">
+            <div class="card-pf-item">
+              <span class="pficon pficon-screen"></span>
+              <span class="card-pf-item-text">8</span>
+            </div>
+            <div class="card-pf-item">
+              <span class="fa fa-check"></span>
+            </div>
+          </div>
+          <p class="card-pf-info text-center"><strong>Created On</strong> 2015-03-01 02:00 AM <br /> Never Expires
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+      <div class="card-pf card-pf-view card-pf card-pf-accented card-pf-aggregate-status ">
+        <div class="card-pf-body">
+          <div class="card-pf-top-element">
+            <span class="fa fa-birthday-cake card-pf-icon-circle"></span>
+          </div>
+          <h2 class="card-pf-title text-center">
+            Cake Service
+          </h2>
+          <div class="card-pf-items text-center">
+            <div class="card-pf-item">
+              <span class="pficon pficon-screen"></span>
+              <span class="card-pf-item-text">8</span>
+            </div>
+            <div class="card-pf-item">
+              <span class="fa fa-check"></span>
+            </div>
+          </div>
+          <p class="card-pf-info text-center"><strong>Created On</strong> 2015-03-01 02:00 AM <br /> Never Expires
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+ -->
+<style type="text/css">
+
+  table.table tr td { font-size: 12px; }
+  table.table tr th { font-size: 13px; }
+  /*span.badge { font-size: 8px; }*/
+
+</style>
+
+
+<script>
+    
+
+
+  $(function () {
+    // matchHeight the contents of each .card-pf and then the .card-pf itself
+    $(".row-cards-pf > [class*='col'] > .card-pf > .card-pf-body").matchHeight();
+  });
+
+  $(function () {
+    // matchHeight the contents of each .card-pf and then the .card-pf itself
+    $(".row-cards-pf > [class*='col'] > .card-pf .card-pf-title").matchHeight();
+    $(".row-cards-pf > [class*='col'] > .card-pf > .card-pf-body").matchHeight();
+    $(".row-cards-pf > [class*='col'] > .card-pf > .card-pf-footer").matchHeight();
+    $(".row-cards-pf > [class*='col'] > .card-pf").matchHeight();
+    // initialize tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+
+
+
+</script>
+
+
+<script>
+
+function start_webssh(vm_uuid) {
+     $.ajax({
+        type: 'GET',
+        url: '/frontend/vm/connect/?uuid=' + vm_uuid,
+        beforeSend: function () {},
+        success: function (data) {
+            {#console.log(data)#}
+            display_webssh_window(data)
+        }
+      });
+}
+
+function display_webssh_window(data) {
+    if (data.status === "OK") {
+        var vm_uuid = data.uuid,
+            url = data.connect;
+        window.open(url);
+    }
+}
+function web_ssh_connect(uuid) {
+    start_webssh(uuid)
+}
+
+</script>

@@ -1,0 +1,44 @@
+--- 
+apiVersion: v1
+kind: nginx
+labels: 
+  nginx: web server
+metadata: 
+  name: app
+  annotations:
+    title: Web Server
+    description: |
+      Nginx Web server
+    iconClass: icon-nginx-icon
+    tags: "server,app"
+  cloud: false
+
+ansibleObjects: 
+
+  - apiVersion: v1
+    kind: ModelInjector
+    metadata: 
+      name: instance
+      model: core.iaas
+      anchor: r__nginx_facts
+      entrypoint: r__nginx_facts.svc
+
+
+    spec:
+      # adhoc: false
+      uniqueKeys:
+
+        - name: uuid
+          yaqlRef: ahome_tags.ahome
+
+      modelFields: 
+
+        # - name: tags
+        #   yaqlRef: ahome_tags.ahome
+        #   fieldRef: inputs
+
+        - name: nginx
+          yaqlRef: svc_url
+
+
+

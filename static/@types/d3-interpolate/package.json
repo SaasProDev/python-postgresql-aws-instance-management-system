@@ -1,0 +1,104 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "@types/d3-interpolate@*",
+        "scope": "@types",
+        "escapedName": "@types%2fd3-interpolate",
+        "name": "@types/d3-interpolate",
+        "rawSpec": "*",
+        "spec": "*",
+        "type": "range"
+      },
+      "/Users/danny/ownCloud/ahome.patternfly3/node_modules/@types/d3"
+    ]
+  ],
+  "_from": "@types/d3-interpolate@*",
+  "_hasShrinkwrap": false,
+  "_id": "@types/d3-interpolate@1.3.1",
+  "_inCache": true,
+  "_location": "/@types/d3-interpolate",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/d3-interpolate_1.3.1_1550078695756_0.5024667678892871"
+  },
+  "_npmUser": {
+    "name": "types",
+    "email": "ts-npm-types@microsoft.com"
+  },
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "@types/d3-interpolate@*",
+    "scope": "@types",
+    "escapedName": "@types%2fd3-interpolate",
+    "name": "@types/d3-interpolate",
+    "rawSpec": "*",
+    "spec": "*",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/@types/d3",
+    "/@types/d3-zoom"
+  ],
+  "_resolved": "https://registry.npmjs.org/@types/d3-interpolate/-/d3-interpolate-1.3.1.tgz",
+  "_shasum": "1c280511f622de9b0b47d463fa55f9a4fd6f5fc8",
+  "_shrinkwrap": null,
+  "_spec": "@types/d3-interpolate@*",
+  "_where": "/Users/danny/ownCloud/ahome.patternfly3/node_modules/@types/d3",
+  "bugs": {
+    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
+  },
+  "contributors": [
+    {
+      "name": "Tom Wanzek",
+      "url": "https://github.com/tomwanzek"
+    },
+    {
+      "name": "Alex Ford",
+      "url": "https://github.com/gustavderdrache"
+    },
+    {
+      "name": "Boris Yankov",
+      "url": "https://github.com/borisyankov"
+    },
+    {
+      "name": "denisname",
+      "url": "https://github.com/denisname"
+    }
+  ],
+  "dependencies": {
+    "@types/d3-color": "*"
+  },
+  "description": "TypeScript definitions for D3JS d3-interpolate module",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-z8Zmi08XVwe8e62vP6wcA+CNuRhpuUU5XPEfqpG0hRypDE5BWNthQHB1UNWWDB7ojCbGaN4qBdsWp5kWxhT1IQ==",
+    "shasum": "1c280511f622de9b0b47d463fa55f9a4fd6f5fc8",
+    "tarball": "https://registry.npmjs.org/@types/d3-interpolate/-/d3-interpolate-1.3.1.tgz",
+    "fileCount": 4,
+    "unpackedSize": 21367,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJcZFLoCRA9TVsSAnZWagAAKXIP/Raddhu238TvNMEO+vX7\n8LnSo7De6ggccmQm51sDw3bufej8Blk6utUUQicfdELzNuwSif45PwuYyOVC\n/TOF0sFQ6p3tf8TnfmjYQjl+223ffOM1bfVW6XM4rlpORDDrOG4YH9swfziv\n9e60N2PXqnTfPuwN0BXlziBylklwRUcxebcJnjv3ds8CelG0hjmCvfg51ENQ\nPS6D8wSW9pohDzOv0GmrVxDaV23qRJASKnNNvc3qjyq9Zst8Mox9llQpJRYC\nZJJ8dMEGeDylnj5kL4Y0qzCrmcAPl8YwU5h7ILWB2EfVkfV7f82O3Pv4X0RH\n8QCpq3Q3hqInWeKLROnGZXZAyZ1arfSiz770zQuN5S8juXMGBYvEf0u5UV2v\nD4MYE37ITr0daKWgMm6aC/isHlmwxZqVzCZaT66jdgs0FGpnPQHfWHz5R03y\ng6awqu2bDx/qTZDt7GeSBWuo6Yn2E2sifiiky3BvG2aW2rgu20M2iGqouGtP\nadRdlMDvgo1vem7rXAwXmbcv6mqu+r/ElVjoDEY2WunOaZG6mNvqZZ8O/2rD\ndQJPFwyeNUyR3MzLsAIPjZa8SVYH8EwHdYMkB/SbTHADzz/MbWz2Fm+xvw3N\nIXrEo5PEBB+aMyUEcnANekMnsH06m9iHnLpoMMQfOLqIqCOqdfBeUPdIWR3N\nHJx1\r\n=u69P\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped#readme",
+  "license": "MIT",
+  "main": "",
+  "maintainers": [
+    {
+      "name": "types",
+      "email": "ts-npm-types@microsoft.com"
+    }
+  ],
+  "name": "@types/d3-interpolate",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+  },
+  "scripts": {},
+  "typeScriptVersion": "2.3",
+  "types": "index",
+  "typesPublisherContentHash": "badb9c27386531ee6bbc68a9fdb0239575b61958ced46eac412a6ca56bc0d518",
+  "version": "1.3.1"
+}

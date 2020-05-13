@@ -1,0 +1,353 @@
+<style>
+    .li-select-version1 {
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+      display: block;
+      float: left;
+      min-width: 160px;
+      padding: 5px 0;
+      margin: 2px 0 0;
+      font-size: 12px;
+      text-align: left;
+      list-style: none;
+      background-color: #fff;
+      background-clip: padding-box;
+      border-radius: 1px;
+    }
+  
+    .li-select-version1 .divider {
+      background-color: #ededed;
+      height: 1px;
+      margin: 4px 1px;
+      overflow: hidden;
+    }
+  
+    .li-select-version1>li>a {
+      border-color: transparent;
+      border-style: solid;
+      border-width: 1px 0;
+      padding: 1px 10px;
+    }
+  
+    .li-select-version1>li>a {
+      display: block;
+      padding: 3px 20px;
+      clear: both;
+      font-weight: 400;
+      line-height: 1.66666667;
+      color: #363636;
+      white-space: nowrap;
+    }
+  </style>
+  {% load static %} {% load frontend_extras %}
+  <div class="total_view" style="display:none;">
+    {% for image in images %}
+    <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas ahome-distribution">
+      <div class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-image-select">
+        <div class="card-pf-body image-icon-iaas">
+  
+          <div class="card-pf-top-element">
+  
+            <!--// hidden fields -->
+  
+            <input type="hidden" class="applauncher-pf-image" value="{{ image|default:'{}' }}">
+            <input type="hidden" class="applauncher-pf-image-name" value="{{ image.name|default:'unknown' }}">
+            <input type="hidden" class="applauncher-pf-image-label" value="{{ image.label|default:'unknown' }}">
+            <input type="hidden" class="applauncher-pf-image-version" value="{{ image.default|default:'Latest' }}">
+            <input type="hidden" class="applauncher-pf-image-applications" value="{{ image.applications|default:'[]' }}">
+  
+            <input type="hidden" class="applauncher-pf-image-extra-fields" value="{% url 'wizardboxesform_retrieve_additional_fields' image.name %}">
+  
+            <!-- hidden fields //-->
+  
+          </div>
+  
+          <div class="card-pf-heading-kebab">
+            <div class="dropdown pull-right dropdown-kebab-pf">
+              <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="true">
+                <span class="fa fa-ellipsis-v"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+                {% for ver in image.version %}
+                <li>
+                  <a href="#">{{image.label }} {{ ver }}</a>
+                </li>
+                {% endfor %}
+                <li role="separator" class="divider"></li>
+                <li>
+                  <a href="#">Latest version</a>
+                </li>
+              </ul>
+            </div>
+  
+            <h2 class="card-pf-title">
+              <img src="{% static image.iconClass %}" class="image-icon" alt="{{ image.label }}">
+            </h2>
+          </div>
+          <div>
+  
+  
+            <small>
+              <span class="label label-info">{{ image.label }}</span>
+            </small>
+  
+  
+          </div>
+        </div>
+        <div class="card-pf-footer">
+          <div class="dropdown dropdown-kebab-pf" style="text-align: center;">
+            <div class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="true" style="display:flex;justify-content:center;padding-right:0px;">
+              <div style="font-size: 0.7em;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:auto;">
+                <span class="select_version_label {{image.name}}-main-selected-label">Select version</span> &nbsp;&nbsp;
+  
+              </div>
+              <span class="fa caret pull-right" style="text-align: right;"></span>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-right li-select-version" aria-labelledby="dropupKebabRight2x">
+              {% for ver in image.version %}
+              <li>
+                <a href="#" class="{{image.name}}">{{image.label }} {{ ver }}</a>
+              </li>
+              {% endfor %}
+              <li role="separator" class="divider"></li>
+              <li>
+                <a role="button" class="{{image.name}}">Latest version</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  
+  </div>
+  
+  <style>
+    .owl-theme .owl-nav [class*='owl-'] {
+      display: none;
+    }
+  </style>
+  
+  <button class="btn btn-default prev_button" style="position: absolute;left:-36px;top:39%;padding:10px;z-index:9999;">
+    <span class="fa fa-arrow-left"></span>
+  </button>
+  <button class="btn btn-default next_button" style="position: absolute;right:-46px;top:39%;padding:10px;z-index:9999;">
+    <span class="fa fa-arrow-right"></span>
+  </button>
+  <div class="owl-carousel owl-theme custom_carousel">
+    {% for image in images %}
+    <div class="item">
+      <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas ahome-distribution">
+        <div class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-image-select">
+          <div class="card-pf-body image-icon-iaas">
+  
+            <div class="card-pf-top-element">
+  
+              <!--// hidden fields -->
+  
+              <input type="hidden" class="applauncher-pf-image" value="{{ image|default:'{}' }}">
+              <input type="hidden" class="applauncher-pf-image-name" value="{{ image.name|default:'unknown' }}">
+              <input type="hidden" class="applauncher-pf-image-label" value="{{ image.label|default:'unknown' }}">
+              <input type="hidden" class="applauncher-pf-image-version" value="{{ image.default|default:'Latest' }}">
+              <input type="hidden" class="applauncher-pf-image-applications" value="{{ image.applications|default:'[]' }}">
+  
+              <input type="hidden" class="applauncher-pf-image-extra-fields" value="{% url 'wizardboxesform_retrieve_additional_fields' image.name %}">
+  
+              <!-- hidden fields //-->
+  
+            </div>
+  
+            <div class="card-pf-heading-kebab">
+              <div class="dropdown pull-right dropdown-kebab-pf">
+                <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="true">
+                  <span class="fa fa-ellipsis-v"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+                  {% for ver in image.version %}
+                  <li>
+                    <a href="#">{{image.label }} {{ ver }}</a>
+                  </li>
+                  {% endfor %}
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <a href="#">Latest version</a>
+                  </li>
+                </ul>
+              </div>
+  
+              <h2 class="card-pf-title">
+                <img src="{% static image.iconClass %}" class="image-icon" alt="{{ image.label }}">
+              </h2>
+            </div>
+            <div>
+  
+  
+              <small>
+                <span class="label label-info">{{ image.label }}</span>
+              </small>
+  
+  
+            </div>
+          </div>
+          <div class="card-pf-footer">
+              {% for ver in image.version %}
+              {% if forloop.first %}
+              <input type="hidden" value="{{image.label }} {{ver}}" class="select_version_first_label"
+              />
+              {% endif %}
+  
+              {% endfor %}
+  
+            <div class="dropdown dropdown-kebab-pf" style="text-align: center;display:flex;justify-content:center;">
+  
+              <!-- <div class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="true" style="display:flex;justify-content:center;padding-right:0px;">
+                <div style="font-size: 0.7em;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:auto;">
+                  <span class="select_version_label {{image.name}}-main-selected-label">Select version</span> &nbsp;&nbsp;
+  
+                </div>
+  
+                <span class="fa caret pull-right" style="text-align: right;"></span>
+              </div> -->
+  
+              <button type="button" class="btn btn-lg btn-default pp_button select_version_label {{image.name}}-main-selected-label" style="text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+              width: auto;
+              font-size:12px;" data-toggle="popover" data-trigger="focus" data-placement="bottom" data-content="
+              <ul class='dropdown-menu-right li-select-version1' aria-labelledby='dropupKebabRight2x' style='left:auto;right:-15px;margin-top:11px;'>
+                  {% for ver in image.version %}
+                  <li>
+                    <a href='#' class='{{image.name}}'>{{image.label }} {{ ver }}</a>
+                  </li>
+                  {% endfor %}
+                  <li role='separator' class='divider'></li>
+                  <li>
+                    <a role='button' class='{{image.name}}'>Latest version</a>
+                  </li>
+                </ul>
+              ">Select version</button>
+  
+  
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12" style="display:flex;justify-content:flex-end;">
+      <span style="color:#0069ff;font-size:14px;font-weight:bold;cursor:pointer;" class="show_all_plans">Show All Images</span>
+      <span style="color:#0069ff;font-size:14px;font-weight:bold;cursor:pointer;display:none;" class="hide_all_plans">Hide All Images</span>
+  
+    </div>
+  </div>
+  
+  <script>
+    var carousel_type = 1;
+    $('.show_all_plans').on('click', function () {
+      carousel_type = 0;
+      $('.total_view').css('display', 'block');
+      $('.custom_carousel').css('display', 'none');
+      $('.prev_button').css('display', 'none');
+      $('.next_button').css('display', 'none');
+      $('.hide_all_plans').css('display', 'block');
+      $(this).css('display', 'none');
+    })
+    $('.hide_all_plans').on('click', function () {
+      carousel_type = 1;
+      $('.total_view').css('display', 'none');
+      $('.custom_carousel').css('display', 'block');
+      $('.prev_button').css('display', 'block');
+      $('.next_button').css('display', 'block');
+      $('.show_all_plans').css('display', 'block');
+      $(this).css('display', 'none');
+    })
+    $(function () {
+      $(document).on('click', "ul.li-select-version1 li", function () {
+        $('.select_version_label').each(function () {
+          $(this).prop('value', 'Select version');
+        })
+  
+        //alert($(this).text());
+        var html = $(this).find('a').attr('class');
+        //alert(html);
+        $('.' + html + '-main-selected-label').html($(this).text());
+      });
+      $(document).on('click', "ul.li-select-version li", function () {
+        $('.select_version_label').each(function () {
+          $(this).prop('value', 'Select version');
+        })
+  
+        //alert($(this).text());
+        var html = $(this).find('a').attr('class');
+        //alert(html);
+        $('.' + html + '-main-selected-label').html($(this).text());
+      });
+    });
+  
+    $(document).ready(function () {
+      $(function () {
+        $('.pp_button').popover({
+          html: true,
+          container: 'body'
+        })
+  
+      })
+      var owl = $(".custom_carousel");
+      owl.owlCarousel({
+        loop: false,
+        margin: 10,
+        items: 6,
+        nav: true,
+        responsive: {
+          0: {
+            items: 1
+          },
+          600: {
+            items: 3
+          },
+          1000: {
+            items: 6
+          }
+        }
+      });
+      $(".prev_button").click(function () {
+        owl.trigger('prev.owl.carousel');
+      });
+  
+      $(".next_button").click(function () {
+  
+        owl.trigger('next.owl.carousel');
+      });
+  
+    });
+  
+  
+    $('.ahome-distribution').on('click', function (event) {
+  
+      if (event.target.tagName.toLowerCase() === 'a') {
+  
+      } else {
+        $('.select_version_label').each(function () {
+          $(this).html('Select version');
+        })
+        if(carousel_type == 1) {
+          var val = $(this).find('.select_version_first_label').val();
+        } else {
+          var val = $(this).find('ul.li-select-version li:first').html();
+        }
+        
+        $(this).find('.select_version_label ').html(val);
+  
+      }
+  
+    })
+  </script>

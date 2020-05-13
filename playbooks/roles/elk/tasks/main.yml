@@ -1,0 +1,90 @@
+---
+# tasks file for playbooks/roles/elk
+
+- sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    sysctl_set: yes
+    state: present
+    reload: yes
+
+- sysctl:
+    name: vm.max_map_count
+    value: "262144"
+    sysctl_set: yes
+    state: present
+    reload: yes
+
+
+# install usual packages
+- name: default packages
+  yum: name={{item}} state=present
+  loop:
+    - "{{ rpms }}"
+
+
+
+# Install (docker-py) python package.
+- name: upgrade pip
+  pip:
+    name: 
+      - pip
+    state: latest
+    executable: pip3
+
+# - name: install docker-compose
+#   pip:
+#     name: 
+#       - docker-py
+#     state: absent
+
+- name: install pip docker
+  pip:
+    name: 
+      - docker
+      - docker-compose
+    state: latest
+    executable: pip3
+
+# - docker_compose:
+#     project_src: elk
+#     state: absent
+#   vars:
+#     ansible_python_interpreter: /usr/bin/python3
+
+- docker_compose:
+    project_name: elk
+    restarted: yes
+    definition:
+      version: '2'
+      services:
+        elk:
+          image: sebp/elk
+          volumes:
+            - "{{ datastore | d('/opt') }}/elasticsearch:/var/lib/elasticsearch"
+          ports:
+            - "5601:5601"
+            - "9200:9200"
+            - "5044:5044"
+  register: output
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+
+- debug:
+    var: output
+
+- name: ahome callback
+  set_fact:
+    r__elk_facts:
+      ahome_id: "{{ ahome__id }}"
+      ahome_model: "{{ ahome__model }}"
+      svc:
+        - ahome_inventory: "{{ lookup('env','INVENTORY') }}"
+          svc_path: "/"
+          svc_port: "5601"
+          svc_url: "http://{{ lookup('env','INVENTORY') }}:5601/"
+          ahome_tags: "{{ lookup('env','TAGS') }}"
+      # ansible_facts: "[{{ r__enable_apache }}]"
+
+- debug: var=r__elk_facts

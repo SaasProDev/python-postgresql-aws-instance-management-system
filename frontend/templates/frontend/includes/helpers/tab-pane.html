@@ -1,0 +1,303 @@
+
+<!-- /tab-pane -->
+<div class="container">
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Public</a></li>
+    <li><a data-toggle="tab" href="#menu1">Private</a></li>
+    <li><a data-toggle="tab" href="#menu2">Others</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <h3>PUBLIC CLOUD PROVIDERS</h3>
+      <p>Deploy infrastructure as a service on a public cloud provider.</p>
+
+      {% for provider in wizardboxes_fields.provider %}
+
+      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+      <div class="card-pf card-pf-view ">
+        <div class="card-pf-body">
+          <div class="card-pf-top-element">
+            <span class="{{ provider.icon }} card-pf-icon-circle"></span>
+          </div>
+          <h2 class="card-pf-title text-center">
+            {{ provider.name }}
+          </h2>
+          <div class="card-pf-items text-center">
+            <div class="card-pf-item">
+
+
+              <!--/.application launcher -->
+
+               <ul>      
+                   <li class="applauncher-pf  dropdown">
+
+
+                       <span class="dropdown-toggle nav-item-iconic fa fa-th applauncher-pf-icon" data-toggle="dropdown" aria-hidden="true"></span>
+                       <span class="dropdown-title">
+                         <span class="applauncher-pf-title">
+                           Application Launcher
+                           <span class="caret" aria-hidden="true"></span>
+                         </span>
+                       </span>
+          
+
+                     <ul class="dropdown-menu" role="menu">
+
+                      {% for applauncher in provider.subs %}
+
+                       <li class="applauncher-pf-item" role="presentation">
+                         <a class="applauncher-pf-link" href="#" data-url="{{ applauncher.wizardboxesform }}" role="menuitem">
+                           
+                           <i class="applauncher-pf-link-icon {{ applauncher.icon }}" aria-hidden="true"></i>
+                           
+                           <span class="applauncher-pf-link-title">{{ applauncher.label }}</span>
+                         </a>
+                       </li>
+
+                      {% endfor %}
+
+
+                     </ul>
+                   </li>
+               </ul>
+              <!--/.application launcher -->
+
+            </div>
+            <div class="card-pf-item">
+
+              {% if provider.runner.rc == 0 %}
+              <span class="fa fa-check"></span>
+              {% else %}
+              <span class="fa pficon-error-circle-o"></span>
+              {% endif %}
+
+
+
+            </div>
+          </div>
+        </div>
+        <div class="card-pf-view-checkbox">
+          <input type="checkbox">
+        </div>
+      </div>
+      </div>
+      {% endfor %}
+
+
+    </div>
+
+
+
+
+
+
+    <div id="menu1" class="tab-pane fade">
+      <h3>PRIVATE CLOUD PROVIDERS</h3>
+      <p>Deploy infrastructure as a service on a private cloud provider.</p>
+
+      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+      <div class="card-pf card-pf-view ">
+        <div class="card-pf-body">
+          <div class="card-pf-top-element">
+            <span class="fa fa-cloud card-pf-icon-circle"></span>
+          </div>
+          <h2 class="card-pf-title text-center">
+            VMWARE
+          </h2>
+          <div class="card-pf-items text-center">
+            <div class="card-pf-item">
+              <span class="pficon pficon-screen"></span>
+              <span class="card-pf-item-text">4</span>
+            </div>
+            <div class="card-pf-item">
+              <span class="fa fa-check"></span>
+            </div>
+          </div>
+        </div>
+        <div class="card-pf-view-checkbox">
+          <input type="checkbox">
+        </div>
+      </div>
+      </div>
+
+
+      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+      <div class="card-pf card-pf-view ">
+        <div class="card-pf-body">
+          <div class="card-pf-top-element">
+            <span class="fa fa-cloud card-pf-icon-circle"></span>
+          </div>
+          <h2 class="card-pf-title text-center">
+            KVM
+          </h2>
+          <div class="card-pf-items text-center">
+            <div class="card-pf-item">
+              <span class="pficon pficon-screen"></span>
+              <span class="card-pf-item-text">6</span>
+            </div>
+            <div class="card-pf-item">
+              <span class="fa fa-check"></span>
+            </div>
+          </div>
+        </div>
+        <div class="card-pf-view-checkbox">
+          <input type="checkbox">
+        </div>
+      </div>
+      </div>
+
+
+      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+      <div class="card-pf card-pf-view ">
+        <div class="card-pf-body">
+          <div class="card-pf-top-element">
+            <span class="fa fa-cloud card-pf-icon-circle"></span>
+          </div>
+          <h2 class="card-pf-title text-center">
+            RHEV
+          </h2>
+          <div class="card-pf-items text-center">
+            <div class="card-pf-item">
+              <span class="pficon pficon-screen"></span>
+              <span class="card-pf-item-text">6</span>
+            </div>
+            <div class="card-pf-item">
+              <span class="fa fa-check"></span>
+            </div>
+          </div>
+        </div>
+        <div class="card-pf-view-checkbox">
+          <input type="checkbox">
+        </div>
+      </div>
+      </div>
+
+
+      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+      <div class="card-pf card-pf-view ">
+        <div class="card-pf-body">
+          <div class="card-pf-top-element">
+            <span class="fa fa-cloud card-pf-icon-circle"></span>
+          </div>
+          <h2 class="card-pf-title text-center">
+            OPENSHIFT
+          </h2>
+          <div class="card-pf-items text-center">
+            <div class="card-pf-item">
+              <span class="pficon pficon-screen"></span>
+              <span class="card-pf-item-text">6</span>
+            </div>
+            <div class="card-pf-item">
+              <span class="fa fa-check"></span>
+            </div>
+          </div>
+        </div>
+        <div class="card-pf-view-checkbox">
+          <input type="checkbox">
+        </div>
+      </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+      <div class="card-pf card-pf-view ">
+        <div class="card-pf-body">
+          <div class="card-pf-top-element">
+            <span class="fa fa-cloud card-pf-icon-circle"></span>
+          </div>
+          <h2 class="card-pf-title text-center">
+            PROXMOX
+          </h2>
+          <div class="card-pf-items text-center">
+            <div class="card-pf-item">
+              <span class="pficon pficon-screen"></span>
+              <span class="card-pf-item-text">6</span>
+            </div>
+            <div class="card-pf-item">
+              <span class="fa fa-check"></span>
+            </div>
+          </div>
+        </div>
+        <div class="card-pf-view-checkbox">
+          <input type="checkbox">
+        </div>
+      </div>
+      </div>
+
+
+
+
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>OTHER PROVIDERS</h3>
+      <p>Deploy infrastructure as a service on a provider.</p>
+
+      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+      <div class="card-pf card-pf-view ">
+        <div class="card-pf-body">
+          <div class="card-pf-top-element">
+            <span class="fa fa-cloud card-pf-icon-circle"></span>
+          </div>
+          <h2 class="card-pf-title text-center">
+            NETBOX
+          </h2>
+          <div class="card-pf-items text-center">
+            <div class="card-pf-item">
+              <span class="pficon pficon-screen"></span>
+              <span class="card-pf-item-text">4</span>
+            </div>
+            <div class="card-pf-item">
+              <span class="fa fa-check"></span>
+            </div>
+          </div>
+        </div>
+        <div class="card-pf-view-checkbox">
+          <input type="checkbox">
+        </div>
+      </div>
+      </div>
+
+
+      <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+      <div class="card-pf card-pf-view ">
+        <div class="card-pf-body">
+          <div class="card-pf-top-element">
+            <span class="fa fa-cloud card-pf-icon-circle"></span>
+          </div>
+          <h2 class="card-pf-title text-center">
+            AWX
+          </h2>
+          <div class="card-pf-items text-center">
+            <div class="card-pf-item">
+              <span class="pficon pficon-screen"></span>
+              <span class="card-pf-item-text">6</span>
+            </div>
+            <div class="card-pf-item">
+              <span class="fa fa-check"></span>
+            </div>
+          </div>
+        </div>
+        <div class="card-pf-view-checkbox">
+          <input type="checkbox">
+        </div>
+      </div>
+      </div>
+
+
+
+
+    </div>
+  </div>
+</div>
+<!-- /.tab-pane -->
+
+
+<script type="text/javascript">
+
+  // $( " .applauncher-pf-link" ).on('click', function() {
+  //   // alert('Hello');
+  //   $( ".btn.wizard-pf-complete" ).click();
+  // });
+
+</script>

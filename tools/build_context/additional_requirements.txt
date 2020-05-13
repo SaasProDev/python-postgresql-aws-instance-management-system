@@ -1,0 +1,11 @@
+service_identity
+python_socketio
+whitenoise
+celery-progress==0.0.9
+watchdog
+argh
+
+#Linode - temporary here -- waiting for the core platform to be updated
+linode_api4 
+
+

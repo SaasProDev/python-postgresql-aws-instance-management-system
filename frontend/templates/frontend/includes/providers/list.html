@@ -1,0 +1,227 @@
+{% load static %}
+{% load frontend_extras %}
+
+
+
+
+
+{% for data in apidata.results %}
+
+  <div class="list-group-item">
+    <div class="list-group-item-header">
+      <div class="list-view-pf-expand">
+        <span class="fa fa-angle-right"></span>
+      </div>
+      <div class="list-view-pf-checkbox">
+        <input type="checkbox">
+      </div>
+      <div class="list-view-pf-actions">
+
+
+        {% snippet__row_header_spinner %}
+
+
+
+
+
+      </div>
+      <div class="list-view-pf-main-info">
+        <div class="list-view-pf-left">
+          <img src="{{ data.icons.provider.small }}" class="list-view-pf-icon-sm">
+        </div>
+        <div class="list-view-pf-body">
+          <div class="list-view-pf-description">
+            <div class="list-group-item-heading">
+              {{ data.name }}
+              <small>{{ data.last_updated }}</small>
+            </div>
+            <div class="list-group-item-text">
+              <span class="fa pficon-enterprise"></span>
+              {{ data.summary_fields.organization.name }}
+              <br/>
+              {{ data.description }}
+            </div>
+
+
+
+          </div>
+          <div class="list-view-pf-additional-info">
+
+
+
+
+
+
+            <div class="list-view-pf-additional-info-item">
+              <span class="fa pficon-service" style="color:green"></span>
+              <strong>{{ data.related.iaas | length }}</strong> &nbsp;&nbsp;
+              <span class="fa pficon-service" style="color:#b51c10"></span>
+              <strong>{{ data.related.iaas | length }}</strong> IaaS
+            </div>
+
+
+
+
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-virtual-machine" style="color:green"></span>
+              <strong>{{ data.summarized_fields.virtualmachine }}</strong>&nbsp;&nbsp;
+              <span class="pficon pficon-virtual-machine" style="color:#b51c10"></span>
+              <strong>{{ data.summarized_fields.virtualmachine }}</strong> Virtual Machines
+            </div>
+
+
+
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-server" style="color:green"></span>
+              <strong>{{ data.summarized_fields.device }}</strong> &nbsp;&nbsp;
+              <span class="pficon pficon-server" style="color:#b51c10"></span>
+              <strong>{{ data.summarized_fields.device }}</strong> Devices
+            </div>
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="list-group-item-container container-fluid hidden">
+      <div class="close">
+        <span class="pficon pficon-close"></span>
+      </div>
+      <div class="row">
+
+        <div class="col-md-6">
+          <dl class="dl-horizontal">
+            <dt>ORG NAME</dt>
+            <dd><strong><a href="#"  class="js-link-ahome-navigate" data-url="{% url 'organization' %}?id={{ data.summary_fields.organization.id }}">{{ data.summary_fields.organization.name }}</a></strong></dd>
+            <dt>Name</dt>
+            <dd>{{ data.name }}</dd>
+            <dt>Description</dt>
+            <dd>{{ data.description }}</dd>
+            <dt>Created</dt>
+            <dd>{{ data.created }}</dd>
+            <dt>Updated</dt>
+            <dd>{{ data.last_updated }}</dd>
+            <dt>Status</dt>
+            <dd id="{{ model_name | lower }}-runner-status-{{ data.uuid }}">{{ data.runner.status }}</dd>
+
+          </dl>        
+        </div>
+
+
+        <div class="col-md-6">
+          <dl class="dl-horizontal">
+            <b><a href="#"  class="js-link-ahome-navigate" data-url="{% url 'iaas' %}?provider={{ data.id }}">Infrastructure as a Service (IaaS)</a></b>
+            <ul>
+              {% for ias in data.related.iaas|dictsort:"name" %}
+              <li><a href="#"  class="js-link-ahome-navigate" data-url="{% url 'iaas' %}?id={{ ias.id }}&provider={{ data.id }}">{{ ias.name }}</a> &nbsp; {% if ias.status != "running" %} ( <i class="fa fa-info" aria-hidden="true"></i> {{ ias.status }} ) {% endif %}</li>
+              {% endfor %}
+            </ul>
+          </dl>
+
+
+          {% snippet__row_content_progressbar %}
+
+
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+
+{% empty %}
+
+
+
+<div class="blank-slate-pf " id="">
+  <div class="blank-slate-pf-icon">
+    <span class="pficon pficon pficon-add-circle-o"></span>
+  </div>
+  <h1>
+    No {{model_name}}
+  </h1>
+  <p>
+    Please add an {{model_name}} to start using ahome enterprise edition.
+  </p>
+  <p>
+    Learn more about this <a href="#">in the documentation</a>.
+  </p>
+  <div id="ahome-generic-create" class="blank-slate-pf-main-action js-link-ahome-generic-create" data-url="{% url url_create %}">
+    <button class="btn btn-primary btn-lg"> Add Credentials </button>
+  </div>
+</div>
+
+
+
+{% endfor %}
+
+
+<script>
+$(function () {
+
+  $(".js-link-ahome-generic-create").click(function () {
+    $.ajax({
+      url: "{% url url_create %}",
+      type: 'get',
+      dataType: 'json',
+      beforeSend: function () {
+        $("#modal-ahome-generic").modal("show");
+      },
+      success: function (data) {
+        $("#modal-ahome-generic .modal-content").html(data.html_form);
+      }
+    });
+  });
+
+});
+
+</script>
+
+
+<script>
+  $(document).ready(function () {
+    // Row Checkbox Selection
+    $("#pf-list-simple-expansion input[type='checkbox']").change(function (e) {
+      if ($(this).is(":checked")) {
+        $(this).closest('.list-group-item').addClass("active");
+      } else {
+        $(this).closest('.list-group-item').removeClass("active");
+      }
+    });
+    // toggle dropdown menu
+    $("#pf-list-simple-expansion .list-view-pf-actions").on('show.bs.dropdown', function () {
+      var $this = $(this);
+      var $dropdown = $this.find('.dropdown');
+      var space = $(window).height() - $dropdown[0].getBoundingClientRect().top - $this.find('.dropdown-menu').outerHeight(true);
+      $dropdown.toggleClass('dropup', space < 10);
+    });
+
+    // click the list-view heading then expand a row
+    $("#pf-list-simple-expansion .list-group-item-header").click(function(event){
+      if(!$(event.target).is("button, a, input, .fa-ellipsis-v")){
+        $(this).find(".fa-angle-right").toggleClass("fa-angle-down")
+          .end().parent().toggleClass("list-view-pf-expand-active")
+            .find(".list-group-item-container").toggleClass("hidden");
+      } else {
+      }
+    })
+
+    // click the close button, hide the expand row and remove the active status
+    $("#pf-list-simple-expansion .list-group-item-container .close").on("click", function (){
+      $(this).parent().addClass("hidden")
+        .parent().removeClass("list-view-pf-expand-active")
+          .find(".fa-angle-right").removeClass("fa-angle-down");
+    })
+
+  });
+</script>
+

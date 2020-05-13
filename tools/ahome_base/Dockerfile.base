@@ -1,0 +1,15 @@
+FROM ahome_pyton37
+
+WORKDIR /
+
+ADD requirements.txt .
+
+RUN	mkdir -p /venv && chmod g+w /venv && \
+		pip3.7 install --ignore-installed virtualenv flake8 && \
+		python3.7 -m venv --system-site-packages /venv/ansible && \
+		/venv/ansible/bin/pip3 install --ignore-installed -r requirements.txt && \
+		/venv/ansible/bin/pip3 install --ignore-installed supervisor Twisted[http2,tls]
+
+RUN rm requirements.txt
+
+

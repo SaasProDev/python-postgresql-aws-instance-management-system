@@ -1,0 +1,289 @@
+.custom-row {
+    padding-top: 8px;
+    border-top: 1px solid #d1d1d1;
+}
+
+.custom-btn {
+    display: inline-block;
+    padding: 0 5px;
+    height: 100%;
+}
+
+.custom-button-group {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.custom-toolbar-pf-action-right .custom-button-group {
+    margin: 0 5px;
+}
+
+.custom-toolbar-pf-action-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.colored button {
+    background-color: #008ccc;
+    background-image: linear-gradient(to bottom, #008ccc 0, #1790c9 100%);
+    color: #ffffff;
+    background-repeat: repeat-x;
+    border-color: #024c6e;
+}
+
+.colored button:hover {
+    background-color: #008ccc;
+    background-image: linear-gradient(to bottom, #008ccc 0, #1790c9 100%);
+    color: #ffffff;
+    background-repeat: repeat-x;
+    border-color: #024c6e;
+}
+
+.vm-description-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.vm-description-row * {
+    margin-right: 8px;
+}
+
+.vm-id {
+    font-size: 24px;
+}
+
+.vm-recap-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.vm-recap-image {
+    width: 20%;
+}
+
+.vm-recap-image img {
+    max-width: 100%;
+}
+
+.vm-recap-description {
+    width: 75%;
+}
+
+.vm-recap-image,
+.vm-recap-description {
+    box-sizing: border-box;
+}
+
+.vm-card-custom-head {
+    position: relative;
+    text-align: right;
+    display: inline-block;
+}
+
+.vm-os {
+    background: #ececec;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 2px 12px;
+    font-weight: bold;
+}
+
+.custom-card-pf {
+    position: relative;
+}
+
+.vm-card-custom-head {
+    position: absolute;
+    right: 0;
+    top: -2px;
+}
+
+.vm-recap-description p {
+    position: relative;
+}
+
+.vm-edit {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a3a0a0;
+}
+
+.card-pf-title {
+    position: relative;
+}
+
+.dl-horizontal dt {
+    text-align: left !important;
+    width: 100px;
+}
+
+.dl-horizontal dd {
+    margin-left: 100px;
+}
+
+.custom-layout-row{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.custom-col {
+    position: relative;
+    flex-shrink: 1;
+    display: flex;
+}
+
+.custom-col-6{
+    width: calc(50% - 20px);
+}
+
+.custom-col-5 {
+    width: calc(41.6666667% - 20px);
+}
+
+.custom-col-6 .card-pf{
+    height: 100%;
+    width: 100%;
+}
+
+.custom-toolbar .custom-toolbar-pf-action-right .custom-button-group {
+    display: flex !important;
+}
+
+.custom-toolbar .custom-toolbar-pf-action-right .custom-button-group .btn-default {
+    height: 100%;
+}
+
+
+ /*Ahome Tabs*/
+.ahome-tabs {
+    width: 100%;
+}
+
+.ahome-tabs-nav {
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    width: 100%;
+}
+
+.ahome-tabs-nav li {
+    width: 50%;
+    list-style: none;
+    border-right: 1px solid #ccc!important;
+}
+
+.ahome-tabs-nav li:last-child{
+    border-right: 0;
+}
+
+.ahome-tabs-nav li:first-child a {
+border-right: 0;
+}
+
+
+.ahome-tabs-title-link {
+    background: #eaeaed;
+    color: #4d5258;
+    display: block;
+    font-weight: 600;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+}
+
+.ahome-tabs-title-link:hover {
+    color: #0087cc;
+    text-decoration: none;
+}
+
+.ahome-tab-active a {
+    background: #fff;
+    border-bottom-color: transparent;
+    color: #0087cc;
+    cursor: default;
+    text-decoration: none;
+}
+
+.ahome-tabs-stage {
+    border-top: 0;
+    clear: both;
+    padding: 24px 0;
+    position: relative;
+    top: -1px;
+}
+
+ /*End of Tabs*/
+
+.ahome-plan-heading{
+    text-align: center;
+}
+
+.ahome-plan-heading p{
+    font-size: 12px;
+    color: #008ccc;
+}
+
+.ahome-plan-resources{
+    padding-right: 0px;
+    padding-left: 0px;
+    list-style-type: none;
+    text-align: center;
+}
+
+.pricing-value {
+    color: #008ccc;
+    font-size: 32px;
+}
+
+.pricing-limit {
+    color: #008ccc;
+}
+
+
+
+ /*Customize patternfly default styles */
+.card-pf img {
+    max-height: 100px;
+    width: auto;
+}
+
+.ahome-paas-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.ahome-paas-description{
+    margin-left: 24px;
+}
+
+ /*Platform Details */
+.js-link-ahome-platform-detail {
+    font-weight: bold;
+}
+
+.paas-detail-header {
+    margin: 16px 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.paas-detail-content {
+    margin: 0 16px;
+}
+
+Content Container 
+#contentContainer {
+    background: #ececec;
+    padding-top: 32px;
+    padding-bottom: 32px;
+}

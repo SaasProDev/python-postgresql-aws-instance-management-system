@@ -1,0 +1,141 @@
+---
+name: Amazon ec2
+title: Provisioning Amazon EC2 instance
+description: |
+    Amazon Web service EC2 compute
+cloud: true
+version: 1.0
+kind: ec2
+
+
+
+# # Basic provisioning example
+# - ec2:
+#     key_name: mykey
+#     instance_type: t2.micro
+#     image: ami-0adcddd3324248c4c
+#     wait: yes
+#     group: webserver
+#     count: 1
+#     vpc_subnet_id: subnet-29e63245
+#     assign_public_ip: yes
+
+# t2.nano 1 0.5 3 $0.0058 $0.003  $0.002
+# t2.micro  1 1.0 6 $0.0116 $0.007  $0.005
+# t2.small  1 2.0 12  $0.023  $0.014  $0.009
+# t2.medium 2 4.0 24  $0.0464 $0.031  $0.021
+# t2.large  2 8.0 36  $0.0928 $0.055  $0.037
+# t2.xlarge 4 16.0  54  $0.1856 $0.110  $0.074
+# t2.2xlarge  8 32.0  81  $0.3712 $0.219  $0.148
+
+
+
+
+
+
+fields:
+  - name: ec2_instance_name
+    label: instance name
+    help_text: ex. instance1
+    required: true
+
+
+  - name: ec2_instance_type
+    label: instance type
+    help_text: ex. t2.micro
+    initial: t2.micro
+    type: select
+    choices:
+      - name: 1vCPU 0.5GiB RAM $0.0058/hr
+        value: t2.nano
+
+      - name: 1vCPU 1GiB RAM $0.0116/hr
+        value: t2.micro
+
+      - name: 1vCPU 1GiB RAM $0.023/hr
+        value: t2.small
+      
+      - name: 2vCPUs 4GiB RAM $0.0464/hr
+        value: t2.medium
+      
+      - name: 2vCPUs 8GiB RAM $0.0928/hr
+        value: t2.large
+      
+      - name: 4vCPUs 16GiB RAM $0.1856/hr
+        value: t2.xlarge
+      
+      - name: 8vCPUs 32GiB RAM $0.3712/hr
+        value: t2.2xlarge
+
+
+
+  - name: ec2_instance_image
+    label: image
+    help_text: ex. ami-123456
+    initial: 309956199498;RHEL-7*
+    # required: true
+    type: select
+    choices:
+      - name: RHEL 6 x64
+        value: 309956199498;RHEL-6*
+
+      - name: RHEL 7 x64
+        value: 309956199498;RHEL-7*
+
+      - name: RHEL 8 x64
+        value: 309956199498;RHEL-8.0.*
+
+
+  - name: ec2_wait
+    type: checkbox
+    advanced: true
+
+  - name: ec2_group
+    help_text: ex. webserver
+    advanced: true
+
+  - name: ec2_assign_public_ip
+    label: assign public ip
+    help_text: public ip
+    type: checkbox
+    advanced: true
+
+  - name: ec2_instance_count
+    label: count
+    type: integer
+    min_value: 1
+    max_value: 10
+    initial: 1
+    advanced: false
+
+
+credentials:
+  - name: ec2_username
+    label: username
+
+  - name: ec2_password
+    type: password
+    label: Password
+
+  - name: ec2_key_name
+    advanced: true
+
+  - name: ec2_ssh_pubkey
+    label: ssh public key
+    advanced: true
+    type: textarea
+
+
+  - name: ec2_vault_name
+    advanced: true
+    label: Vault
+
+  - name: ec2_vault_identifier
+    advanced: true
+    label: Vault identifier
+    type: text
+
+  - name: ec2_vault_secret
+    # advanced: true
+    label: Secret
+    type: password 

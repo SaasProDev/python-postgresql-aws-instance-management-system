@@ -1,0 +1,32 @@
+{% load static %}
+{% load widget_tweaks %}
+{% load frontend_extras %}
+
+
+
+{% for field in wizardboxform %}
+
+
+  <div class="col-xs-12 col-sm-3 col-md-6">
+    <p>
+      <b>{{ field.label }}</b>
+      {% if field.help_text %}
+        <br/> {{ field.help_text }}
+      {% endif %}
+    </p>
+
+
+      {% with "f-form-"|add:field.html_name as field_id %}
+        {% render_field field data-app=field.html_name class="form-control form-additional-fields" placeholder=field.label id=field_id %}
+      {% endwith %}
+      {% for error in field.errors %}
+        <p class="help-block">{{ error }}</p>
+      {% endfor %}
+
+  </div>
+  {% if forloop.counter|divisibleby:3 or forloop.last %}
+    <div style="padding: 50px 0;"></div>
+  {% endif %}
+
+
+{% endfor %}

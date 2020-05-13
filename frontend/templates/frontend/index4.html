@@ -1,0 +1,51 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AHOME Enterprise Edition</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  	<!-- PatternFly Styles -->
+  	<!-- Note: No other CSS files are needed regardless of what other JS packages located in patternfly/components that you decide to pull in -->
+  	
+  	<!-- Place before any patternfly css -->
+  	<!-- node_modules/angularjs-datatables/src/css/angular-datatables.css -->
+
+  	<link rel="stylesheet" href="{% static 'node_modules/datatables.net-dt/css/jquery.dataTables.css' %}" />
+
+  	<link rel="stylesheet" href="{% static 'patternfly/dist/css/patternfly.min.css' %}">
+    <link rel="stylesheet" href="{% static 'patternfly/dist/css/patternfly-additions.min.css' %}">
+    
+
+
+  	<!-- PatternFly Styles -->
+
+  	<!-- Angular-PatternFly Styles -->
+  	<link rel="stylesheet" href="{% static 'node_modules/angular-patternfly/dist/styles/angular-patternfly.min.css' %}" />
+
+
+
+    <link href="{% static 'ahome/assets/font-logos.css' %}" rel="stylesheet" />
+    <link href="{% static 'ahome/css/ws-common.css' %}" rel="stylesheet" />
+
+
+<!--     <script src="{% static 'src/components/main.js' %}"></script>
+    <script src="{% static 'src/components/dashboard/script.js' %}"></script> -->
+
+    <link rel="stylesheet" href="{% static 'custom/custom.css'%}" />
+
+
+</head>
+<body>
+  <app-root>Loading...</app-root>
+  <script type="text/javascript" src="{% static 'polyfills-es2015.js' %}"></script>
+  <script type="text/javascript" src="{% static 'polyfills-es2015.js' %}"></script>
+  <script type="text/javascript" src="{% static 'styles-es2015.js' %}"></script>
+  <script type="text/javascript" src="{% static 'vendor-es2015.js' %}"></script>
+  <script type="text/javascript" src="{% static 'runtime-es2015.js' %}"></script>
+  <script type="text/javascript" src="{% static 'main-es2015.js' %}"></script>
+
+</body>
+</html>

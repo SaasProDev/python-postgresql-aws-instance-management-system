@@ -1,0 +1,60 @@
+{% load static %}
+
+
+<div id="global-toast-content"></div>
+
+<!-- 
+https://github.com/joewalnes/reconnecting-websocket.git 
+-->
+
+<script  src="{% static 'ahome/js/reconnecting-websocket.js' %}"></script>
+<script  src="{% static 'ahome/js/jquery.serialize-object.min.js' %}"></script>
+
+<script>
+    
+    {#var loc = window.location;#}
+    {#var wsStart = loc.protocol === "https:" ? "wss://" : "ws://";#}
+    {#// var endpoint = wsStart + loc.host + loc.pathname;#}
+    {#var endpoint = wsStart + loc.host + '/websocket/notifications/';#}
+    {#// var ahomeSocket = new ReconnectingWebSocket(endpoint);#}
+
+    var ws_scheme = window.location.protocol === "https:" ? "wss" : "ws";
+    var ahomeSocket = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/websocket/notifications/");
+
+    ahomeSocket.debug = true;
+    ahomeSocket.timeoutInterval = 5400;
+
+
+    ahomeSocket.onmessage = function(e) {
+        var data = JSON.parse(e.data);
+        {#console.log("WEB SOCKET MESSAGE", data)#}
+        if (data.kind === 'logging') {
+            append_logging_message(data.data)
+        }
+        else {
+            var message = data['message'];
+            // $('#global-toast-notification .ahome-notification-content').html(message);
+            $('#global-toast-content').html(message);
+            $('#global-toast-notification').show();
+
+            setTimeout(function () {
+                $('#global-toast-notification').fadeOut();
+            }, 10000);
+        }
+    };
+
+    // ahomeSocket.onclose = function(e) {
+    //     console.log('Socket is closed.', e.reason);
+    // };
+
+    ahomeSocket.onerror = function(err) {
+        console.error('Socket encountered error: ', err.message, 'Closing socket');
+    };
+
+function append_logging_message(data) {
+    console.log(data)
+    window.$xlog.add_message(data)
+}
+</script>
+
+

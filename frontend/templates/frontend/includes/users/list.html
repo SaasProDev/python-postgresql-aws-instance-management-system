@@ -1,0 +1,265 @@
+{% load static %}
+
+{% for data in apidata.results %}
+
+  <div class="list-group-item">
+    <div class="list-group-item-header">
+      <div class="list-view-pf-expand">
+        <span class="fa fa-angle-right"></span>
+      </div>
+      <div class="list-view-pf-checkbox">
+        <input type="checkbox">
+      </div>
+      <div class="list-view-pf-actions">
+        <button class="btn btn-default">Show</button>
+        <div class="dropdown pull-right dropdown-kebab-pf">
+  <button class="btn btn-link dropdown-toggle" type="button" id="dropdownKebabRight9" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <span class="fa fa-ellipsis-v"></span>
+  </button>
+
+
+
+  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownKebabRight9">
+    <li><a href="#" class="js-link-ahome-generic-update" data-url="{% url url_update data.id %}"><span class="glyphicon glyphicon-pencil"></span> &nbsp; Edit</a></li>
+    <li><a href="#" class="btn-sm js-link-ahome-generic-delete"
+                  data-url="{% url url_delete data.id %}" ><span class="glyphicon glyphicon-trash"></span> &nbsp; Delete</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#"><span class="fa fa-refresh"></span> &nbsp; Synchronize</a></li>
+  </ul>
+</div>
+
+      </div>
+      <div class="list-view-pf-main-info">
+        <div class="list-view-pf-left">
+
+          {% if data.summary_fields.organization %}
+
+          <span class="fa fa-cubes list-view-pf-icon-sm"></span>
+
+          {% else %}
+
+          <span class="fa pficon-user list-view-pf-icon-sm"></span>
+          
+          {% endif %}
+
+
+        </div>
+        <div class="list-view-pf-body">
+          <div class="list-view-pf-description">
+            <div class="list-group-item-heading">
+              {{ data.username }}
+            </div>
+            <div class="list-group-item-text">
+              {% if data.summary_fields.organization %}
+              <span class="fa pficon-enterprise"></span>
+              {{ data.summary_fields.organization.name }}
+              <br/>
+              {% endif %}
+              {{ data.description }}
+            </div>
+          </div>
+          <div class="list-view-pf-additional-info">
+
+            
+
+            {% if data.related.organization %}
+
+
+            <div class="list-view-pf-additional-info-item">
+              <span class="fa fa-cubes"></span>
+              <strong>{{ data.related.organization | length }}</strong> subsidiar{{ data.related.organization|length|pluralize:"y,ies" }}
+            </div>
+
+            {% endif %}
+
+
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-domain"></span>
+              <strong>{{ data.related.provider | length }}</strong> Provider{{ data.related.provider|length|pluralize:"s" }}
+            </div>
+
+
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-network"></span>
+              <strong>-</strong> Prefixes
+            </div>
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-server"></span>
+              <strong>-</strong> Devices
+            </div>
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-virtual-machine"></span>
+              <strong>-</strong> Nodes
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="list-group-item-container container-fluid hidden">
+      <div class="close">
+        <span class="pficon pficon-close"></span>
+      </div>
+      <div class="row">
+
+        <div class="col-md-6">
+          <dl class="dl-horizontal">
+            <dt>Name</dt>
+            <dd>{{ data.name }}</dd>
+            <dt>Location</dt>
+            <dd>{{ data.location }}</dd>
+            <dt>Contact</dt>
+            <dd>{{ data.contact }}</dd>
+            <dt>Email</dt>
+            <dd>{{ data.email }}</dd>
+            <dt>Phone</dt>
+            <dd>{{ data.phone }}</dd>
+
+          </dl>
+
+          <p>
+            <div class="list-view-pf-additional-info">
+              {{ data.info }}
+            </div>
+          </p>
+
+        </div>
+        
+        <div class="col-md-6">
+          <dl class="dl-horizontal">
+            <b><a href="#"  class="js-link-ahome-navigate" data-url="{% url 'provider' %}?organization={{ data.id }}">Providers (Credentials)</a></b>
+            <ul>
+              {% for pvd in data.related.provider|dictsort:"name" %}
+              <li><a href="#"  class="js-link-ahome-navigate" data-url="{% url 'provider' %}?id={{ pvd.id }}&organization={{ data.id }}">{{ pvd.name }}</a> &nbsp; {% if pvd.status != "running" %} ( <i class="fa fa-info" aria-hidden="true"></i> {{ pvd.status }} ) {% endif %}</li>
+              {% endfor %}
+            </ul>
+          </dl>
+
+
+          
+
+
+
+
+
+        </div>
+
+      </div>
+
+
+      {% if data.related.organization %}
+      {% for site in data.related.organization %}
+      <div class="row">
+        <div class="col-md-12">
+        <p>
+
+          <div class="list-view-pf-additional-info">
+
+            <div class="list-view-pf-additional-info-item">
+              <span class="fa fa-cubes"></span>
+              <strong>{{ site.name }}</strong> 
+            </div>
+
+
+          </div>
+
+        </p>
+        </div>
+      </div>
+
+      {% endfor %}
+      {% endif %}
+
+
+    </div>
+  </div>
+
+
+{% empty %}
+
+
+
+<div class="blank-slate-pf " id="">
+  <div class="blank-slate-pf-icon">
+    <span class="pficon pficon pficon-add-circle-o"></span>
+  </div>
+  <h1>
+    No {{model_name}}
+  </h1>
+  <p>
+    Please add an {{model_name}} to start using ahome enterprise edition.
+  </p>
+  <p>
+    Learn more about this <a href="#">in the documentation</a>.
+  </p>
+  <div id="ahome-generic-create" class="blank-slate-pf-main-action js-link-ahome-generic-create" data-url="{% url url_create %}">
+    <button class="btn btn-primary btn-lg"> Add {{model_name}} </button>
+  </div>
+</div>
+
+
+
+{% endfor %}
+
+
+<script>
+$(function () {
+
+  $(".js-link-ahome-generic-create").click(function () {
+    $.ajax({
+      url: "{% url url_create %}",
+      type: 'get',
+      dataType: 'json',
+      beforeSend: function () {
+        $("#modal-ahome-generic").modal("show");
+      },
+      success: function (data) {
+        $("#modal-ahome-generic .modal-content").html(data.html_form);
+      }
+    });
+  });
+
+});
+
+</script>
+
+
+<script>
+  $(document).ready(function () {
+    // Row Checkbox Selection
+    $("#pf-list-simple-expansion input[type='checkbox']").change(function (e) {
+      if ($(this).is(":checked")) {
+        $(this).closest('.list-group-item').addClass("active");
+      } else {
+        $(this).closest('.list-group-item').removeClass("active");
+      }
+    });
+    // toggle dropdown menu
+    $("#pf-list-simple-expansion .list-view-pf-actions").on('show.bs.dropdown', function () {
+      var $this = $(this);
+      var $dropdown = $this.find('.dropdown');
+      var space = $(window).height() - $dropdown[0].getBoundingClientRect().top - $this.find('.dropdown-menu').outerHeight(true);
+      $dropdown.toggleClass('dropup', space < 10);
+    });
+
+    // click the list-view heading then expand a row
+    $("#pf-list-simple-expansion .list-group-item-header").click(function(event){
+      if(!$(event.target).is("button, a, input, .fa-ellipsis-v")){
+        $(this).find(".fa-angle-right").toggleClass("fa-angle-down")
+          .end().parent().toggleClass("list-view-pf-expand-active")
+            .find(".list-group-item-container").toggleClass("hidden");
+      } else {
+      }
+    })
+
+    // click the close button, hide the expand row and remove the active status
+    $("#pf-list-simple-expansion .list-group-item-container .close").on("click", function (){
+      $(this).parent().addClass("hidden")
+        .parent().removeClass("list-view-pf-expand-active")
+          .find(".fa-angle-right").removeClass("fa-angle-down");
+    })
+
+  });
+</script>
+

@@ -1,0 +1,338 @@
+{% load static %}
+{% load frontend_extras %}
+
+
+{% for data in apidata.results %}
+
+  <div class="list-group-item">
+    <div class="list-group-item-header">
+      <div class="list-view-pf-expand">
+        <span class="fa fa-angle-right"></span>
+      </div>
+
+      <div class="list-view-pf-checkbox">
+        <input type="checkbox">
+      </div>      
+
+      <div class="list-view-pf-actions">
+
+
+
+        <span class="badge" style="width: 60px;" data-toggle="tooltip" data-placement="top" title="${{ data.billing.rate_month }}/mo"><i class="fa fa-dollar"></i> {{ data.billing.total }}</span>
+
+
+        &nbsp;&nbsp;
+
+        {% snippet__row_header_spinner %}
+
+
+      </div>
+      <div class="list-view-pf-main-info">
+        <div class="list-view-pf-left">
+          <span class="fa pficon-virtual-machine list-view-pf-icon-sm"></span>
+        </div>
+        <div class="list-view-pf-body">
+          <div class="list-view-pf-description">
+            <div class="list-group-item-heading">
+              {{ data.name }}
+            </div>
+            <div class="list-group-item-text">
+              {{ data.description }}
+
+              {% if data.sn == 'ORPHAN' %}
+                <small>
+                  <span class="label label-danger">ORPHAN</span>
+                </small>
+              {% endif %}
+              {% for app in data.applications %}
+
+                  <small>
+                    <span class="label label-info">{{ app }}</span>
+                  </small>
+
+              {% endfor %}
+            </div>
+          </div>
+
+
+            
+            
+
+
+
+
+          <div class="list-view-pf-additional-info">
+
+            <img src="{{ data.icons.iaas.small }}" class="list-view-pf-icon-sm" style="width: 25px; height: 25px;">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+
+            <img src="/static/{{ data.summary_fields.iaas.inputs.icon }}" style="width: 22px; height: 22px;" class="list-view-pf-icon-sm">&nbsp;&nbsp;&nbsp;&nbsp;
+            
+            {% widthratio data.processors.processor|length 3 1 as total_processor %}
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-cpu"></span>
+               <strong>{{ total_processor }}</strong>
+               {% if total_processor > 1 %}
+                Cores
+               {% else %}
+                Core
+               {% endif %}
+            </div>
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-memory"></span>
+              <strong>{% widthratio data.memory.real.total 1000 1 %}</strong> GB
+            </div>
+            <div class="list-view-pf-additional-info-item">
+                {% with total_disks=data.mounts|length %}
+              <span class="pficon pficon-volume"></span>
+              <strong>{{ total_disks }}</strong>
+                {% if total_disks > 1 %}
+                  Disks
+                {% else %}
+                  Disk
+                {% endif %}
+              {% endwith %}
+            </div>
+
+            
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-service"></span>
+              {{ data.summary_fields.iaas.name }}
+            </div>
+
+            {% if data.status != "running" and data.status != "successful" %}
+
+            <div class="list-view-pf-additional-info-item {{ model_name | lower }}-user-vm-status-{{data.uuid}}">
+              <span class="fa fa-info" aria-hidden="true"></span>
+              {{ data.status }}
+            </div>
+            {% endif %}
+
+
+
+
+
+
+            
+
+            {% if data.billing.rate_month  %}
+                  <span class="badge" style="width: 60px;" data-toggle="tooltip" data-placement="top" title="${{ data.billing.rate_month }}/mo"><i class="fa fa-dollar"></i> {{ data.billing.total }}</span>
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="list-group-item-container container-fluid hidden">
+      <div class="close">
+        <span class="pficon pficon-close"></span>
+      </div>
+      <div class="row">
+
+
+        <div class="col-md-6">
+          <dl class="dl-horizontal">
+            <dt>IaaS</dt>
+            <dd><strong><a id="{{ model_name | lower }}-vm-iaas-{{ data.uuid }}" href="#" class="js-link-ahome-navigate" data-url="{% url 'iaas' %}?id={{ data.summary_fields.iaas.id }}">{{ data.summary_fields.iaas.name }}</a></strong></dd>
+            
+            <dt>Hostname</dt>
+            <dd id="{{ model_name | lower }}-vm-fqdn-{{ data.uuid }}" >{{ data.fqdn }}</dd>
+            
+            <dt>Status</dt>
+            <dd id="{{ model_name | lower }}-vm-runner-status-{{ data.uuid }}">{{ data.runner.status }}</dd>
+
+            <dt>Device Type</dt>
+            <dd id="{{ model_name | lower }}-vm-kind-{{ data.uuid }}">{{ data.kind }}</dd>
+
+            <dt>Vendor</dt>
+            <dd id="{{ model_name | lower }}-vm-hardware-vendor-{{ data.uuid }}">{{ data.hardware.vendor }}</dd>
+
+            <dt>Model</dt>
+            <dd id="{{ model_name | lower }}-vm-hardware-model-{{ data.uuid }}">{{ data.model }}</dd>
+
+
+            <dt>Processors</dt>
+            <dd id="{{ model_name | lower }}-vm-processor-{{ data.uuid }}">{{ data.processors.processor |join:" " }}</dd>
+ 
+
+            <dt>Memory</dt>
+            <dd id="{{ model_name | lower }}-vm-memory-real-total-{{ data.uuid }}">{{ data.memory.real.total }} MB </dd>
+            <dt>&nbsp;</dt>
+            <dd>
+
+              {% widthratio data.memory.real.used data.memory.real.total 100 as mem_used %}
+              {% widthratio data.memory.real.free data.memory.real.total 100 as mem_free %}
+
+
+              <div class="progress-description">
+                Memory
+              </div>
+              <div id="{{ model_name | lower }}-memory-progress-bar-{{data.uuid}}" class="progress progress-label-top-right">
+                <div id="used_memory" class="progress-bar {% if mem_used|add:"0" >= 80 %} progress-bar-danger {% endif %}" role="progressbar" aria-valuenow="{{ mem_used }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ mem_used }}%;"  data-toggle="tooltip" title="{{ mem_used }}% Used">
+                  <span><strong>{{data.memory.real.used}} of {{data.memory.real.total}} MB</strong> Used</span>
+                </div>
+                <div id="remaining_memory" class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="{{ mem_free }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ mem_free }}%;" data-toggle="tooltip" title="{{ mem_free }}% Available">
+                  <span class="sr-only">{{ mem_free }}% Available</span>
+                </div>
+              </div>
+
+            </dd>
+
+
+
+            {% for mount in data.mounts %}
+
+              <dt id="{{ model_name | lower }}-mount-device-{{data.uuid}}">{{ mount.device }}</dt>
+              <dd id="{{ model_name | lower }}-mount-progress-bar-{{data.uuid}}">
+
+                {% widthratio mount.block_used mount.block_total 100 as disk_used %}
+                {% widthratio mount.block_available mount.block_total 100 as disk_free %}
+
+                <div class="progress-description">
+                  {{ mount.mount }}
+                </div>
+                <div class="progress progress-label-top-right">
+                  <div class="progress-bar {% if disk_used|add:"0" > 80 %}progress-bar-danger{% endif %}" role="progressbar" aria-valuenow="{{ disk_used }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ disk_used }}%;"  data-toggle="tooltip" title="{{ disk_used }}% Used">
+                    <span><strong>{{ mount.size_available |filesizeformat }} of {{ mount.size_total |filesizeformat }}</strong> Available</span>
+                  </div>
+                  <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="{{ disk_free }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ disk_free }}%;" data-toggle="tooltip" title="{{ disk_free }}% Available">
+                    <span class="sr-only">{{ disk_free }}% Available</span>
+                  </div>
+                </div>
+
+              </dd>
+
+            {% endfor %}
+
+            <dt>IPv4</dt>
+            <dd id="{{ model_name | lower }}-vm-ipv4-{{ data.uuid }}">{% for ipv4 in data.ipaddresses.ipv4 %} {{ ipv4 }} &nbsp; {% endfor %}</dd>
+
+            <dt>IPv6</dt>
+            <dd id="{{ model_name | lower }}-vm-ipv6-{{ data.uuid }}" >{% for ipv6 in data.ipaddresses.ipv6 %} {{ ipv6 }} &nbsp; {% endfor %}</dd>
+
+            <dt>Interfaces</dt>
+            <dd id="{{ model_name | lower }}-vm-interface-{{ data.uuid }}">{% for iface in data.interfaces %} {{ iface.device }} &nbsp; {% endfor %}</dd>
+
+          </dl>
+
+          <p>
+
+          </p>
+        </div>
+
+        <div class="col-md-6">
+          <dl class="dl-horizontal">
+            <b><a href="#" class="js-link-ahome-navigate" data-url="{% url 'service' %}?iaas={{ data.id }}">Services</a></b>
+            <ul>
+            </ul>
+          </dl>
+
+
+          {% snippet__row_content_progressbar %}
+
+            <dl class="dl-horizontal">
+            <dt>Living time</dt>
+            <dd id="{{ model_name | lower }}-billing-live{{ data.uuid }}">{{ data.billing.live_time.human }}</dd>
+
+            <dt>Billing Total</dt>
+            <dd id="{{ model_name | lower }}-billing-total{{ data.uuid }}"><i class="fa fa-dollar"></i> {{ data.billing.total }}</dd>
+              <dt>Billing Rate</dt>
+            <dd id="{{ model_name | lower }}-billing-rate{{ data.uuid }}"><i class="fa fa-dollar"></i> {{ data.billing.rate_month }} / month ( <i class="fa fa-dollar"></i> {{ data.billing.rate_hour }} / hour) </dd>
+
+          </dl>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+{% empty %}
+
+
+
+<div class="blank-slate-pf " id="">
+  <div class="blank-slate-pf-icon">
+    <span class="pficon pficon pficon-add-circle-o"></span>
+  </div>
+  <h1>
+    No {{model_name}}
+  </h1>
+  <p>
+    Please add an {{model_name}} to start using ahome enterprise edition.
+  </p>
+  <p>
+    Learn more about this <a href="#">in the documentation</a>.
+  </p>
+  <div id="ahome-generic-create" class="blank-slate-pf-main-action js-link-ahome-generic-create" data-url="{% url url_create %}">
+    <button class="btn btn-primary btn-lg"> Add {{model_name}} </button>
+  </div>
+</div>
+
+
+
+{% endfor %}
+
+
+<script>
+$(function () {
+
+  $(".js-link-ahome-generic-create").click(function () {
+    $.ajax({
+      url: "{% url url_create %}",
+      type: 'get',
+      dataType: 'json',
+      beforeSend: function () {
+        $("#modal-ahome-generic").modal("show");
+      },
+      success: function (data) {
+        $("#modal-ahome-generic .modal-content").html(data.html_form);
+      }
+    });
+  });
+
+});
+
+</script>
+
+
+<script>
+  $(document).ready(function () {
+    // Row Checkbox Selection
+    $("#pf-list-simple-expansion input[type='checkbox']").change(function (e) {
+      if ($(this).is(":checked")) {
+        $(this).closest('.list-group-item').addClass("active");
+      } else {
+        $(this).closest('.list-group-item').removeClass("active");
+      }
+    });
+    // toggle dropdown menu
+    $("#pf-list-simple-expansion .list-view-pf-actions").on('show.bs.dropdown', function () {
+      var $this = $(this);
+      var $dropdown = $this.find('.dropdown');
+      var space = $(window).height() - $dropdown[0].getBoundingClientRect().top - $this.find('.dropdown-menu').outerHeight(true);
+      $dropdown.toggleClass('dropup', space < 10);
+    });
+
+    // click the list-view heading then expand a row
+    $("#pf-list-simple-expansion .list-group-item-header").click(function(event){
+      if(!$(event.target).is("button, a, input, .fa-ellipsis-v")){
+        $(this).find(".fa-angle-right").toggleClass("fa-angle-down")
+          .end().parent().toggleClass("list-view-pf-expand-active")
+            .find(".list-group-item-container").toggleClass("hidden");
+      } else {
+      }
+    })
+
+    // click the close button, hide the expand row and remove the active status
+    $("#pf-list-simple-expansion .list-group-item-container .close").on("click", function (){
+      $(this).parent().addClass("hidden")
+        .parent().removeClass("list-view-pf-expand-active")
+          .find(".fa-angle-right").removeClass("fa-angle-down");
+    })
+
+  });
+</script>
+

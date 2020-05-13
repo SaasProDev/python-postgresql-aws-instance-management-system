@@ -1,0 +1,91 @@
+
+
+# - name: Get guest-agent command
+#   shell: >
+#      virsh --connect qemu:///system qemu-agent-command {{ outer_ahome_vm }} '{"execute":"guest-network-get-interfaces"}'
+#   register: qemu_info
+
+
+# - set_fact:
+#     output_json: "{{ qemu_info.stdout | from_json }}"
+
+# - debug: var=output_json
+
+# - debug: msg={{ output_json.return | selectattr("name", "equalto", "eth0") | map(attribute='hardware-address') | list }}
+
+# - debug: msg={{ output_json.return | selectattr("name", "equalto", "eth0") | map(attribute='ip-addresses') | list }}
+
+# - debug: msg={{ output_json.return | selectattr("name", "equalto", "eth0") | list }}
+
+
+
+
+# - name: If vm exist and vm_recreate is false, playbook fails
+#   fail:
+#     msg: "The vm exist and vm_recreate is false"
+#   when: vm_exist.rc == 0 and not vm_recreate|bool
+
+# - name: Undefine existing VM
+#   command: " virsh --connect qemu:///system {{ item }} {{ outer_ahome_vm }} "
+#   with_items:
+#   - destroy
+#   - undefine
+#   ignore_errors: yes
+#   when: vm_exist.rc == 0 and vm_recreate|bool
+
+- name: Create VM data dir where store vm information
+  file: "state=directory path={{ vm_data_dir }}/{{ vm_name }} force=yes"
+
+- name: Check if CentOS cloud-init image exist.
+  stat:
+    path: "{{ kvm_vm_pool_dir }}/{{ cloud_init_vm_image }}"
+  register: cloud_init_image_exist
+
+- debug: msg="{{ kvm_vm_pool_dir }}/{{ cloud_init_vm_image }}"
+
+- name: Download CentOS Cloud-init image 
+  get_url:
+    url: "{{ cloud_init_vm_image_link }}"
+    dest: "{{ kvm_vm_pool_dir }}/{{ cloud_init_vm_image }}"
+    mode: 0777
+  when: not cloud_init_image_exist.stat.exists
+
+- name: Copy cloud-init user data
+  template: "src=user-data.j2 dest={{ cloud_init_user_data }} mode=0777"
+
+
+- name: Generate cloud-init meta data
+  copy: 
+    dest: "{{ cloud_init_meta_data }}"
+    content: |
+      instance-id: {{ outer_ahome_vm }}
+      hostname: {{ instance | d(vm_hostname) }}
+      local-hostname: {{ instance | d(vm_local_hostname) }}
+
+
+- name: Create root disk based on cloud init img
+  command: "qemu-img create -b {{ kvm_vm_pool_dir }}/{{ cloud_init_vm_image }} -f qcow2 {{ vm_data_dir }}/{{ outer_ahome_vm }}/{{ outer_ahome_vm }}.qcow2 {{ vm_root_disk_size }}"
+
+
+- name: Create iso image for cloud init
+  shell: "genisoimage -output {{ cloud_init_iso_image }} -volid cidata -joliet -r {{ cloud_init_user_data }} {{ cloud_init_meta_data }}"
+
+
+- name: Deploy a new VM
+  command: >
+     virt-install --connect qemu:///system --import --name {{ outer_ahome_vm }} --ram {{ vm_memory }}  --vcpus {{ vm_cpu }}
+     --disk {{ vm_data_dir }}/{{ outer_ahome_vm }}/{{ outer_ahome_vm }}.qcow2,format=qcow2,bus=virtio --disk  {{ cloud_init_iso_image }},device=cdrom --network network:{{ vm_network_br|default('default') }},model=virtio --os-type=linux --os-variant=rhel7 --noautoconsole
+
+
+- name: Get guest-agent command
+  shell: >
+     virsh --connect qemu:///system qemu-agent-command {{ outer_ahome_vm }} '{"execute":"guest-network-get-interfaces"}'
+  register: qemu_info
+  retries: 20
+  delay: 3
+  until: qemu_info.rc == 0
+
+
+
+- debug: var=qemu_info
+

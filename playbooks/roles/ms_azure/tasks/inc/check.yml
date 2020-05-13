@@ -1,0 +1,10 @@
+---
+
+- name: Check if can create a resource group
+  azure_rm_resourcegroup:
+    name: ahomeResourceGroup
+    location: westus
+    cert_validation_mode: ignore
+    tags:
+        testing: testing
+        delete: never

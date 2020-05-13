@@ -1,0 +1,99 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "datatables.net-colreorder@^1.4.1",
+        "scope": null,
+        "escapedName": "datatables.net-colreorder",
+        "name": "datatables.net-colreorder",
+        "rawSpec": "^1.4.1",
+        "spec": ">=1.4.1 <2.0.0",
+        "type": "range"
+      },
+      "/Users/danny/ownCloud/ahome.patternfly3/node_modules/patternfly"
+    ]
+  ],
+  "_from": "datatables.net-colreorder@>=1.4.1 <2.0.0",
+  "_id": "datatables.net-colreorder@1.5.1",
+  "_inCache": true,
+  "_location": "/datatables.net-colreorder",
+  "_nodeVersion": "8.1.2",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/datatables.net-colreorder_1.5.1_1529683094940_0.04262615921350599"
+  },
+  "_npmUser": {
+    "name": "datatables",
+    "email": "npm@datatables.net"
+  },
+  "_npmVersion": "5.0.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "datatables.net-colreorder@^1.4.1",
+    "scope": null,
+    "escapedName": "datatables.net-colreorder",
+    "name": "datatables.net-colreorder",
+    "rawSpec": "^1.4.1",
+    "spec": ">=1.4.1 <2.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/datatables.net-colreorder-bs",
+    "/patternfly"
+  ],
+  "_resolved": "https://registry.npmjs.org/datatables.net-colreorder/-/datatables.net-colreorder-1.5.1.tgz",
+  "_shasum": "ee5eacd7178b5fd9396aab44d4907aae35086f8c",
+  "_shrinkwrap": null,
+  "_spec": "datatables.net-colreorder@^1.4.1",
+  "_where": "/Users/danny/ownCloud/ahome.patternfly3/node_modules/patternfly",
+  "author": {
+    "name": "SpryMedia Ltd",
+    "url": "http://datatables.net"
+  },
+  "bugs": {
+    "url": "https://datatables.net/forums"
+  },
+  "dependencies": {
+    "datatables.net": "^1.10.15",
+    "jquery": ">=1.7"
+  },
+  "description": "ColReorder for DataTables ",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-nKV0ZBOdOG+CCrtDZZlTOvhu9NC53pr4rYR8Xhd3KIKipLZohWWdBoOFGMu+VKDvllg2Xj79oS/wicYSiNyteA==",
+    "shasum": "ee5eacd7178b5fd9396aab44d4907aae35086f8c",
+    "tarball": "https://registry.npmjs.org/datatables.net-colreorder/-/datatables.net-colreorder-1.5.1.tgz",
+    "fileCount": 5,
+    "unpackedSize": 54052,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJbLRyXCRA9TVsSAnZWagAA0zUP/3EJaEqczvlZSD45CX/2\n7RwPFqUgwpq9MTC+sg//hjG23JQ4gfa0WoPOnAmo6Rf3pPi9+Fs0h97fWGI1\nUWa7CvSn4aJFi8pmd6PSerNq1XnrM8ksH2VCzSSSnX6gtEGIxZwSM2luihKL\nhUmvFtlXVjuWICbi9qMPpz1tfrAYobW3pkH9y4oGn/bFx4vpI7v+3WjdDU9I\nR3AVkMkL4UYR1rSox6Wx7ETCrt3RBUF1EtS/Y87VWoKxq2mdxHhH9Cno1QfP\nqlYHTArt+ZLTm+KNjygCX8R24CtCJDtcyLleacdh89UAtThvsXMqxiYJ2TWJ\nSp9OcAHQhfyfKDLrHqtTvr0BVTkCzW+s+Rw7OEUJrDrDfB/UcVz07ajDiC0x\nT28wBJWQrrOEQkr9mGWWYcbsJX8oVusHAZk3wBwCyqBUilJPikPKFfeuTE71\nQzbhSUDSUUUFHLQ1rFZIrbxtCeLDE8ZxZENgNpiEFE21CbA6bz1xCtJLBD5P\nz027XpPBFEGBEPdUtT2B20mCR4P92y6FE5PCUvwONVJQazUo00LvD5QKWoUK\nnfUkKKkLxRFOHcEyzIw+XgLJdThyY6XzOSjTjpKYnQ4+SzvDwzF+YpCx8H4h\nZnI9LFFOO/o1qWtCLxNBkSBO2mW6SQGahzg6i6zFDAuKVrqq+bUskar7qtsO\n6uLs\r\n=b6e4\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "files": [
+    "js/**/*.js"
+  ],
+  "gitHead": "ca5094ca96d43a0bd62f11f062a6371358bd5d8a",
+  "homepage": "https://datatables.net",
+  "keywords": [
+    "reorder",
+    "DataTables",
+    "jQuery",
+    "table",
+    "DataTables"
+  ],
+  "license": "MIT",
+  "main": "js/dataTables.colReorder.js",
+  "maintainers": [
+    {
+      "name": "datatables",
+      "email": "npm@datatables.net"
+    }
+  ],
+  "name": "datatables.net-colreorder",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DataTables/Dist-DataTables-ColReorder.git"
+  },
+  "version": "1.5.1"
+}

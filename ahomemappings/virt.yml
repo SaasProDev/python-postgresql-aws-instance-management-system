@@ -1,0 +1,141 @@
+---
+name: Libvirt KVM
+title: KVM virt mapping file
+description: |
+    Libvirt KVM mapping
+cloud: false
+version: 1.0
+
+
+# headers:
+#   - label: Location
+#     icon: xcxcxc
+#     sum: ec2_facts.status
+
+# infos:
+#   - label: Location
+#     value: ec2_facts.status
+
+
+
+
+# registered_vars:
+#   r__ec2_facts:
+
+#     name: ec2_facts
+
+#     model: core.virtualmachine
+#     entrypoint: instances
+
+#     unique_keys:
+#       - instance_id
+#       - primary_ip
+
+#     defaults:
+#       - name: name
+#         value: instance_id
+
+#       - name: kind
+#         value: generic
+#         static: yes
+
+
+
+#     inputs:
+#       - name: username
+#         value: ec2-user
+#         static: yes
+
+#       - name: password
+#         value: nopass
+#         static: no
+
+#       - name: inventory
+#         value: public_dns_name
+
+
+
+
+#     expose:
+
+#       - name: status
+#         type: string #dict hash
+#         ref: state.name
+#         save: yes
+
+#       - name: primary_ip
+#         type: string #dict hash
+#         ref: public_ip_address
+#         save: yes
+
+#       - name: device_name
+#         type: string #dict hash
+#         ref: block_device_mappings[0].device_name
+
+#       - name: public_dns_name
+#         type: string #dict hash
+#         ref: network_interfaces[0].association.public_dns_name
+
+#       - name: group_id
+#         type: string #dict hash
+#         ref: network_interfaces[0].groups[0].group_id
+
+#       - name: architecture
+#       - name: hypervisor
+#       - name: image_id
+#       - name: instance_id
+
+
+
+
+
+#   r__ec2_facts_bis:
+
+#     name: ec2_facts_bis
+
+#     model: core.virtualmachine
+#     entrypoint: instances
+
+#     unique_keys:
+#       - instance_id
+#       - primary_ip
+
+#     defaults:
+#       - name: name
+#         value: instance_id
+
+
+#     expose:
+
+#       - name: status
+#         type: string #dict hash
+#         ref: state.name
+#         save: yes
+
+#       - name: primary_ip
+#         type: string #dict hash
+#         ref: public_ip_address
+#         save: yes
+
+#       - name: block_device_mappings
+#         type: string #dict hash
+#         ref: block_device_mappings[0].device_name
+
+#       - name: network_interfaces
+#         type: string #dict hash
+#         ref: network_interfaces[0].association.public_dns_name
+
+#       - name: group_id
+#         type: string #dict hash
+#         ref: network_interfaces[0].groups[0].group_id
+
+#       - name: architecture
+#       - name: hypervisor
+#       - name: image_id
+#       - name: instance_id
+
+
+
+
+
+# block_device_mappings

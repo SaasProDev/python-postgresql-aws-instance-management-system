@@ -1,0 +1,8 @@
+/* Add Web SOCKET custom style here */
+.run-success {
+    color: green;
+  }
+  
+  .run-failed {
+    color: #b51c10;
+  }

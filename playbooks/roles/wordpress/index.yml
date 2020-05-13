@@ -1,0 +1,52 @@
+--- 
+apiVersion: v1
+kind: wordpress
+labels: 
+  app: Worpress
+metadata: 
+  name: app
+  annotations:
+    title: Worpress
+    description: |
+      Worpress
+    iconClass: icon-wordpress-icon
+    tags: "server,app"
+  cloud: false
+
+ansibleObjects: 
+
+  - apiVersion: v1
+    kind: ModelInjector
+    metadata: 
+      name: instance
+      model: core.iaas
+      anchor: r__app_facts
+      entrypoint: r__app_facts.svc
+      notify: ['wordpress']
+
+
+    spec:
+      # adhoc: false
+      uniqueKeys:
+
+        - name: uuid
+          yaqlRef: ahome_tags.ahome
+
+
+      modelFields: 
+        # - name: tags
+        #   yaqlRef: ahome_tags.ahome
+        #   fieldRef: inputs
+
+        - name: wordpress
+          yaqlRef: svc_url
+
+
+
+
+fields:
+  - name: wp_config_path
+    label: Config url
+    help_text: WordpressConfig path 
+    initial: https://gitlab.afahounko.com/community/wordpress
+    required: true

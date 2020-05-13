@@ -1,0 +1,12 @@
+<!-- The path and name for this file should be "templates/rest_framework/api.html". -->
+<!-- It overrides the original browsable API template and will be picked up by all of its children. -->
+<!-- This template override has been verified for Django 2.0. -->
+
+{% extends "rest_framework/base.html" %}
+
+{% load static %}
+
+{% block style %}
+    {{ block.super }}
+    <link rel="shortcut icon" href="{% static 'ahome/assets/favicon.ico' %}" />
+{% endblock %}

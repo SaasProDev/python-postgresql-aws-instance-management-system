@@ -1,0 +1,188 @@
+---
+# tasks file for playbooks/roles/ec2
+
+- include_tasks: "inc/connect.yml"
+  when:
+    ahome__action in ['check',]
+
+
+# - include_tasks: "inc/check.yml"
+#   when:
+#     ahome__action in ['check',]
+
+
+- include_tasks: "inc/remove.yml"
+  when:
+    ahome__action in ['reconfigure','stop']
+
+- include_tasks: "inc/start.yml"
+  when:
+    ahome__action in ['reconfigure', 'start']
+
+
+- ec2_instance_info:
+    filters:
+      "tag:ahome": "{{ ahome__id }}"
+  register: r__ec2
+
+- name: ahome callback
+  set_fact:
+    r__ec2_facts:
+      ahome__id: "{{ ahome__id }}"
+      ahome__model: "{{ ahome__model }}"
+      instances: "{{ r__ec2.instances }}"
+
+- debug: var=r__ec2_facts
+
+
+
+
+# - name: generate ec2 key pair
+#   ec2_key:
+#     name: ahome_keypair
+#   register: r__ec2_key
+
+# - debug: var=r__ec2_key
+
+
+
+
+# - name: Gather facts about all regions
+#   action: aws_region_facts
+#   register: r__aws_region_facts
+
+# - debug: var=r__aws_region_facts
+
+
+# - debug:
+#     msg: "{{ hostvars[inventory_hostname] | to_nice_json }}"
+
+# - name: Collect facts 
+#   setup:
+
+
+
+
+
+# - name: create a new ec2 key pair, returns generated private key
+#   ec2_key:
+#     name: ahome_keypair_frankfurt
+
+
+# - name: gather facts about an AMI
+#   ec2_ami_facts:
+#     image_ids: ami-0badcc5b522737046
+#   register: r__ec2_ami
+
+# - debug: msg="{{ r__ec2_ami.images[0].image_id }}"
+
+
+#Launch an EC2 instance
+
+# - ec2:
+#     image: "{{ r__ec2_ami.images[0].image_id }}"
+#     instance_type: t2.micro
+#     key_name: ahome_keypair_frankfurt
+#     wait: yes
+#     instance_tags:
+#       Name: "{{ instance_name }}"
+#       instance_name: "{{ instance_name }}"
+#       ahome: ""
+
+#   register: r__ec2_instance
+
+
+# - debug: var=r__ec2_instance
+
+# - ec2:
+#     instance_ids:
+#       - i-0646706b26d9d08e3
+#       - i-0af4a6f721f2f3ad6
+#       - i-08edfc855535b46cb
+#       - i-08382a5f6cdbd07e5
+#       - i-0d0555e169d5ca38e
+#       - i-0d0555e169d5ca38e
+#     state: absent
+
+# - name: Get instance ec2 facts
+#   action: ec2_instance_facts
+#   register: r__ec2_instance_facts
+
+# - debug: var=r__ec2_instance_facts
+
+
+
+# - ec2:
+#     key_name: ahome_keypair
+#     instance_type: t2.micro
+#     image: ami-0556a158653dad0ba
+#     wait: yes
+#     # group: webserver
+#     count: 1
+#     vpc_subnet_id: subnet-61ef6f2c
+#     assign_public_ip: yes
+
+
+# # Search for the AMI tagged "project:website"
+# - ec2_ami_find:
+#     owner: self
+#     ami_tags:
+#       project: website
+#     no_result_action: fail
+#   register: ami_find
+
+# Search for the latest Ubuntu 14.04 AMI
+# - ec2_ami_find:
+#     name: "ubuntu/images/ebs/ubuntu-trusty-14.04-amd64-server-*"
+#     owner: 099720109477
+#     sort: name
+#     sort_order: descending
+#     sort_end: 1
+#   register: ami_find
+
+# - debug: var=ami_find
+
+# # Launch an EC2 instance
+# - ec2:
+#     image: "{{ ami_find.results[0].ami_id }}"
+#     instance_type: m3.medium
+#     key_name: mykey
+#     wait: yes
+
+
+
+
+# - name: gather facts about an AMI using ami-id
+#   ec2_ami_facts:
+#     image_ids: ami-0556a158653dad0ba
+#   register: ami_find
+
+# - debug: var=ami_find
+
+# - name: gather facts about all AMIs with tag key Name and value webapp
+#   ec2_ami_facts:
+#     filters:
+#       "tag:Name": webapp
+
+# - name: gather facts about an AMI with 'AMI Name' equal to foobar
+#   ec2_ami_facts:
+#     filters:
+#       name: foobar
+
+
+
+# - name: gather facts about Ubuntu 17.04 AMIs published by Canonical (099720109477)
+#   ec2_ami_facts:
+#     owners: 099720109477
+#     filters:
+#       name: "ubuntu/images/ubuntu-zesty-17.04-*"
+#   register: ami_ubuntu
+
+# - debug: var=ami_ubuntu
+
+# # Launch an EC2 instance
+# - ec2:
+#     image: "{{ ami_ubuntu.images[0].image_id }}"
+#     instance_type: m3.medium
+#     # key_name: mykey
+#     wait: yes

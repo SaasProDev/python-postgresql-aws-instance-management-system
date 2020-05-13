@@ -1,0 +1,465 @@
+---
+kind: Template
+apiVersion: v1
+metadata:
+  name: __ahome_infrastructure__
+  annotations:
+    openshift.io/display-name: ahome infrastructure
+    description: |-
+      An example Django application with a PostgreSQL database. For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/django-ex/blob/master/README.md.
+
+      WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.
+    tags: quickstart,python,django
+    iconClass: icon-python
+    openshift.io/long-description: This template defines resources needed to develop
+      a Django based application, including a build configuration, application deployment
+      configuration, and database deployment configuration.  The database is stored
+      in non-persistent storage, so this configuration should be used for experimental
+      purposes only.
+    openshift.io/provider-display-name: CLOUD-INSPIRE sas.
+    openshift.io/documentation-url: https://git.afahounko.com/cloud-inspire/ahome.git
+    openshift.io/support-url: https://ahome.africa
+    template.openshift.io/bindable: 'false'
+message: |-
+  The following service(s) have been created in your project: ${NAME}, ${DATABASE_SERVICE_NAME}.
+
+  For more information about using this template, including OpenShift considerations, see https://github.com/sclorg/django-ex/blob/master/README.md.
+labels:
+  template: __ahome_infrastructure__
+  app: __ahome_infrastructure__
+objects:
+
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    name: ${NAME}
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+
+- kind: Secret
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+  stringData:
+    database-user: "${DATABASE_USER}"
+    database-password: "${DATABASE_PASSWORD}"
+    database-admin-password: "${DATABASE_ADMIN_PASSWORD}"
+    django-secret-key: "${DJANGO_SECRET_KEY}"
+
+- kind: Service
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+    annotations:
+      description: Exposes and load balances the application pods
+      service.alpha.openshift.io/dependencies: '[{"name": "${DATABASE_SERVICE_NAME}",
+        "kind": "Service"}]'
+  spec:
+    ports:
+    - name: ahome
+      port: 8001
+      targetPort: 8001
+    selector:
+      name: "${NAME}"
+- kind: Route
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+  spec:
+    host: "${APPLICATION_DOMAIN}"
+    to:
+      kind: Service
+      name: "${NAME}"
+    tls:
+      termination: edge
+      insecureEdgeTerminationPolicy: Redirect
+      key: |-
+          -----BEGIN PRIVATE KEY-----
+          MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC90s5KpGvgmxFP
+          M1/qETNGf5bmtXTE7ZaeKYtHpfcSJbdKs5MLGuc9U1JwYmc5TRQCwDm2FViGSMLX
+          q1i0ZOc6uUIzPIwNqUY9IdXHRx21pVos1NPDCl3j8mNVk79LyU1KkOj2MRF5oxUt
+          dawANIoMC5ajjiNKJJ8u8UFllNOuPHLj/vJzgAaKVwKfiQswPMd36wfRZdQM9cAK
+          Ho2fpU+i72SaWtoqUO7uzRDvoJCXYnR2H9Gixb63nAjCBUvsMis6azW6WE5EnZey
+          dm+scg4YHXZxpF1KNA4vVV2NLS9UYIijzJH/2+fgDkmXFawozqIcsTZA8hI5A2c4
+          3kbi1NAtAgMBAAECggEARf1IGrVtIS+LvkwO/VrCMSgyF3aoS0Pe2QowVIaZBpPp
+          dR2pBdsxj6b9Knrd3H7S9gCyRrSwIzMIxERlPH5H05sjEYktiovzXe7vx74s8iC5
+          kvYV7kAQRk/E2HTVf7gFS40KmFuXOeYrlMtiU+ELVU2giUWLNXczSjeiCTZKpl74
+          mgBTnBL/LVrYDMXOSa3yX1OkIuw8NKs03Oq9slFJCxcGXTudkiY1haBv5lCuJDAi
+          hX7Ro7YXMyen8boulxu5fhbx+PMirPJaV9EMBdGV93J/a1SH44SpY17Z5pCCVuzA
+          RSF4bATGFlNsgYCRcP2YHvxkSSLtYS/XMY+J77AnAQKBgQDpbywZaysPVTLXV3MF
+          UeA0c+7pjTaHDdpFVEXRgpldyrWnIdn51zTK8hZRUXnql9GAH+MHDwbAa52YtfXY
+          yqeryYVg3mzncup1mq3GQSmq6qobFfBDIKpluJCRc/k6u50dDqzCbf61fPEBsMH6
+          dw5t7W13T7OoRgHMXGdKIWtrkQKBgQDQLGQvI3fOu9YuKtOAN3poPlvwQpIMclY9
+          eWDzELnIRMuAfMM1hrpAw1CEz8S1y7cF0kLRali04vQFwC7OL4sVsOHuoB0dKrkd
+          qab5RP/MOCrG5FPqGyqDC2zPF5wGJZeRiE7VO4d88CEbb7O7Vv1B6J3Y50BLTzS1
+          KZrCSIe03QKBgF+pQHA2O9IvvwMCgk9Wy0OTkv/A7+yOn7kznN0L4R/Pl3ujYrmB
+          GNBmPwEaG5UonCEecCIPZVvrfgz73ID4I5hBoFgfLo/2xuBk//uz7ohtXEJ3Thuk
+          QlAnP49r8GHCStOClQeknfHv/rALqKKksZQY7XgsgFpgPhJqd6WoZmYRAoGAaMcP
+          HdLCSKGuacpQbeZ+i91nNQSssesSkRp4u56dg7lsnB0vu882C8bCzjYtEjuYwStV
+          SkY2o8Tfgc17QXgYjzBaZ1rbjISma9GqIyihf0596WGfAuPtf8vOVmXRuB5PrYZn
+          91dhGHdckoykcBSWoAfO+w9aAw24v75TEJqlA1kCgYBYXnpYlzvBSsgqF+pJrO/T
+          c+hGh7XHBiRjopbGzuKP7GIy/0lcFK/+CvjlBDNN6XMKGXzYtI3qZDhKsBxasn9/
+          10Z2o8d1JKwMIY3dPlRQvpo5zU5Ig7Zw2snVrDUmJ3GlJfZrY+yqFRyDtSGDu2Of
+          QYNW71JksVuWaqZMpIYA5g==
+          -----END PRIVATE KEY-----
+      certificate: |-
+          -----BEGIN CERTIFICATE-----
+          MIIFkjCCBHqgAwIBAgISBGTFh4vdBIlYCgjzvDY7zQ6IMA0GCSqGSIb3DQEBCwUA
+          MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
+          ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xOTExMTMwNjI2MjhaFw0y
+          MDAyMTEwNjI2MjhaMB4xHDAaBgNVBAMTE2t1YmUuY2xvdWQuYWhvbWUuaW8wggEi
+          MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC90s5KpGvgmxFPM1/qETNGf5bm
+          tXTE7ZaeKYtHpfcSJbdKs5MLGuc9U1JwYmc5TRQCwDm2FViGSMLXq1i0ZOc6uUIz
+          PIwNqUY9IdXHRx21pVos1NPDCl3j8mNVk79LyU1KkOj2MRF5oxUtdawANIoMC5aj
+          jiNKJJ8u8UFllNOuPHLj/vJzgAaKVwKfiQswPMd36wfRZdQM9cAKHo2fpU+i72Sa
+          WtoqUO7uzRDvoJCXYnR2H9Gixb63nAjCBUvsMis6azW6WE5EnZeydm+scg4YHXZx
+          pF1KNA4vVV2NLS9UYIijzJH/2+fgDkmXFawozqIcsTZA8hI5A2c43kbi1NAtAgMB
+          AAGjggKcMIICmDAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEG
+          CCsGAQUFBwMCMAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFIdKg1nPCW3aZlVolt37
+          k321bryeMB8GA1UdIwQYMBaAFKhKamMEfd265tE5t6ZFZe/zqOyhMG8GCCsGAQUF
+          BwEBBGMwYTAuBggrBgEFBQcwAYYiaHR0cDovL29jc3AuaW50LXgzLmxldHNlbmNy
+          eXB0Lm9yZzAvBggrBgEFBQcwAoYjaHR0cDovL2NlcnQuaW50LXgzLmxldHNlbmNy
+          eXB0Lm9yZy8wUQYDVR0RBEowSIIaKi5hcHBzLmt1YmUuY2xvdWQuYWhvbWUuaW+C
+          FSoua3ViZS5jbG91ZC5haG9tZS5pb4ITa3ViZS5jbG91ZC5haG9tZS5pbzBMBgNV
+          HSAERTBDMAgGBmeBDAECATA3BgsrBgEEAYLfEwEBATAoMCYGCCsGAQUFBwIBFhpo
+          dHRwOi8vY3BzLmxldHNlbmNyeXB0Lm9yZzCCAQUGCisGAQQB1nkCBAIEgfYEgfMA
+          8QB2APCVpFnyANGCQBAtL5OIjq1L/h1H45nh0DSmsKiqjrJzAAABbmOoDqMAAAQD
+          AEcwRQIhAPY1axvtNlFOUKYkgyWhCkdepeyBenlc+Vkx0U1d8BgCAiBjH+9/fh6W
+          pJ/tyJT8IVJzo8fJOfmeV276b1xJ6q9v3gB3ALIeBcyLos2KIE6HZvkruYolIGdr
+          2vpw57JJUy3vi5BeAAABbmOoDpIAAAQDAEgwRgIhAJIVdDt/h3dL1a2cncqmwdnD
+          E1twPJiE5nKZrpx8xkfSAiEA+mtAcq7Dify9EbByBUOMY7mqOE0XKUXEwhR9+Vr9
+          RZwwDQYJKoZIhvcNAQELBQADggEBAFG+a5n9G9j7lDAYxDeCtZJybTnGDw39z0XB
+          0nVvZ3DhwBFdU+79jD3V9C9IyK6HyF7vR/b4nDH8ZNr92CLimib0R+3QAUNgFXJN
+          nbYho8F97Eit3dhiX5e0n5oz2gqh6Sh/1s5cehVwl05gvXpR/ly3nWEA5HL+Nq9f
+          5hlYdRpfN/mBzYpCN1AVPEdnvwFtQjpykTW/KT967w1K98mU1X8jvq+2a205K+30
+          mpiHnWWy5Hx9KmiXKsMwxWoJThAgOknwLf0UFlaBXSsT9qE3uf888DTj8d8GywDw
+          nzaMbhHxhmk8LkjnfT552L1LAY7nNA9cYMm/bRgxicyFpSxjnEE=
+          -----END CERTIFICATE-----
+      caCertificate: |-
+          -----BEGIN CERTIFICATE-----
+          MIIEkjCCA3qgAwIBAgIQCgFBQgAAAVOFc2oLheynCDANBgkqhkiG9w0BAQsFADA/
+          MSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT
+          DkRTVCBSb290IENBIFgzMB4XDTE2MDMxNzE2NDA0NloXDTIxMDMxNzE2NDA0Nlow
+          SjELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUxldCdzIEVuY3J5cHQxIzAhBgNVBAMT
+          GkxldCdzIEVuY3J5cHQgQXV0aG9yaXR5IFgzMIIBIjANBgkqhkiG9w0BAQEFAAOC
+          AQ8AMIIBCgKCAQEAnNMM8FrlLke3cl03g7NoYzDq1zUmGSXhvb418XCSL7e4S0EF
+          q6meNQhY7LEqxGiHC6PjdeTm86dicbp5gWAf15Gan/PQeGdxyGkOlZHP/uaZ6WA8
+          SMx+yk13EiSdRxta67nsHjcAHJyse6cF6s5K671B5TaYucv9bTyWaN8jKkKQDIZ0
+          Z8h/pZq4UmEUEz9l6YKHy9v6Dlb2honzhT+Xhq+w3Brvaw2VFn3EK6BlspkENnWA
+          a6xK8xuQSXgvopZPKiAlKQTGdMDQMc2PMTiVFrqoM7hD8bEfwzB/onkxEz0tNvjj
+          /PIzark5McWvxI0NHWQWM6r6hCm21AvA2H3DkwIDAQABo4IBfTCCAXkwEgYDVR0T
+          AQH/BAgwBgEB/wIBADAOBgNVHQ8BAf8EBAMCAYYwfwYIKwYBBQUHAQEEczBxMDIG
+          CCsGAQUFBzABhiZodHRwOi8vaXNyZy50cnVzdGlkLm9jc3AuaWRlbnRydXN0LmNv
+          bTA7BggrBgEFBQcwAoYvaHR0cDovL2FwcHMuaWRlbnRydXN0LmNvbS9yb290cy9k
+          c3Ryb290Y2F4My5wN2MwHwYDVR0jBBgwFoAUxKexpHsscfrb4UuQdf/EFWCFiRAw
+          VAYDVR0gBE0wSzAIBgZngQwBAgEwPwYLKwYBBAGC3xMBAQEwMDAuBggrBgEFBQcC
+          ARYiaHR0cDovL2Nwcy5yb290LXgxLmxldHNlbmNyeXB0Lm9yZzA8BgNVHR8ENTAz
+          MDGgL6AthitodHRwOi8vY3JsLmlkZW50cnVzdC5jb20vRFNUUk9PVENBWDNDUkwu
+          Y3JsMB0GA1UdDgQWBBSoSmpjBH3duubRObemRWXv86jsoTANBgkqhkiG9w0BAQsF
+          AAOCAQEA3TPXEfNjWDjdGBX7CVW+dla5cEilaUcne8IkCJLxWh9KEik3JHRRHGJo
+          uM2VcGfl96S8TihRzZvoroed6ti6WqEBmtzw3Wodatg+VyOeph4EYpr/1wXKtx8/
+          wApIvJSwtmVi4MFU5aMqrSDE6ea73Mj2tcMyo5jMd6jmeWUHK8so/joWUoHOUgwu
+          X4Po1QYz+3dszkDqMp4fklxBwXRsW10KXzPMTZ+sOPAveyxindmjkW8lGy+QsRlG
+          PfZ+G6Z6h7mjem0Y+iWlkYcV4PIWL1iwBi8saCbGS5jN2p8M+X+Q7UNKEkROb3N6
+          KOqkqm57TH2H3eDJAkSnh6/DNFu0Qg==
+          -----END CERTIFICATE-----
+- kind: ImageStream
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+    annotations:
+      description: Keeps track of changes in the application image
+- kind: BuildConfig
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+    annotations:
+      description: Defines how to build the application
+      template.alpha.openshift.io/wait-for-ready: 'true'
+  spec:
+    output:
+      to:
+        kind: ImageStreamTag
+        name: "${NAME}:latest"
+    source:
+      type: Git
+      git:
+        uri: "${SOURCE_REPOSITORY_URL}"
+        ref: "${SOURCE_REPOSITORY_REF}"
+      contextDir: "${CONTEXT_DIR}"
+    strategy:
+      dockerStrategy:
+        dockerfilePath: "tools/Dockerfile-openshift"
+    triggers:
+    - type: ImageChange
+    - type: ConfigChange
+    - type: GitHub
+      github:
+        secret: "${GITHUB_WEBHOOK_SECRET}"
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    name: "${NAME}"
+    annotations:
+      description: Defines how to deploy the application server
+      template.alpha.openshift.io/wait-for-ready: 'true'
+  spec:
+    strategy:
+      type: Recreate
+    triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+        - __ahome_infrastructure__
+        from:
+          kind: ImageStreamTag
+          name: "${NAME}:latest"
+    - type: ConfigChange
+    replicas: 1
+    selector:
+      name: "${NAME}"
+    template:
+      metadata:
+        name: "${NAME}"
+        labels:
+          name: "${NAME}"
+      spec:
+        containers:
+        - name: __ahome_infrastructure__
+          image: " "
+          ports:
+          - containerPort: 8001
+          readinessProbe:
+            timeoutSeconds: 3
+            initialDelaySeconds: 3
+            httpGet:
+              path: "/api/v1/health"
+              port: 8001
+          livenessProbe:
+            timeoutSeconds: 3
+            initialDelaySeconds: 30
+            httpGet:
+              path: "/api/v1/health"
+              port: 8001
+          env:
+          - name: DATABASE_SERVICE_NAME
+            value: "${DATABASE_SERVICE_NAME}"
+          - name: DATABASE_ENGINE
+            value: "${DATABASE_ENGINE}"
+          - name: DATABASE_NAME
+            value: "${DATABASE_NAME}"
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: "${NAME}"
+                key: database-user
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "${NAME}"
+                key: database-password
+          - name: DATABASE_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "${NAME}"
+                key: database-admin-password
+          - name: APP_CONFIG
+            value: "${APP_CONFIG}"
+          - name: DJANGO_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: "${NAME}"
+                key: django-secret-key
+          resources:
+            limits:
+              memory: "${MEMORY_LIMIT}"
+- kind: Service
+  apiVersion: v1
+  metadata:
+    name: "${DATABASE_SERVICE_NAME}"
+    annotations:
+      description: Exposes the database server
+  spec:
+    ports:
+    - name: postgresql
+      port: 5432
+      targetPort: 5432
+    selector:
+      name: "${DATABASE_SERVICE_NAME}"
+- kind: DeploymentConfig
+  apiVersion: v1
+  metadata:
+    name: "${DATABASE_SERVICE_NAME}"
+    annotations:
+      description: Defines how to deploy the database
+      template.alpha.openshift.io/wait-for-ready: 'true'
+  spec:
+    strategy:
+      type: Recreate
+    triggers:
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        containerNames:
+        - postgresql
+        from:
+          kind: ImageStreamTag
+          namespace: "${NAMESPACE}"
+          name: postgresql:${POSTGRESQL_VERSION}
+    - type: ConfigChange
+    replicas: 1
+    selector:
+      name: "${DATABASE_SERVICE_NAME}"
+    template:
+      metadata:
+        name: "${DATABASE_SERVICE_NAME}"
+        labels:
+          name: "${DATABASE_SERVICE_NAME}"
+      spec:
+        volumes:
+        - name: pv-data
+          persistentVolumeClaim:
+            claimName: ${NAME}
+        
+        containers:
+        - name: postgresql
+          image: " "
+          ports:
+          - containerPort: 5432
+          env:
+          - name: POSTGRESQL_USER
+            valueFrom:
+              secretKeyRef:
+                name: "${NAME}"
+                key: database-user
+          - name: POSTGRESQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "${NAME}"
+                key: database-password
+          - name: POSTGRESQL_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "${NAME}"
+                key: database-admin-password
+          - name: POSTGRESQL_DATABASE
+            value: "${DATABASE_NAME}"
+          volumeMounts:
+          - name: pv-data
+            mountPath: "/var/lib/pgsql/data"
+          readinessProbe:
+            timeoutSeconds: 1
+            initialDelaySeconds: 5
+            exec:
+              command:
+              - "/usr/libexec/check-container"
+          livenessProbe:
+            timeoutSeconds: 10
+            initialDelaySeconds: 120
+            exec:
+              command:
+              - "/usr/libexec/check-container"
+              - "--live"
+          resources:
+            limits:
+              memory: "${MEMORY_POSTGRESQL_LIMIT}"
+parameters:
+- name: NAME
+  displayName: Name
+  description: The name assigned to all of the frontend objects defined in this template.
+  required: true
+  value: ahome-api
+- name: NAMESPACE
+  displayName: Namespace
+  required: true
+  description: The OpenShift Namespace where the ImageStream resides.
+  value: openshift
+- name: PYTHON_VERSION
+  displayName: Version of Python Image
+  description: Version of Python image to be used (3.6 or latest).
+  value: '3.6'
+  required: true
+- name: POSTGRESQL_VERSION
+  displayName: Version of PostgreSQL Image
+  description: Version of PostgreSQL image to be used (10 or latest).
+  value: '10'
+  required: true
+- name: MEMORY_LIMIT
+  displayName: Memory Limit
+  required: true
+  description: Maximum amount of memory the Django container can use.
+  value: 512Mi
+- name: MEMORY_POSTGRESQL_LIMIT
+  displayName: Memory Limit (PostgreSQL)
+  required: true
+  description: Maximum amount of memory the PostgreSQL container can use.
+  value: 512Mi
+- name: SOURCE_REPOSITORY_URL
+  displayName: Git Repository URL
+  required: true
+  description: The URL of the repository with your application source code.
+  value: https://git.afahounko.com/cloud-inspire/ahome.git
+- name: SOURCE_REPOSITORY_REF
+  displayName: Git Reference
+  description: Set this to a branch name, tag or other ref of your repository if you
+    are not using the default branch.
+  value: devel
+- name: CONTEXT_DIR
+  displayName: Context Directory
+  description: Set this to the relative path to your project if it is not in the root
+    of your repository.
+- name: APPLICATION_DOMAIN
+  displayName: Application Hostname
+  description: The exposed hostname that will route to the Django service, if left
+    blank a value will be defaulted.
+  value: ''
+- name: GITHUB_WEBHOOK_SECRET
+  displayName: GitHub Webhook Secret
+  description: Github trigger secret.  A difficult to guess string encoded as part
+    of the webhook URL.  Not encrypted.
+  generate: expression
+  from: "[a-zA-Z0-9]{40}"
+- name: DATABASE_SERVICE_NAME
+  displayName: Database Service Name
+  required: true
+  value: ahome-psql
+- name: DATABASE_ENGINE
+  displayName: Database Engine
+  required: true
+  description: 'Database engine: postgresql, mysql or sqlite (default).'
+  value: postgresql
+- name: DATABASE_NAME
+  displayName: Database Name
+  required: true
+  value: ahome-dev
+- name: DATABASE_USER
+  displayName: Database Username
+  required: true
+  value: ahome-dev
+- name: DATABASE_PASSWORD
+  displayName: Database User Password
+  generate: expression
+  from: "[a-zA-Z0-9]{16}"
+  value: "aH0mep4ss"
+- name: DATABASE_ADMIN_PASSWORD
+  displayName: Database admin postgres Password
+  generate: expression
+  from: "[a-zA-Z0-9]{16}"
+  value: "aH0me4dm1np4ss"
+- name: APP_CONFIG
+  displayName: Application Configuration File Path
+  description: Relative path to Gunicorn configuration file (optional).
+- name: DJANGO_SECRET_KEY
+  displayName: Django Secret Key
+  description: Set this to a long random string.
+  generate: expression
+  from: "[\\w]{50}"
+- name: PIP_INDEX_URL
+  displayName: Custom PyPi Index URL
+  description: The custom PyPi index URL
+  value: ''

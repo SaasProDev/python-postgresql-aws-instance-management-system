@@ -1,0 +1,40 @@
+{% load static %}
+
+<!-- /toast notification -->
+<div id="ahome-toast-notification">
+</div>
+<!-- /end toast -->
+
+
+
+<div id="ahome-generic-search-bar">
+{% include 'frontend/includes/helpers/search.html' %}
+</div>
+
+
+
+
+<!-- /ORG LIST -->
+
+<div id="pf-list-simple-expansion" class="list-group list-view-pf list-view-pf-view">
+
+<div id="ahome-generic-list">
+{% include 'frontend/includes/organizations/list.html' %}
+</div>
+
+<!-- /END ORG LIST -->
+
+
+<!-- /CREATE MODAL -->
+
+<div class="modal fade" id="modal-ahome-generic">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+</div>
+
+<!-- /END CREATE MODAL -->
+
+{% csrf_token %}
+<script  src="{% static 'ahome/js/ahome-generics.js' %}"></script>

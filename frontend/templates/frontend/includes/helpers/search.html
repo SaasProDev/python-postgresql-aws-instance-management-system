@@ -1,0 +1,366 @@
+<div class="container-fluid">
+  <div class="row toolbar-pf">
+    <div class="col-sm-12">
+      <form class="toolbar-pf-actions">
+        <div class="form-group toolbar-pf-filter">
+          <label class="sr-only" for="filter">Name</label>
+          <div class="input-group">
+            <div class="input-group-btn">
+              <button id="first-select-button" type="button" class="btn btn-default dropdown-toggle"
+                id="input-filter-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Name <span
+                  class="caret"></span></button>
+              <ul id="first-filter-options" class="dropdown-menu">
+                <li class="selected"><a href="#">Name</a></li>
+                <li><a href="#">Description</a></li>
+                <li><a href="#">Any</a></li>
+              </ul>
+            </div><!-- /btn-group -->
+            <input id="search-input-text_1" type="text" class="form-control" id="filter"
+              placeholder="Filter By Name...">
+          </div><!-- /input-group -->
+        </div>
+
+        <div class="form-group">
+          <button id="search-btn" class="btn btn-default" type="button">
+            <span class="fa pficon-search">
+            </span>
+            Search
+          </button>
+          <button id="reset-clear" class="btn btn-default" type="button">
+            <span class="fa pficon-spinner2">
+            </span>
+            Reset
+          </button>
+          
+          <!-- 
+          <div class="dropdown btn-group  dropdown-kebab-pf">
+            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownKebab" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+              <span class="fa fa-ellipsis-v"></span>
+            </button>
+            <ul class="dropdown-menu " aria-labelledby="dropdownKebab">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another Action</a></li>
+              <li><a href="#">Something Else Here</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Separated Link</a></li>
+            </ul>
+          </div>
+          -->
+
+        </div>
+        <div class="form-group">
+
+
+          {% if model_name == 'IaaS' %}
+            <a class="btn btn-primary js-link-ahome-navigate" data-url="{% url 'iaas_wizardbox_create' %}" ui-sref-active="active">
+              <span class="glyphicon glyphicon-plus"></span>
+              New {{ model_name }}
+            </a>
+            {% elif model_name == 'PaaS' %}
+            <a class="btn btn-primary js-link-ahome-navigate" data-url="{% url 'paas_wizardbox_create' %}" ui-sref-active="active">
+              <span class="glyphicon glyphicon-plus"></span>
+              New {{ model_name }}
+            </a>
+
+            {% elif model_name == 'Monitoring' %}
+            <a class="btn btn-primary js-link-ahome-navigate" data-url="{% url 'monitorings_wizardbox_create' %}" ui-sref-active="active">
+              <span class="glyphicon glyphicon-plus"></span>
+              New {{ model_name }}
+            </a>
+
+          {% else %}
+            <button class="btn btn-primary js-link-ahome-generic-create" data-url="{% url url_create %}" type="button">
+                  <span class="glyphicon glyphicon-plus"></span>
+                  New {{ model_name }}
+            </button>
+          {% endif %}
+
+        </div>
+
+
+
+        <!-- 
+        <div class="toolbar-pf-action-right">
+          <div class="form-group toolbar-pf-find">
+            <button class="btn btn-link btn-find" type="button">
+              <span class="fa fa-search"></span>
+            </button>
+            <div class="find-pf-dropdown-container">
+              <input type="text" class="form-control" id="find" placeholder="Find By Keyword...">
+              <div class="find-pf-buttons">
+                <span class="find-pf-nums">1 of 3</span>
+                <button class="btn btn-link" type="button">
+                  <span class="fa fa-angle-up"></span>
+                </button>
+                <button class="btn btn-link" type="button">
+                  <span class="fa fa-angle-down"></span>
+                </button>
+                <button class="btn btn-link btn-find-close" type="button">
+                  <span class="pficon pficon-close"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group toolbar-pf-view-selector">
+            <button class="btn btn-link "><i class="fa fa-th"></i></button>
+            <button class="btn btn-link "><i class="fa fa-th-large"></i></button>
+            <button class="btn btn-link "><i class="fa fa-th-list"></i></button>
+          </div>
+        </div>
+        -->
+      </form>
+      <div class="row toolbar-pf-results">
+        <div class="col-sm-12">
+          <h5>
+            {{ apidata.count }} Result{{ apidata.count | pluralize }}
+          </h5>
+          <ul id="searched-words-list" class="list-inline">
+          </ul>
+          <p class="hide-clear-link"><a id="clear-filter" href="#">Clear All Filters</a></p>
+        </div><!-- /col -->
+      </div><!-- /row -->
+    </div><!-- /col -->
+  </div><!-- /row -->
+</div><!-- /container -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="search-result-box"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  //Allow  the search_button variable to be redeclared 
+  // When we load a new view
+  // Then we avoid things to break
+
+  if (typeof (search_button) === "undefined") {
+
+    // Save the reference to searh bitton into a variable
+    const search_button = document.querySelector("#search-btn");
+
+    // Save the referenceof the search input text in a variable
+    // The element can be found in line 18 of this file
+    const search_input_text_1 = document.querySelector("#search-input-text_1");
+
+    // Element can be found on line 104 of this file
+    const searched_words_list = document.querySelector("#searched-words-list");
+
+    // Get the first selected option
+    // Element at line 23 of this file
+    const first_select_button = document.querySelector("#first-select-button");
+
+    // Search parameter
+    let searchParametersArray = [];
+
+    // The container of first filter options list
+    const first_filter_options_container = document.querySelector("#first-filter-options");
+    let selected_filter_option = "Name";
+
+    first_filter_options_container.addEventListener("click", (event) => {
+      event.preventDefault();
+      selected_filter_option = event.target.textContent;
+      first_select_button.innerHTML = selected_filter_option + '<span class="caret"></span>';
+      search_input_text_1.setAttribute("placeholder", "Filter by " + selected_filter_option);
+    });
+
+
+    // Listen to search button click event
+    search_button.addEventListener("click", (event) => {
+      $("#ahome-nav-pf-link .js-link-ahome-nav-pf").click(navigateLink);
+      ahomeSearch();
+    });
+
+    // Listen to Enter on the search input text
+    search_input_text_1.addEventListener("keydown", (event) => {
+      if (event.keyCode === 13 && search_input_text_1.value !=="") {
+        event.preventDefault();
+        ahomeSearch();
+      }
+    });
+
+    // Make a search
+    const ahomeSearch = () => {
+      const searchedValue = search_input_text_1.value;
+      let searchedValueExist = false;
+      searchParametersArray.forEach(parameter => {
+        if (Object.values(parameter)[0] === searchedValue) {
+          searchedValueExist = true;
+          // console.log(searchParametersArray);
+        }
+      });
+
+      if (searchedValueExist === false) {
+
+        // Ad New search list element
+        addNewSearchElement(searchedValue);
+
+        // Clear the search text input
+        clearSearchInput();
+
+        // Update the list of retrieved elements based on search
+        updateBySearch(constructSearchUrl(searchedValueExist, selected_filter_option, searchedValue));
+      }
+    }
+
+    const clearSearchInput = () => {
+      search_input_text_1.value = "";
+    }
+
+    const addNewSearchElement = (_searchedValue) => {
+      // Create the new List element
+      const newLi = document.createElement("li");
+
+      // Create the first span element to be inserted in the ne list element
+      const firstSpan = document.createElement("span");
+
+      // Set the class attribute value of the first span element
+      firstSpan.setAttribute("class", "label label-info");
+
+      // Create a Text node for the submitted value
+      const searched_word_node = document.createTextNode(selected_filter_option + ": " + _searchedValue);
+
+      // Insert the submitted value as a first element of the first span
+      firstSpan.appendChild(searched_word_node);
+
+      const searchField = selected_filter_option.toLowerCase();
+      const searchResultBox = document.querySelector("#search-result-box");
+
+      // Create the link that will be used
+      const newLink = document.createElement("a");
+
+      // Set the href attribute of the link
+      newLink.setAttribute("href", "#");
+
+      // Create the second span
+      // it will be used to display the icon of the keyword deletion
+      const secondSpan = document.createElement("span");
+
+      // Set the class attribute of the second span
+      secondSpan.setAttribute("class", "fa fa-times");
+
+      // Insert the second span into the new Link
+      newLink.appendChild(secondSpan);
+
+      // Insert the link into the first span
+      firstSpan.appendChild(newLink);
+
+      // Insert the first span to the new li
+      newLi.appendChild(firstSpan);
+
+      // Finally insert the li element into the list
+      searched_words_list.appendChild(newLi);
+    }
+
+    const constructSearchUrl = (_searchedValueExist, _selected_filter_option, _searchedValue) => {
+      
+      // Default search Url
+      //let searchUrl = 'http://localhost:8001/frontend/organizations/list/';
+      
+        {% with model_name|lower|add:"_list" as url_list %}
+            let searchUrl = "{% url url_list %}"
+        {% endwith %}
+
+      if (_searchedValueExist === false) {
+        // Save the search arguments in temporary object
+        let tempObject = {};
+        tempObject[_selected_filter_option.toLowerCase()] = _searchedValue;
+
+        // Push the object into the search parameters Array
+        searchParametersArray.push(tempObject);
+      }
+
+      let searchArgumentString = "";
+      searchParametersArray.forEach((_argument, index) => {
+       /* if (index === 0) {
+          searchArgumentString += Object.keys(_argument)[0] + '=' + Object.values(_argument)[0];
+        } else {
+          searchArgumentString += '&' + Object.keys(_argument)[0] + '=' + Object.values(_argument)[0];
+        }*/
+        searchArgumentString += '&' + Object.keys(_argument)[0] + '=' + Object.values(_argument)[0];
+      });
+
+
+      searchUrl += '?page=1' + searchArgumentString
+      return searchUrl;
+    }
+
+    var updateBySearch = function (_url) {
+      displayClearLink();
+      $.ajax({
+        type: 'GET',
+        url: _url,
+        beforeSend: function () {
+          $("#ahome-overlay").fadeIn(300);
+        },
+        success: function (data) {
+          // console.log(data);
+          $("#ahome-generic-list").html(data);
+        }
+      }).done(function () {
+        setTimeout(function () {
+          $("#ahome-overlay").fadeOut(300);
+        }, 500);
+      });
+    };
+
+    const clear_filter_link = document.querySelector("#clear-filter");
+    const reset_filter_button = document.querySelector("#reset-clear");
+
+    // Trigger the clearing on click event 
+    clear_filter_link.addEventListener("click", () => {
+      clearFilter();
+    });
+
+    reset_filter_button.addEventListener("click", ()=>{
+      clearFilter();
+    });
+
+    //document.querySelector("#instance-refresh-link").addEventListener('click', () => {
+    //  clearFilter();
+    //});
+
+    // Clear the search arguments list container
+    const clearFilter = () => {
+      searched_words_list.innerHTML = "";
+      searchParametersArray = [];
+      updateBySearch(constructSearchUrl());
+    }
+
+    searched_words_list.addEventListener("click", (event) => {
+      removeSearchkeyword(event);
+    });
+
+    const removeSearchkeyword = (event) => {
+      if (event.target.classList.contains('fa-times')) {
+        const spanItem = event.target.parentElement;
+        const listItem = spanItem.parentElement;
+        const parenItem = listItem.parentElement;
+
+        const spanItemTextArray = listItem.textContent.split(': ');
+        const searchObjectFromthis = {};
+        searchObjectFromthis[spanItemTextArray[0].toLocaleLowerCase()] = spanItemTextArray[1];
+        console.log(searchParametersArray);
+
+        let _retrieved;
+        searchParametersArray.forEach((parameter, index) => {
+          if (Object.values(searchObjectFromthis)[0] === Object.values(parameter)[0]) {
+            _retrieved = index;
+            searchParametersArray.splice(_retrieved, 1);
+          }
+        });
+        
+        //const retrieved_index = searchParametersArray.findIndex(_retrieved);
+        searched_words_list.removeChild(parenItem);
+        updateBySearch(constructSearchUrl());
+      }
+    }
+
+    const displayClearLink = () => {
+      searchParametersArray.length === 0 ? clear_filter_link.style.display="none": clear_filter_link.style.display="block" ;
+    } 
+
+  }
+</script>

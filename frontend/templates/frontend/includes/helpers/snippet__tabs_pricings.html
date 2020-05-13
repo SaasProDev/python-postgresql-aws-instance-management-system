@@ -1,0 +1,52 @@
+{% load static %}
+
+
+{% for plan in plans %}
+
+<div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas ahome-distribution">
+  <div 
+    class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-plan-select">
+    <div class="card-pf-body image-icon-iaas">
+      <div class="card-pf-heading-kebab">
+        
+        <!--// hidden fields -->
+
+        <input type="hidden" class="applauncher-pf-plan" value="{{ plan|default:'{}' }}">
+        <input type="hidden" class="applauncher-pf-plan-id" value="{{ plan.name|default:'unknown' }}">
+        <input type="hidden" class="applauncher-pf-plan-vcpu" value="{{ plan.vcpu|default:'0' }}">
+        <input type="hidden" class="applauncher-pf-plan-memory" value="{{ plan.memory|default:'0' }}">
+        <input type="hidden" class="applauncher-pf-plan-disk" value="{{ plan.disk|default:'0' }}">
+        <input type="hidden" class="applauncher-pf-plan-traffic" value="{{ plan.traffic|default:'unlimited traffic' }}">
+        <input type="hidden" class="applauncher-pf-plan-price" value="{{ plan.price|default:'0' }}">
+        <input type="hidden" class="applauncher-pf-plan-rate" value="{{ plan.rate|default:'hour' }}">
+
+        <!-- hidden fields //-->
+
+        <h2 class="card-pf-title">
+          <div class="ahome-plan-heading">
+            <p>
+                <span class="dollar">$</span>
+                <span class="pricing-value">{% widthratio plan.price 1 730 %}</span>
+                <span class="pricing-limit">/mo</span>
+            </p>
+            <p class="pricing">${{ plan.price }}/{{ plan.rate }}</p>
+          </div>
+        </h2>
+
+      </div>
+      
+    </div>
+    <div class="card-pf-footer">
+        <ul class="ahome-plan-resources">
+            <li class="ahome-plan-resource"> {{ plan.vcpu }} x <span class="pficon pficon-cpu" data-toggle="tooltip" data-placement="top" title="cpu"></span>
+              {{ plan.memory }} GB <span class="pficon pficon-memory" data-toggle="tooltip" data-placement="top" title="memory"></span>
+            </li>
+            <li class="ahome-plan-resource"></li>
+            <li class="ahome-plan-resource">{{ plan.disk }} GB <span class="pficon pficon-volume" data-toggle="tooltip" data-placement="top" title="disk"></span></li>
+            <li class="ahome-plan-resource">{{ plan.traffic }} <span class="pficon pficon-resources-almost-empty" data-toggle="tooltip" data-placement="top" title="traffic"></span></li>
+        </ul>
+    </div>
+  </div>
+</div>
+
+{% endfor %}

@@ -1,0 +1,123 @@
+---
+name: amazon ec2
+title: amazon EC2 mapping file
+description: |
+    Amazon Web service EC2 mapping
+cloud: true
+version: 1.0
+kind: ec2
+#/static/ahome/assets/
+icons:
+  small: amazon-aws-icon-sm.svg
+  large: amazon-aws-icon-lg.svg
+  image: amazon-aws-icon.svg
+
+# Mapping playbooks/roles variables
+
+## -- PLAYBOOK / ROLE VARS
+instance_vars:
+  name: ec2_instance_name
+  count: ec2_instance_count
+  image: ec2_instance_image
+  type: ec2_instance_type
+
+
+
+CORE_INSTANCE_ID_VAR: ec2_instance_name
+#
+CORE_INSTANCE_COUNT_VAR: ec2_instance_count
+# OS / Distrib / Snapshot / Image
+CORE_INSTANCE_IMAGE_VAR: ec2_instance_image
+# profile / vcpu / ram / hd
+CORE_INSTANCE_PROFILE_VAR: ec2_instance_type
+
+CORE_INSTANCE_PROFILE_VALUE: ec2_instance_type
+
+
+
+headers:
+  - label: Location
+    icon: xcxcxc
+    sum: ec2_facts.status
+
+infos:
+  - label: Location
+    value: ec2_facts.status
+
+
+
+
+registered_vars:
+  r__ec2_facts:
+
+    name: ec2_facts
+
+    model: core.virtualmachine
+
+    entrypoint: instances
+
+    unique_keys:
+      - instance_id
+      - primary_ip
+
+    defaults:
+      - name: name
+        value: instance_id
+
+      - name: kind
+        value: generic
+        static: yes
+
+
+
+    inputs:
+      - name: username
+        value: ec2-user
+        static: yes
+
+      - name: password
+        value: nopass
+        static: no
+
+      - name: inventory
+        value: public_dns_name
+
+
+
+
+    expose:
+
+      - name: status
+        type: string #dict hash
+        ref: state.name
+        save: yes
+
+      - name: primary_ip
+        type: string #dict hash
+        ref: public_ip_address
+        save: yes
+
+      - name: device_name
+        type: string #dict hash
+        ref: block_device_mappings[0].device_name
+
+      - name: public_dns_name
+        type: string #dict hash
+        ref: network_interfaces[0].association.public_dns_name
+
+      - name: group_id
+        type: string #dict hash
+        ref: network_interfaces[0].groups[0].group_id
+
+      - name: architecture
+      - name: hypervisor
+      - name: image_id
+      - name: instance_id
+
+
+
+
+
+
+
+# block_device_mappings

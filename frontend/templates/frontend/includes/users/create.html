@@ -1,0 +1,38 @@
+{% load widget_tweaks %}
+
+<form method="post" action="{% url url_create %}" class="js-ahome-generic-create-form">
+  {% csrf_token %}
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Create a new {{ model_name }}</h4>
+  </div>
+  <div class="modal-body">
+    {% include 'frontend/includes/helpers/form.html' %}
+
+    <div class="form-group">
+    <label for="project_organisation">Organisation</label>
+    <select style="width: 100%" id="project_organisation" name="project_organisation">
+        {% for o in extra.organizations %}
+        <option value="{{o.uuid }}"> {{ o.name }} </option>
+        {% endfor %}
+    </select>
+    </div>
+  </div>
+  <div class="modal-body">
+      <strong>Role in Organisation</strong>
+    <select style="width: 100%" name="organization_role">
+        <option value="user">user</option>
+        <option value="admin">admin</option>
+        <option value="auditor">auditor</option>
+        <option value="reporter">reporter</option>
+        <option value="visitor">visitor</option>
+    </select>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-primary">Create {{ model_name }}</button>
+  </div>
+</form>
+

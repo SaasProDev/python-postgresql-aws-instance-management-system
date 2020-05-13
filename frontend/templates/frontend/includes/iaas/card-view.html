@@ -1,0 +1,1701 @@
+{% load static %} {% load frontend_extras %}
+
+
+<!-- <div class="distro selected">
+              <button class="distro-button unbuttonized freebsd">
+                <div class="icon"></div>
+                <span class="distro-name">FreeBSD</span>
+              </button>
+              <div id="ember9607" class="aurora-dropdown-menu distro-version Dropdown ember-view"><div role="button" class="distro-dropdown-trigger" data-ember-action="" data-ember-action-9608="9608">
+  <span class="version-name">
+      12.0 x64 zfs
+  </span>
+  <span class="distro-select">
+    <span class="Icon--arrowDown"></span>
+  </span>
+</div>
+<div class="Dropdown-content">
+  <ul class="Dropdown-inner">
+      <li class="Dropdown-option ">
+        <a role="button" data-ember-action="" data-ember-action-9609="9609">
+          <p class="distro-image-name small">12.1 x64 zfs</p>
+          <span class="Icon--check "></span>
+        </a>
+      </li>
+      <li class="Dropdown-option ">
+        <a role="button" data-ember-action="" data-ember-action-9610="9610">
+          <p class="distro-image-name small">12.1 x64 ufs</p>
+          <span class="Icon--check "></span>
+        </a>
+      </li>
+      <li class="Dropdown-option ">
+        <a role="button" data-ember-action="" data-ember-action-9611="9611" class="selected">
+          <p class="distro-image-name small">12.0 x64 zfs</p>
+          <span class="Icon--check Icon--green"></span>
+        </a>
+      </li>
+      <li class="Dropdown-option ">
+        <a role="button" data-ember-action="" data-ember-action-9612="9612">
+          <p class="distro-image-name small">12.0 x64 ufs</p>
+          <span class="Icon--check "></span>
+        </a>
+      </li>
+      <li class="Dropdown-option ">
+        <a role="button" data-ember-action="" data-ember-action-9613="9613">
+          <p class="distro-image-name small">11.3 x64 zfs</p>
+          <span class="Icon--check "></span>
+        </a>
+      </li>
+      <li class="Dropdown-option ">
+        <a role="button" data-ember-action="" data-ember-action-9614="9614">
+          <p class="distro-image-name small">11.3 x64 ufs</p>
+          <span class="Icon--check "></span>
+        </a>
+      </li>
+  </ul>
+</div>
+</div>
+            </div> -->
+
+
+<!-- IMAGES -->
+
+<div class="container-fluid">
+  <h1>Choose an image</h1>
+
+  <div class="container-fluid lightpage">
+
+    <div class="sexytabs">
+
+      <ul>
+        {% for imagegroup in api.imagegroups %}
+
+        <li>
+          <a href="#{{ imagegroup.group_name }}">
+            <span>{{ imagegroup.group_label }}</span>
+          </a>
+        </li>
+
+        {% endfor %}
+      </ul>
+
+      <div class="contents">
+        {% for imagegroup in api.imagegroups %}
+        <div id="{{ imagegroup.group_name }}" style="position: relative;">
+          <p>
+            {{ imagegroup.group_desc }}
+          </p>
+
+          {% snippet__tabs_images request imagegroup.group_name %}
+
+        </div>
+
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- PROVIDERS -->
+
+<div class="container-fluid">
+  <h1>Choose a provider</h1>
+
+  <div class="container-fluid lightpage">
+
+    <div class="contents">
+
+      <p>
+        Available providers ready to use
+      </p>
+
+      {% for usercredential in api.usercredentials.results %}
+
+      <div class="col-xs-12 col-sm-3 col-md-2 card-box-iaas ahome-provider">
+        <div class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-provider-select">
+          <div class="card-pf-body image-icon-iaas">
+
+            <div class="card-pf-top-element">
+
+              <!--// hidden fields -->
+
+              <input type="hidden" class="applauncher-pf-provider-kind" value="{{ usercredential.kind }}">
+              <input type="hidden" class="applauncher-pf-provider-id" value="{{ usercredential.id }}">
+              <input type="hidden" class="applauncher-pf-provider-name" value="{{ usercredential.name }}">
+              <input type="hidden" class="applauncher-pf-provider-icon" value="{{ usercredential.icons.usercredential.image }}">
+              <input type="hidden" class="applauncher-pf-provider-pricing-plan" value="{% url 'wizardboxesform_retrieve_pricing' usercredential.kind 'plan' %}">
+
+              <!-- hidden fields //-->
+
+            </div>
+
+            <div class="card-pf-heading-kebab">
+              <div class="dropdown pull-right dropdown-kebab-pf">
+                <button class="btn btn-link dropdown-toggle" type="button" id="dropupKebabRight2x" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="true">
+                  <span class="fa fa-ellipsis-v"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropupKebabRight2x">
+                  <li>
+                    <a href="#" used="76">Connector A</a>
+                  </li>
+                  <li>
+                    <a href="#" used="19">Connector B</a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <a href="#" used="43">Default Connector</a>
+                  </li>
+                </ul>
+              </div>
+
+              <h2 class="card-pf-title">
+                <img src="{{ usercredential.icons.usercredential.image }}" class="image-icon" alt="{{ usercredential.kind }}">
+              </h2>
+            </div>
+            <p>
+              <span class="applauncher-pf-link" data-url="{% url 'wizardboxesform_generate' usercredential.kind 'usercredential' usercredential.id %}"
+                data-app="{{ usercredential.kind }}_credentials_01">
+                <strong>{{ usercredential.name }}</strong>
+              </span>
+            </p>
+          </div>
+
+          <div class="card-pf-footer">
+            <div class="progress-pf-legend">
+              <div class="progress">
+                <div class="progress-bar progress-bar-completed" role="progressbar" aria-valuenow="{% widthratio usercredential.summarized_fields.virtualmachine 10 100 %}"
+                  aria-valuemin="0" aria-valuemax="100" style="width: {% widthratio usercredential.summarized_fields.virtualmachine 10 100 %}%;"
+                  data-toggle="tooltip" title="{% widthratio usercredential.summarized_fields.virtualmachine 10 100 %}% Used">
+                  <span class="sr-only">{% widthratio usercredential.summarized_fields.virtualmachine 10 100 %}% Used</span>
+                </div>
+                <div class="progress-bar progress-bar-remaining" role="progressbar" aria-valuenow="{% widthratio usercredential.summarized_fields.virtualmachine|add:'-10' 10 100 %}"
+                  aria-valuemin="0" aria-valuemax="100" style="width: {% widthratio usercredential.summarized_fields.virtualmachine|add:'-10' 10 100 %}%;"
+                  data-toggle="tooltip" title="75% Available">
+                  <span class="sr-only">{% widthratio usercredential.summarized_fields.virtualmachine|add:'-10' 10 100 %}% Available</span>
+                </div>
+              </div>
+              <script>
+                // Initialize Tooltip
+                jQuery(document).ready(function () {
+                  jQuery('[data-toggle="tooltip"]').tooltip();
+                });
+              </script>
+
+              <p class="displayed_progress">
+                <span class="pficon pficon-virtual-machine"></span>
+                <strong>{{usercredential.summarized_fields.virtualmachine}}</strong> in use &nbsp;&nbsp;
+                <span style="text-align: right;">Limit:
+                  <strong>10</strong>
+                </span>
+              </p>
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      {% empty %}
+
+      <div class="blank-slate-pf" id="">
+        <div class="blank-slate-pf-icon">
+          <span class="pficon pficon pficon-add-circle-o"></span>
+        </div>
+        <h1>
+          No Credentials set for Providers
+        </h1>
+        <p>
+          Please add a credential for a provider.
+        </p>
+        <p>
+          Learn more about this
+          <a href="#">in the documentation</a>.
+        </p>
+
+
+        <button class="btn btn-primary js-link-ahome-navigate" data-url="{% url 'usercredential' %}" type="button">
+          <span class="glyphicon glyphicon-plus"></span>
+          Add Credentials
+        </button>
+      </div>
+
+      {% endfor %}
+
+    </div>
+  </div>
+
+</div>
+
+
+<!-- PLAN -->
+
+<div class="container-fluid">
+  <h1>Choose a plan</h1>
+
+  <div class="container-fluid lightpage">
+
+    <div class="sexytabs pricing-plan-tabs" id="pricing-plan-tabs-responsive">
+
+      <ul>
+        {% for plangroup in api.plangroups %}
+
+        <li>
+          <a href="#{{plangroup.plan_name}}">
+            <span>{{plangroup.plan_label}}</span>
+          </a>
+        </li>
+
+        {% endfor %}
+
+      </ul>
+
+      <div class="contents" id="pricing-plan-contents-responsive">
+        {% for plangroup in api.plangroups %}
+        <div id="{{ plangroup.plan_name }}" class="plan-tab">
+          <p>
+            {{ plangroup.plan_desc }}
+          </p>
+
+          {% snippet__tabs_pricings request 'kvm' plangroup.plan_name %}
+
+        </div>
+
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <!-- STORAGE -->
+
+  <div class="container-fluid">
+    <h1>Add block storage</h1>
+
+    <div class="container-fluid lightpage">
+
+      <div class="sexytabs pricing-storage" id="pricing-storage-responsive">
+
+        <p>
+          Standard storage for virtual machines or applications.
+        </p>
+
+        <div class="col-xs-12 col-sm-3 col-md-2">
+          <div class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-storage-select active">
+            <div class="card-pf-body">
+              <h2 class="card-pf-title">
+
+                <!--// hidden fields -->
+
+                <input type="hidden" class="applauncher-pf-storage" value="{{ storage|default:'{}' }}">
+                <input type="hidden" class="applauncher-pf-storage-name" value="{{ storage.name|default:'nil' }}">
+                <input type="hidden" class="applauncher-pf-storage-disk" value="{{ storage.disk|default:'0' }}">
+                <input type="hidden" class="applauncher-pf-storage-type" value="{{ storage.type|default:'SSD' }}">
+                <input type="hidden" class="applauncher-pf-storage-unit" value="{{ storage.unit|default:'GB' }}">
+                <input type="hidden" class="applauncher-pf-storage-price" value="{{ storage.price|default:'0' }}">
+                <input type="hidden" class="applauncher-pf-storage-rate" value="{{ storage.rate|default:'hour' }}">
+
+                <!-- hidden fields //-->
+
+
+                <div class="ahome-plan-heading">
+                  <p>
+                    <span class="dollar">$</span>
+                    <span class="pricing-value">0</span>
+                    <span class="pricing-limit">/mo</span>
+                  </p>
+                  <p class="pricing">$0.00 /hour</p>
+                </div>
+              </h2>
+            </div>
+            <div class="card-pf-footer">
+              <ul class="ahome-plan-resources">
+                <li class="ahome-plan-resource">0 GB SSD</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {% for storage in api.storages %}
+
+        <div class="col-xs-12 col-sm-3 col-md-2">
+          <div class="card-pf card-pf-view card-pf-view-xs card-pf-view-select card-pf-view-single-select card-pf-view-storage-select">
+            <div class="card-pf-body">
+              <h2 class="card-pf-title">
+
+                <!--// hidden fields -->
+
+                <input type="hidden" class="applauncher-pf-storage" value="{{ storage|default:'{}' }}">
+                <input type="hidden" class="applauncher-pf-storage-name" value="{{ storage.name|default:'unknown' }}">
+                <input type="hidden" class="applauncher-pf-storage-disk" value="{{ storage.disk|default:'0' }}">
+                <input type="hidden" class="applauncher-pf-storage-type" value="{{ storage.type|default:'SSD' }}">
+                <input type="hidden" class="applauncher-pf-storage-unit" value="{{ storage.unit|default:'GB' }}">
+                <input type="hidden" class="applauncher-pf-storage-price" value="{{ storage.price|default:'0' }}">
+                <input type="hidden" class="applauncher-pf-storage-rate" value="{{ storage.rate|default:'hour' }}">
+
+                <!-- hidden fields //-->
+
+                <div class="ahome-plan-heading">
+                  <p>
+                    <span class="dollar">$</span>
+                    <span class="pricing-value">{% widthratio storage.price 1 730 %}</span>
+                    <span class="pricing-limit">/mo</span>
+                  </p>
+                  <p class="pricing">${{ storage.price }}/{{ storage.rate }}</p>
+                </div>
+              </h2>
+            </div>
+            <div class="card-pf-footer">
+              <ul class="ahome-plan-resources">
+                <li class="ahome-plan-resource">{{ storage.disk }} {{ storage.unit }} {{ storage.type }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="container-fluid">
+    <h1>Authentication</h1>
+
+    <div class="container-fluid lightpage">
+
+      <p>
+        Provides authentication methods that will allow you to connect to your instances
+      </p>
+
+
+      <div class="sexytabs">
+
+        <div class="col-xs-12 col-sm-3 col-md-6">
+          <p>
+            <b>SSH keys</b>
+            <br/> A more secure authentication method.
+          </p>
+          <select class="combobox form-control" id="f-form-authentication-key" name="f-form-authentication-key">
+            <option value="">New RSA Key</option>
+            {% for usersecret in api.usersecrets.results %}
+            <option value="{{ usersecret.uuid }}">{{ usersecret.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-xs-12 col-sm-3 col-md-6">
+          <p>
+            <b>One-time password</b>
+            <br/> Emails a one-time root password to you (less secure).
+          </p>
+          <select class="combobox form-control" id="f-form-authentication-secret" name="f-form-authentication-secret">
+            <option value="">New Basic Auth</option>
+            {% for usersecret in api.usersecrets.results %}
+            <option value="{{ usersecret.uuid }}">{{ usersecret.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div style="padding: 50px 0;"></div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container-fluid">
+    <h1>Finalize and create</h1>
+
+    <div class="container-fluid lightpage">
+
+
+      <div class="sexytabs">
+
+        <div class="col-xs-12 col-sm-3 col-md-6">
+          <p>
+            <b>Select Project</b>
+            <br/> Assign Instances to a project.
+          </p>
+          <select class="combobox form-control" id="f-form-project" name="f-form-project">
+            <option value="" _selected="selected">Select a Project</option>
+            {% for project in api.projects %}
+            <option value="{{ project.uuid }}">{{ project.name }}</option>
+            {% endfor %}
+          </select>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-3 col-md-6">
+          <p>
+            <b>Choose a name</b>
+            <br/> Give your Instances an identifying name you will remember them by.
+          </p>
+          <input type="text" id="f-form-name" name="f-form-name" class="form-control" title="" data-toggle="tooltip" data-placement="top"
+            data-original-title="Your Instance name can only contain alphanumeric characters, dashes, and periods." placeholder="my personal cloud">
+        </div>
+
+        <div style="padding: 50px 0;"></div>
+
+
+        <div class="col-xs-12 col-sm-3 col-md-6">
+          <p>
+            <b>How many Instances?</b>
+            <br/> You can only create 1 Instance with this configuration at a time.
+          </p>
+          <input class="bootstrap-touchspin" id="f-form-count" type="text" value="1" name="f-form-count" style="text-align: center;">
+
+        </div>
+
+        <div class="col-xs-12 col-sm-3 col-md-6">
+          <p>
+            <b>Choose a hostname</b>
+            <br/> Give your Instances an identifying name you will remember them by.
+          </p>
+          <div class="hostname_template" style="margin-bottom:10px;">
+            <input type="text" id="f-form-hostname01" name="f-form-hostname01" class="form-control f-form-hostname" data-app="hostname"
+              title="" data-toggle="tooltip" data-placement="top" data-original-title="Your Instance name can only contain alphanumeric characters, dashes, and periods."
+              placeholder="ahome-s-2vcpu-96gb-kvm-01">
+          </div>
+
+
+          <div id="host_name_list">
+
+          </div>
+        </div>
+
+        <div style="padding: 50px 0;"></div>
+
+
+        <div class="col-xs-12 col-sm-3 col-md-12">
+          <p>
+            <b>Add tags</b>
+            <br/> Use tags to organize and relate resources. Tags may contain letters, numbers, colons, dashes, and underscores.
+          </p>
+          <input type="text" value="" data-role="tagsinput" class="form-control" title="" data-toggle="tooltip" data-placement="top"
+            id="f-form-tags" name="f-form-tags" data-original-title="Your Instance name can only contain alphanumeric characters, dashes, and periods."
+            placeholder="tags">
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="container-fluid">
+  <h1>Select additional options</h1>
+
+  <div id="wizard-pf-additional-fields"></div>
+
+  <span id="ember7716" class="aurora-check ember-view">
+
+    <label for="f-form-option-private-networking" class="checkbox-inline">
+      <input type="checkbox" id="f-form-option-private-networking" data-option="private-networking" class="ember-checkbox ember-view bootstrap-switch f-form-option"> Private networking </label>
+    <!---->
+    <label for="f-form-option-ipv6" class="checkbox-inline">
+      <input type="checkbox" id="f-form-option-ipv6" data-option="ipv6" class="ember-checkbox ember-view bootstrap-switch f-form-option"> IPv6 </label>
+    <!---->
+    <label for="f-form-option-user-data" id="f-form-option-user-data-label" class="checkbox-inline">
+      <input type="checkbox" id="f-form-option-user-data" data-option="user-data" class="ember-checkbox ember-view bootstrap-switch f-form-option"> User data </label>
+    <!---->
+    <label for="f-form-option-monitoring" class="checkbox-inline">
+      <input type="checkbox" id="f-form-option-monitoring" data-option="monitoring" class="ember-checkbox ember-view bootstrap-switch f-form-option"
+        checked="true"> Monitoring </label>
+    <!---->
+    <label for="f-form-option-backup" class="checkbox-inline">
+      <input type="checkbox" id="f-form-option-backup" data-option="backup" class="ember-checkbox ember-view bootstrap-switch f-form-option"
+        checked="true"> Backup </label>
+
+  </span>
+
+
+
+  <script>
+
+
+    jQuery(".bootstrap-switch").bootstrapSwitch();
+    $('#f-form-option-user-data').on('switchChange.bootstrapSwitch', function (event, state) {
+
+      if ($('#f-form-option-user-data').prop('checked') == true) {
+        $('.userdata-row').css('display', 'block');
+        $('.userdata-label').css('display', 'block');
+      } else {
+        $('.userdata-row').css('display', 'none');
+        $('.userdata-label').css('display', 'none');
+      }
+    });
+
+  </script>
+  <!-- <script src="/components/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script> -->
+
+
+
+  <script>
+    // Initialize Boostrap-Combobox
+    $('.combobox').combobox();
+  </script>
+
+  <h1 class="userdata-label" style="display:none;">Userdata</h1>
+  <div class="row userdata-row" style="display:none;">
+    <div class="col-md-12">
+      <textarea class="form-control" rows="5"></textarea>
+    </div>
+  </div>
+
+
+
+
+  <h1>Final step</h1>
+
+
+  <div class="container-fluid lightpage">
+
+    <p>
+      <button class="hidden" name="hidden-view-distrib" id="hidden-view-distrib"></button>
+      <button class="hidden" name="hidden-view-provider" id="hidden-view-provider"></button>
+      <button class="hidden" name="hidden-view-plan" id="hidden-view-plan"></button>
+      <div name="hidden-view-summary" id="hidden-view-summary"></div>
+
+      <button class="btn btn-primary disabled col-xs-12 col-sm-3 col-md-12 hidden" type="button" name="btn-launch-wizard" id="btn-launch-wizard"
+        data-url="{% url 'wizardboxesform_provider' 'kvm' 'provider' %}"> Deploy </button>
+
+  </div>
+
+
+
+
+  <button class="btn btn-primary col-xs-12 col-sm-3 col-md-12" data-toggle="modal" data-target="#myModal" name="btn-launch-summary"
+    id="btn-launch-summary">Deploy</button>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <span class="pficon pficon-close"></span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Deployment summary</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" name="mySummaryForm" id="mySummaryForm">
+
+            <div class="form-group">
+
+              <label class="col-sm-3 control-label" for="f-modal-image-icon">Image</label>
+              <div class="col-sm-9">
+
+                <img id="f-modal-image-icon" src="" class="image-icon" alt="" style="vertical-align:middle; width: 40px;height: 40px;">
+                <div style='vertical-align:middle; display:inline;'>
+                  <label id="f-modal-image-name"> Ubuntu </label>
+                  <label id="f-modal-image-version-label"> 18 x64 </label>
+                </div>
+                <input type="hidden" id="f-modal-image" name="f-modal-image" class="form-control">
+                <input type="hidden" id="f-modal-image-version" name="f-modal-image-version" class="form-control">
+
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="f-modal-provider-icon">Provider</label>
+              <div class="col-sm-9">
+
+                <img id="f-modal-provider-icon" name="f-modal-provider-icon" src="" class="image-icon" alt="" style="vertical-align:middle; width: 40px;height: 40px;">
+                <div style='vertical-align:middle; display:inline;'>
+                  <label id="f-modal-provider-label" name="f-modal-provider-label"> AWS </label>
+                </div>
+                <input type="hidden" id="f-modal-provider" name="f-modal-provider" class="form-control hidden">
+                <input type="hidden" id="f-modal-provider-name" name="f-modal-provider-name" class="form-control hidden">
+                <input type="hidden" id="f-modal-provider-kind" name="f-modal-provider-kind" class="form-control hidden">
+              </div>
+            </div>
+
+
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="textInput3-modal-markup">Plan</label>
+              <div class="col-sm-9">
+
+                <input type="hidden" id="f-modal-plan" name="f-modal-plan" class="form-control">
+                <label id="f-modal-plan-vcpu" name="f-modal-plan-vcpu"> 0 </label> x
+                <span class="pficon pficon-cpu" data-toggle="tooltip" data-placement="top" title="cpu"></span> &nbsp;
+                <label id="f-modal-plan-memory" name="f-modal-plan-memory"> 0 </label> GB
+                <span class="pficon pficon-memory" data-toggle="tooltip" data-placement="top" title="memory"></span> &nbsp;
+                <label id="f-modal-plan-disk" name="f-modal-plan-disk"> 0 </label> GB
+                <span class="pficon pficon-volume" data-toggle="tooltip" data-placement="top" title="disk"></span> &nbsp;
+                <label id="f-modal-plan-traffic" name="f-modal-plan-traffic"> no traffic </label>
+                <span class="pficon pficon-resources-almost-empty" data-toggle="tooltip" data-placement="top" title="traffic"></span>
+                &nbsp; ~ &nbsp;
+                <strong>$
+                  <label id="f-modal-plan-price" name="f-modal-plan-price"> 0 </label>/
+                  <label id="f-modal-plan-rate" name="f-modal-plan-rate">h</label>
+                </strong>
+
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="textInput4-modal-markup">Additonal Storage</label>
+              <div class="col-sm-9">
+
+                <input type="hidden" id="f-modal-storage" name="f-modal-storage" class="form-control">
+                <label id="f-modal-storage-disk" name="f-modal-storage-disk"> 0 </label>
+                <label id="f-modal-storage-unit" name="f-modal-storage-unit"> GB </label>
+                <label id="f-modal-storage-type" name="f-modal-storage-type"> SSD </label>
+                <span class="pficon pficon-volume" data-toggle="tooltip" data-placement="top" title="disk"></span> &nbsp; ~ &nbsp;
+                <strong>$
+                  <label id="f-modal-storage-price" name="f-modal-storage-price"> 0 </label>/
+                  <label id="f-modal-storage-rate" name="f-modal-storage-rate">hour</label>
+                </strong>
+
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="textInput4-modal-markup">Authentication</label>
+              <div class="col-sm-9">
+                <input type="hidden" id="f-modal-authentication-key" name="f-modal-authentication-key" class="form-control">
+                <input type="hidden" id="f-modal-authentication-secret" name="f-modal-authentication-secret" class="form-control">
+
+                <i class="fa pficon-key"></i>
+                <label id="f-modal-authentication-key-label" name="f-modal-authentication-key-label">
+                  < New RSA key>
+                </label>
+
+                &nbsp;&nbsp;
+
+                <i class="fa pficon-locked"></i>
+                <label id="f-modal-authentication-secret-label" name="f-modal-authentication-secret-label">
+                  < New Auth secret>
+                </label>
+
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="textInput4-modal-markup">Project</label>
+              <div class="col-sm-9">
+                <label id="f-modal-project-label" name="f-modal-project-label"> Default </label>
+                <input type="hidden" id="f-modal-project" name="f-modal-project" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="textInput4-modal-markup">Name</label>
+              <div class="col-sm-9">
+                <label id="f-modal-name-label" name="f-modal-name-label"> my personal cloud </label>
+                <input type="hidden" id="f-modal-name" name="f-modal-name" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="textInput4-modal-markup">Instance</label>
+              <div class="col-sm-9">
+                <label id="f-modal-instance-label" name="f-modal-instance-label"> [ freebsd-1vcpu-1gb-60bg-ssd ...] </label>
+                <input type="hidden" id="f-modal-instance" name="f-modal-instance" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="textInput4-modal-markup">Count</label>
+              <div class="col-sm-9">
+                <label id="f-modal-count-label" name="f-modal-count-label"> 10 </label>
+                <input type="hidden" id="f-modal-count" name="f-modal-count" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="textInput4-modal-markup">Options</label>
+              <div class="col-sm-9">
+                <span class="pficon pficon-error-circle-o" id="f-modal-option-private-networking-label"></span> Private networking &nbsp;
+                <span class="pficon pficon-error-circle-o" id="f-modal-option-ipv6-label"></span> IPv6 &nbsp;
+                <span class="pficon pficon-error-circle-o" id="f-modal-option-user-data-label"></span> User data &nbsp;
+                <span class="pficon pficon-ok" id="f-modal-option-monitoring-label"></span> Monitoring &nbsp;
+                <span class="pficon pficon-ok" id="f-modal-option-backup-label"></span> Backup &nbsp;
+                <input type="hidden" id="f-modal-additional-infos" class="form-control">
+                <input type="hidden" name="f-modal-option-private-networking" id="f-modal-option-private-networking" class="form-control">
+                <input type="hidden" name="f-modal-option-ipv6" id="f-modal-option-ipv6" class="form-control">
+                <input type="hidden" name="f-modal-option-user-data" id="f-modal-option-user-data" class="form-control">
+                <input type="hidden" name="f-modal-option-monitoring" id="f-modal-option-monitoring" class="form-control">
+                <input type="hidden" name="f-modal-option-backup" id="f-modal-option-backup" class="form-control">
+              </div>
+            </div>
+
+            <div id="wizard-modal-additional-fields"></div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="textInput4-modal-markup">Tags</label>
+              <div class="col-sm-9">
+                <label id="f-modal-tags-label" name="f-modal-tags-label"> [] </label>
+                <input type="hidden" id="f-modal-tags" name="f-modal-tags" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="textInput4-modal-markup">Costs</label>
+              <div class="col-sm-9">
+
+                <label id="f-modal-calcul-label" name="f-modal-calcul-label"> 0 x ( $0,006/h + $0/h ) = $0,00/h </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-sm-3 control-label" for="textInput5-modal-markup"></label>
+              <div class="col-sm-9">
+                <strong style="font-size: 2em;">$
+                  <label id="f-modal-costs-label" name="f-modal-costs-label">0</label>/mo</strong>
+                <input type="hidden" id="f-modal-costs" name="f-modal-costs" class="form-control">
+              </div>
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger col-xs-12 col-sm-3 col-md-12" name="btn-submit-summary" id="btn-submit-summary"
+            data-url="{% url 'wizardGenericform_save' %}">Confirm deployment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  {% csrf_token %}
+
+
+
+
+
+  <style type="text/css">
+    .bootstrap-tagsinput {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      display: block;
+      padding: 4px 6px;
+      color: #555;
+      vertical-align: middle;
+      border-radius: 4px;
+      max-width: 100%;
+      line-height: 22px;
+      cursor: text;
+    }
+
+    .bootstrap-tagsinput input {
+      border: none;
+      box-shadow: none;
+      outline: none;
+      background-color: transparent;
+      padding: 0 6px;
+      margin: 0;
+      width: auto;
+      max-width: inherit;
+    }
+  </style>
+
+
+
+
+
+
+
+
+
+  <script>
+    $(".bootstrap-touchspin").TouchSpin({
+      min: 1,
+      max: 10
+    });
+
+    $(".bootstrap-touchspin").on("touchspin.on.stopspin", function () {
+      var count = $('#f-form-count').val();
+      var hostname_val = $('#f-form-hostname01').val();
+      $('#host_name_list').empty();
+      // $('.hostname_template').empty();
+      var render_html = '';
+      for (var idx = 1; idx < parseInt(count); idx++) {
+        var formattedNumber = ("0" + parseInt(idx + 1)).slice(-2);
+        render_html += '<input type="text" id="f-form-hostname' + formattedNumber + '" style="margin-bottom:10px;" name="f-form-hostname' + formattedNumber + '" class="form-control f-form-hostname" data-app="hostname" title="" data-toggle="tooltip" data-placement="top" ';
+        render_html += 'data-original-title="Your Instance name can only contain alphanumeric characters, dashes, and periods." placeholder="ahome-s-2vcpu-20gb-kvm-' + formattedNumber + '">';
+      }
+      $('#host_name_list').append(render_html);
+
+    });
+
+    // $('input').tagsinput('refresh');
+    $("#f-form-tags").tagsinput();
+
+  </script>
+
+
+
+  <script type="text/javascript">
+    // just some interesting CSS
+    // for tabbed content :)
+    // 
+    // inspired by: 
+    // https://www.google.com/intl/en-GB/chrome/devices/chromecast
+
+    $(function () {
+
+
+      $(".sexytabs").tabs({
+        cache: false,
+        show: { effect: "slide", direction: "left", duration: 200, easing: "easeOutBack" },
+        hide: { effect: "slide", direction: "right", duration: 200, easing: "easeInQuad" }
+      });
+
+    });
+
+  </script>
+
+  <style type="text/css">
+    /*@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400);*/
+
+    .sexytabs>ul {
+      text-align: center;
+      font-weight: 500;
+      margin: 50px 0 0;
+      padding: 0;
+      position: relative;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .sexytabs>ul>li {
+      display: inline-block;
+      background: #fafafa;
+      padding: 0.6em 0;
+      position: relative;
+      width: 25%;
+      margin: 0 0 0 -4px;
+    }
+
+    .sexytabs>ul>li:before,
+    .sexytabs>ul>li:after {
+      opacity: 0;
+      transition: 0.3s ease;
+    }
+
+    .sexytabs>ul>li.ui-tabs-active:before,
+    .sexytabs>ul>li.ui-tabs-active:after,
+    .sexytabs>ul>li.ui-state-hover:before,
+    .sexytabs>ul>li.ui-state-hover:after,
+    .sexytabs>ul>li.ui-state-focus:before,
+    .sexytabs>ul>li.ui-state-focus:after {
+      opacity: 1;
+    }
+
+    .sexytabs>ul>li:before,
+    .sexytabs>ul>li.ui-state-active.ui-state-hover:before,
+    .sexytabs>ul>li.ui-state-active.ui-state-focus:before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      box-shadow: 0 2px 3px rgba(22, 195, 255, 0.5);
+      top: 50%;
+      bottom: 0px;
+      left: 5px;
+      right: 5px;
+      border-radius: 100px / 10px;
+    }
+
+    .sexytabs>ul>li:after,
+    .sexytabs>ul>li.ui-state-active.ui-state-hover:after,
+    .sexytabs>ul>li.ui-state-active.ui-state-focus:after {
+      content: "";
+      background: #fafafa;
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      left: 50%;
+      bottom: -6px;
+      margin-left: -6px;
+      transform: rotate(45deg);
+      box-shadow: inset 3px 3px 3px rgba(22, 195, 255, 0.5), inset 1px 1px 1px rgba(0, 0, 0, 0.3);
+    }
+
+    .sexytabs>ul>li.ui-state-hover:before,
+    .sexytabs>ul>li.ui-state-focus:before {
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .sexytabs>ul>li.ui-state-hover:after,
+    .sexytabs>ul>li.ui-state-focus:after {
+      box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.2), inset 1px 1px 1px rgba(0, 0, 0, 0.3);
+    }
+
+    .sexytabs>ul>li.ui-state-focus a {
+      text-decoration: underline;
+    }
+
+    .sexytabs>ul>li:focus {
+      outline: none;
+    }
+
+    .sexytabs>ul>li a {
+      color: #444;
+      text-decoration: none;
+    }
+
+    .sexytabs>ul>li a:focus {
+      outline: none;
+    }
+
+    .sexytabs>ul>li a span {
+      position: relative;
+      top: -0.5em;
+    }
+
+    .sexytabs.dark>ul {
+      border-bottom-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .sexytabs.dark>ul>li {
+      background: #333;
+    }
+
+    .sexytabs.dark>ul>li:before,
+    .sexytabs.dark>ul>li.ui-state-active.ui-state-hover:before,
+    .sexytabs.dark>ul>li.ui-state-active.ui-state-focus:before {
+      box-shadow: 0 2px 3px rgba(255, 255, 255, 0.3);
+    }
+
+    .sexytabs.dark>ul>li:after,
+    .sexytabs.dark>ul>li.ui-state-active.ui-state-hover:after,
+    .sexytabs.dark>ul>li.ui-state-active.ui-state-focus:after {
+      background: #333;
+      box-shadow: inset 3px 3px 3px rgba(255, 255, 255, 0.3), inset 1px 1px 1px rgba(255, 255, 255, 0.5);
+    }
+
+    .sexytabs.dark>ul>li.ui-state-hover:before,
+    .sexytabs.dark>ul>li.ui-state-focus:before {
+      box-shadow: none;
+    }
+
+    .sexytabs.dark>ul>li.ui-state-hover:after,
+    .sexytabs.dark>ul>li.ui-state-focus:after {
+      box-shadow: inset 1px 1px 0px rgba(255, 255, 255, 0.4);
+    }
+
+    .sexytabs.dark>ul>li a {
+      color: white;
+    }
+
+    /*  img {
+    width: 60px;
+    float: left;
+    margin: 0 1em 1em 0;
+    border-radius: 3px; }
+*/
+
+    /*  body {
+    font-size: 1em;
+    background: #fafafa;
+    font-family: Lato;
+    font-weight: 300; }*/
+
+    h1 {
+      /*text-align: center;*/
+      font-size: 20px;
+    }
+
+    .sexytabs {
+      width: 100%;
+      min-width: 360px;
+      margin: auto;
+    }
+
+    .contents {
+      padding: 20px 50px;
+      min-height: 300px;
+    }
+
+    .darkpage {
+      background: #333;
+      color: white;
+    }
+
+    .darkpage,
+    .lightpage {
+      padding: 50px 0;
+    }
+
+    @media screen and (min-width: 1000px) {
+      .darkpage,
+      .lightpage {
+        width: 100%;
+        float: left;
+        padding: 0;
+      }
+    }
+  </style>
+
+
+
+
+
+
+
+  <style type="text/css">
+    .image-icon-fedora {
+      /*background-image: url({% static 'ahome/assets/icons/iconfinder_fedora_395212.svg' %});*/
+      /*background-size: cover;*/
+      /*opacity: 0.8;*/
+      /*       background-position: center center;
+       background-repeat: no-repeat; 
+       -webkit-background-size: cover;
+       -moz-background-size: cover;
+       -o-background-size: cover;
+       background-size: cover;*/
+      /*color: #444;*/
+    }
+
+    .image-icon-centos {
+      background-image: url({% static 'ahome/assets/centos.svg' %});
+      /*background-size: cover;*/
+      /*opacity: 0.8;*/
+      /*       background-position: center center;
+       background-repeat: no-repeat; 
+       -webkit-background-size: cover;
+       -moz-background-size: cover;
+       -o-background-size: cover;
+       background-size: cover;*/
+      /*color: #444;*/
+    }
+
+
+    /*  .image-icon-fedora {
+    padding-left: 32px;
+    position: relative;
+  }
+  .image-icon-fedora:before {
+    position: absolute;
+    font-family: 'FontAwesome';
+    top: 0;
+    left: 10px;
+    content: "\f005";
+  }*/
+
+    .card-box-iaas {
+      width: 200px;
+
+    }
+
+    .image-icon-iaas {
+      text-align: center;
+
+    }
+
+    img.image-icon {
+      width: 50px;
+      height: 50px;
+
+    }
+  </style>
+
+  <script src="{% static 'custom/custom.js'%}"></script>
+
+  <script>
+    $(function () {
+      // matchHeight the contents of each .card-pf and then the .card-pf itself
+      $(".row-cards-pf > [class*='col'] > .card-pf > .card-pf-body").matchHeight();
+    });
+    // Card Single Select
+    // $('.card-pf-view-single-select').click(function() {
+    //   if ($(this).hasClass('active'))
+    //   { $(this).removeClass('active'); }
+    //   else
+    //   { $('.card-pf-view-single-select').removeClass('active'); $(this).addClass('active'); }
+    // });
+
+
+    $('#btn-launch-summary').prop('disabled', true);
+
+
+    $(function () {
+
+
+      var loadAdditionalFields = function (url) {
+
+        // console.log(url);
+
+        $.ajax({
+          type: 'GET',
+          url: url,
+          beforeSend: function () {
+            $("#ahome-overlay").fadeIn(200);
+          },
+          success: function (data) {
+            // console.log(data.html_form);
+            // $("#pricing-plan-responsive").html('');
+            // $("#pricing-plan-responsive").html(data.html_form);
+
+            $("#wizard-pf-additional-fields").html(data['html_form']);
+            $("#wizard-modal-additional-fields").html(data['modal_form']);
+
+          }
+        }).done(function () {
+          setTimeout(function () {
+            $("#ahome-overlay").fadeOut(200);
+          }, 200);
+
+        });
+
+      };
+
+
+
+
+
+      var loadPrice = function (url, block) {
+        // var btn = $(this);
+        // console.log( 'loadPrice ' + block + ' => ' + url );
+
+        $.ajax({
+          type: 'GET',
+          url: url,
+          beforeSend: function () {
+            $("#ahome-overlay").fadeIn(200);
+          },
+          success: function (data) {
+            // console.log(data.html_form);
+            // $("#pricing-plan-responsive").html('');
+            // $("#pricing-plan-responsive").html(data.html_form);
+            $('.plan-tab').each(function () {
+              var tab = $(this);
+              // console.log(tab);
+              // console.log($(tab).attr("id"));
+              tab.html(data[$(tab).attr("id")]);
+              // $('.card-pf-view-plan-select').addClass('active');
+            });
+
+            $("#pricing-storage-responsive").html(data['storage']);
+
+            $("#btn-launch-summary").addClass('disabled');
+            $('#btn-launch-summary').prop('disabled', true);
+
+
+          }
+        }).done(function () {
+          setTimeout(function () {
+            $("#ahome-overlay").fadeOut(200);
+          }, 200);
+
+          //
+
+          //
+
+        });
+
+      };
+
+      function enableButton() {
+
+        // console.log( $('#hidden-view-distrib').hasClass('active') );
+
+        // $("#f-modal-name").val( $( "#f-form-name" ).attr( "value" ) );
+
+        // console.log( $( "#f-form-name" ).val() );
+        // console.log( $( "#f-form-name" ).attr( "placeholder" ) );
+
+
+
+
+        // if ($( "#f-form-name" ).val()=='') {
+        //   console.log( $( "#f-form-name" ).attr( "placeholder" ) );
+
+
+        // } else {
+        //   console.log( $( "#f-form-name" ).val() );
+        // }
+
+        // Enable button
+
+
+        if ($('#hidden-view-distrib').hasClass('active')
+          && $('#hidden-view-provider').hasClass('active')
+          && $('#hidden-view-plan').hasClass('active')) {
+          // console.log( "all items selected" );
+          $("#btn-launch-summary").removeClass('disabled');
+          $('#btn-launch-summary').prop('disabled', false);
+
+        } else {
+
+          $("#btn-launch-summary").addClass('disabled');
+          $('#btn-launch-summary').prop('disabled', true);
+
+        }
+
+      };
+
+
+      $('.card-pf-view-provider-select').click(function () {
+
+        //
+        // console.log( $( this  ).find('.applauncher-pf-link').attr("data-app") );
+        //
+
+        $("#f-modal-provider-icon").attr("src", $(this).find('.image-icon').attr("src"));
+        $("#f-modal-provider").val($(this).find('.applauncher-pf-provider-id').attr("value"));
+        $("#f-modal-provider-label").text($(this).find('.applauncher-pf-provider-name').attr("value"));
+        $("#f-modal-provider-name").val($(this).find('.applauncher-pf-provider-name').attr("value"));
+        $("#f-modal-provider-kind").val($(this).find('.applauncher-pf-provider-kind').attr("value"));
+
+
+
+        $('.card-pf-view-provider-select').removeClass('active');
+        $(this).addClass('active');
+        $('#hidden-view-provider').addClass('active');
+
+        $('#hidden-view-provider').html($(this).find('.applauncher-pf-link').attr("data-app"));
+
+        $('#btn-launch-wizard').attr('data-url', $(this).find('.applauncher-pf-link').attr("data-url"));
+
+
+        enableButton();
+        // console.log('load sub-items ' + $( this ).find( '.applauncher-pf-provider-kind' ).attr( "value" ) );
+        loadPrice($(this).find('.applauncher-pf-provider-pricing-plan').attr("value"), 'plan');
+
+
+        // if ($(this).hasClass('active'))
+        // { $(this).removeClass('active'); }
+        // else
+        // { $('.card-pf-view-provider-select').removeClass('active'); $(this).addClass('active'); }
+
+
+      });
+
+      $('.card-pf-view-image-select').click(function () {
+
+        //
+        // console.log( $( this  ).find('.applauncher-pf-link').attr("data-app") );
+        //
+        // console.log( $( this  ).find('.applauncher-pf-image').attr("value") );
+        // console.log( $( this  ).find('.image-icon').attr("src") );
+        // $("#my_image").attr("src","second.jpg");
+
+        // $("#f-modal-image-icon").attr("src", $( this  ).find( '.image-icon' ).attr( "src" ) );
+
+        // console.log(  $( this  ).find( '.applauncher-pf-image-name' ).attr( "value" ) );
+
+        // $("#f-modal-image").val( $( this  ).find( '.applauncher-pf-image' ).attr( "value" ) );
+
+        // var test = $("input[name=testing]:hidden");
+        // test.val('work!');
+
+
+        $("#f-modal-image-icon").attr("src", $(this).find('.image-icon').attr("src"));
+        $("#f-modal-image").val($(this).find('.applauncher-pf-image').attr("value"));
+        $("#f-modal-image-name").text($(this).find('.applauncher-pf-image-name').attr("value"));
+        $("#f-modal-image-version-label").text($(this).find('.applauncher-pf-image-version').attr("value"));
+        $("#f-modal-image-version").val($(this).find('.applauncher-pf-image-version').attr("value"));
+
+
+
+        $('.card-pf-view-image-select').removeClass('active');
+        $(this).addClass('active');
+        $('#hidden-view-distrib').addClass('active');
+        $('#hidden-view-distrib').html($(this).find('.applauncher-pf-link').attr("data-app"));
+        enableButton();
+
+        // loadAdditionalFields('url');
+        loadAdditionalFields($(this).find('.applauncher-pf-image-extra-fields').attr("value"));
+
+        // if ($(this).hasClass('active'))
+        // { $(this).removeClass('active'); }
+        // else
+        // { $('.card-pf-view-distrib-select').removeClass('active'); $(this).addClass('active'); }
+
+
+
+      });
+
+      $('.pricing-plan-tabs').on('click', '.card-pf-view-plan-select', function () {
+
+        // console.log('hitme');
+
+        $("#f-modal-plan").val($(this).find('.applauncher-pf-plan').attr("value"));
+        $("#f-modal-plan-name").text($(this).find('.applauncher-pf-plan-name').attr("value"));
+        $("#f-modal-plan-vcpu").text($(this).find('.applauncher-pf-plan-vcpu').attr("value"));
+        $("#f-modal-plan-memory").text($(this).find('.applauncher-pf-plan-memory').attr("value"));
+        $("#f-modal-plan-disk").text($(this).find('.applauncher-pf-plan-disk').attr("value"));
+        $("#f-modal-plan-traffic").text($(this).find('.applauncher-pf-plan-traffic').attr("value"));
+        $("#f-modal-plan-price").text($(this).find('.applauncher-pf-plan-price').attr("value"));
+        $("#f-modal-plan-rate").text($(this).find('.applauncher-pf-plan-rate').attr("value"));
+
+
+        $('.card-pf-view-plan-select').removeClass('active');
+        $(this).addClass('active');
+        $('#hidden-view-plan').addClass('active');
+        $('#hidden-view-plan').html($(this).find('.applauncher-pf-link').attr("data-app"));
+        enableButton();
+      });
+
+
+      $('.pricing-storage').on('click', '.card-pf-view-storage-select', function () {
+
+        // console.log( $( this  ).find('.applauncher-pf-storage').attr("value") );
+
+        $("#f-modal-storage").val($(this).find('.applauncher-pf-storage').attr("value"));
+        $("#f-modal-storage-name").text($(this).find('.applauncher-pf-storage-name').attr("value"));
+        $("#f-modal-storage-unit").text($(this).find('.applauncher-pf-storage-unit').attr("value"));
+        $("#f-modal-storage-type").text($(this).find('.applauncher-pf-storage-type').attr("value"));
+        $("#f-modal-storage-disk").text($(this).find('.applauncher-pf-storage-disk').attr("value"));
+        $("#f-modal-storage-price").text($(this).find('.applauncher-pf-storage-price').attr("value"));
+        $("#f-modal-storage-rate").text($(this).find('.applauncher-pf-storage-rate').attr("value"));
+
+
+        $('.card-pf-view-storage-select').removeClass('active');
+        $(this).addClass('active');
+        $('#hidden-view-plan').addClass('active');
+        $('#hidden-view-plan').html($(this).find('.applauncher-pf-link').attr("data-app"));
+        enableButton();
+      });
+
+
+
+    });
+  </script>
+
+
+
+  <script type="text/javascript">
+    var loadWizardBoxForm = function () {
+      var btn = $(this);
+      //btn.attr("data-url")
+      console.log(btn.attr("data-url"));
+      $.ajax({
+        url: btn.attr("data-url"),
+        type: 'get',
+        dataType: 'json',
+        // beforeSend: function () {
+        //   $("#complete").modal("show");
+        // },
+        success: function (data) {
+          $("#ahome-wizardbox .modal-content").html(data.html_form);
+          // $( ".btn.wizard-pf-complete" ).click();
+          // alert(data.html_form);
+        },
+        complete: function (data) {
+          // $("#ahome-wizardbox").html(data.html_form);
+          $(".btn.wizard-pf-complete").click();
+          // console.log(data.html_form);
+        }
+      });
+    };
+
+    // $("#ahome-generic-list").on("click", ".js-link-ahome-generic-update", loadForm);
+
+    $("#btn-launch-wizard").on('click', loadWizardBoxForm);
+
+
+  /**
+   *  Detect changes on IAAS
+   * */
+
+  // if (typeof (iaasCardBoxes) == "undefined") {
+  //   const iaasCardBoxes = document.querySelectorAll(".card-box-iaas");
+
+  //   iaasCardBoxes.forEach(card => {
+  //     const distribution_list = card.querySelectorAll(".dropdown-kebab-pf .dropdown-menu");
+  //     const selected_distribution = card.querySelector("p a strong");
+  //     distribution_list[0].addEventListener("click", event => {
+  //       event.preventDefault();
+  //       const clickedElement = event.target;
+  //       if (clickedElement.nodeName.toLowerCase() === "a") {
+  //         selected_distribution.textContent = clickedElement.textContent;
+  //         if (card.classList.contains("ahome-provider")) {
+  //           detectChangeOnProviders(card, clickedElement);
+  //         }
+  //       }
+  //     });
+  //   });
+
+  //   // Mettre à jour les contenus des providers
+  //   const detectChangeOnProviders = (providerCard, link) => {
+  //     const progress_completed = providerCard.querySelector(".progress-bar-completed");
+  //     const progress_remaining = providerCard.querySelector(".progress-bar-remaining");
+  //     const usedValue = link.getAttribute("used");
+
+  //     progress_completed.style.width = usedValue + "%";
+  //     progress_remaining.style.width = (100 - usedValue) + "%";
+  //     if (usedValue < 75) {
+  //       providerCard.querySelector(".displayed_progress span").setAttribute("class", "pficon pficon-ok");
+  //     } else {
+  //       providerCard.querySelector(".displayed_progress span").setAttribute("class",
+  //         "pficon pficon-warning-triangle-o");
+  //     }
+  //     providerCard.querySelector(".displayed_progress strong").textContent = usedValue + "%";
+  //   }
+  // }
+
+
+  </script>
+
+  <script type="text/javascript">
+    var submitSummaryForm = function () {
+      var btn = $(this);
+      var strSerialize = $("#mySummaryForm").serialize();
+      console.log(strSerialize);
+
+      var btn = $("#btn-submit-summary");
+      var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+      // console.log( $( btn ).attr("data-url") );
+      // console.log( csrftoken );
+
+      function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+      $.ajax({
+        url: btn.attr("data-url"),
+        type: 'post',
+        dataType: 'json',
+        data: strSerialize,
+        beforeSend: function (xhr, settings) {
+          if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+          }
+        },
+        success: function (data) {
+          console.log(btn.attr("data-url"));
+          // $("#iaas-link").click();
+          // --<
+          $("#myModal").modal("hide");
+          // --
+          $.ajax({
+            type: 'GET',
+            url: "{% url 'iaas' %}",
+            beforeSend: function () {
+              $("#ahome-overlay").fadeIn(300);
+            },
+            success: function (data) {
+              // console.log(data);
+              $("#ajax-responsive").html(data);
+            }
+          }).done(function () {
+            setTimeout(function () {
+              $("#ahome-overlay").fadeOut(300);
+            }, 300);
+          });
+          //--<
+          // 
+          return true
+        }
+      });
+
+
+      // --
+
+      // //btn.attr("data-url")
+      // console.log(btn.attr("data-url"));
+      // $.ajax({
+      //   url: btn.attr("data-url"),
+      //   type: 'get',
+      //   dataType: 'json',
+      //   // beforeSend: function () {
+      //   //   $("#complete").modal("show");
+      //   // },
+      //   success: function (data) {
+      //     $("#ahome-wizardbox .modal-content").html(data.html_form);
+      //     // $( ".btn.wizard-pf-complete" ).click();
+      //     // alert(data.html_form);
+      //   },
+      //   complete: function (data) {
+      //     // $("#ahome-wizardbox").html(data.html_form);
+      //     $(".btn.wizard-pf-complete").click();
+      //     // console.log(data.html_form);
+      //   }
+      // });
+
+      // --
+
+    };
+
+    var field_apply = function (name, mode) {
+      var input_selector = "#f-form-" + name,
+        output_selector = "#f-modal-" + name,
+        default_value = mode === 'select'
+          ? $(input_selector).children("option:selected").val()
+          : $(input_selector).attr("placeholder"),
+        form_value = $(input_selector).val();
+
+      if (form_value === '') {
+        form_value = default_value
+      }
+      $(output_selector + "-label").text(form_value);
+      $(output_selector).val(form_value);
+
+      return form_value
+    };
+
+    var text_field_apply = function (name) { return field_apply(name, 'text') }
+    var select_field_apply = function (name) { return field_apply(name, 'select') }
+
+
+    var fillSummaryForm = function () {
+
+      text_field_apply('name')
+      // text_field_apply('hostname')
+      select_field_apply('project')
+      select_field_apply('authentication-key')
+      select_field_apply('authentication-secret')
+
+      $("#f-modal-authentication-key-label").text($("#f-form-authentication-key option:selected").text());
+      $("#f-modal-authentication-secret-label").text($("#f-form-authentication-secret option:selected").text());
+      // console.log( $("#f-form-authentication-key").children("option:selected").text() );
+
+      console.log('val Sec : ' + $("#f-form-authentication-secret").val());
+      console.log('val Key : ' + $("#f-form-authentication-key").val());
+      console.log('txt Key : ' + $("#f-form-authentication-key :selected").text());
+
+      console.log('key: ' + $("#f-form-authentication-key").children("option:selected").text());
+      console.log('secret: ' + $("#f-form-authentication-secret").children("option:selected").text());
+
+      var formCount = text_field_apply('count')
+
+      var formTags = $("#f-form-tags").val();
+      // if (formTags =='') { formTags = $( "#f-form-tags" ).attr( "placeholder" ); }
+      $("#f-modal-tags-label").text(formTags);
+      $("#f-modal-tags").val(formTags);
+
+
+      var planPrice = $("#f-modal-plan-price").text();
+      var storagePrice = $("#f-modal-storage-price").text();
+
+      var costHour = parseInt(formCount) * (parseFloat(planPrice) + parseFloat(storagePrice))
+      // console.log(costHour);
+      var costMo = costHour * 730
+      // console.log(Math.round(costMo));
+      // console.log(costMo.toFixed(2))
+      $("#f-modal-calcul-label").text(formCount + " x ( $" + planPrice + "/h + $" + storagePrice + "/h )  =  $" + costHour.toFixed(2) + "/h");
+      // 10 x ( $0,006/h + $0/h ) = $0,06/h
+      $("#f-modal-costs-label").text(costMo.toFixed(2));
+      $("#f-modal-costs").val(costMo.toFixed(2));
+
+
+      //additional fields
+
+      // $("#checkkBoxId").attr("checked") ? alert("Checked") : alert("Unchecked");
+      $('.f-form-option').each(function () {
+        var option = $(this);
+        var optionLabel = $(option).attr("id");
+        var optionId = "#" + $(option).attr("id");
+        var element = 'f-modal-option-' + $(option).attr("data-option");
+        var elementLabel = 'f-modal-option-' + $(option).attr("data-option") + '-label';
+        // console.log(tab);
+        // console.log($(option).attr("id"));
+        // $("#" + $(option).attr("id")).prop('checked') ? console.log(option_id + " Checked") : console.log(option_id + " Unchecked");
+        // tab.html(data[$(tab).attr("id")]);
+        // $('.card-pf-view-plan-select').addClass('active');
+
+        if ($(optionId).prop('checked')) {
+
+          // console.log(optionLabel + " Checked");
+          $('#' + elementLabel).removeClass('pficon-error-circle-o');
+          $('#' + elementLabel).addClass('pficon-ok');
+          $('#' + element).val(true);
+
+        }
+        else {
+
+          // console.log(optionLabel + " Unchecked");
+          $('#' + elementLabel).removeClass('pficon-ok');
+          $('#' + elementLabel).addClass('pficon-error-circle-o');
+          $('#' + element).val(false);
+
+        };
+
+      });
+
+      var elements = [];
+
+      $('.f-form-hostname').each(function () {
+
+        var instance = $(this);
+        var instanceLabel = $(instance).attr("id");
+        var instanceId = "#" + $(instance).attr("id");
+        var instanceDefault = $(instanceId).attr("placeholder");
+        var instanceVal = $(instanceId).val();
+        if (instanceVal === '') {
+          instanceVal = instanceDefault;
+        }
+
+        elements.push(instanceVal);
+
+      });
+
+      // console.log( elements.join(",") );
+
+      $("#f-modal-instance-label").text(elements.join(", "));
+      $("#f-modal-instance").val(elements.join(","));
+
+
+
+
+
+      $('.form-additional-fields').each(function () {
+
+        var additionalField = $(this);
+        var additionalFieldName = $(additionalField).attr("name");
+        var additionalFieldId = $(additionalField).attr("id");
+        var additionalFielApp = $(additionalField).attr("data-app");
+        var additionalFielDefault = $(additionalField).attr("placeholder");
+        var additionalFieldVal = $(additionalField).val();
+        if (additionalFieldVal === '') {
+          additionalFieldVal = additionalFielDefault;
+        }
+
+        console.log(additionalFieldName);
+        console.log(additionalFieldId);
+        console.log(additionalFielApp);
+        console.log(additionalFielDefault);
+        console.log(additionalFieldVal);
+
+        $("#f-modal-" + additionalFielApp + "-label").text(additionalFieldVal);
+        $("#f-modal-" + additionalFielApp).val(additionalFieldVal);
+
+      });
+
+
+      var strSerialize = $("#mySummaryForm").serialize();
+      console.log(strSerialize);
+
+
+
+      //end additional fields
+
+
+    };
+
+
+
+
+    $("#btn-submit-summary").on('click', submitSummaryForm);
+
+    $("#btn-launch-summary").on('click', fillSummaryForm);
+
+
+
+    $('.sexytabs > ul > li').on('click', function () {
+      $('.show_all_plans').css('display', 'block');
+      $('.hide_all_plans').css('display', 'none');
+    })
+
+  </script>

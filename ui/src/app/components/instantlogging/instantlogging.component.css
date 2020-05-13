@@ -1,0 +1,28 @@
+.log_ERROR {
+   color: red;
+}
+.log_INFO {
+    color: blue;
+}
+.log_DEBUG {
+    color: black;
+}
+.log_WARNING {
+    color: orange;
+}
+
+.instantlog_wrapper {
+    overflow: scroll;
+    height: 300px;
+    width: 100%;
+    /*background-color: lightyellow;*/
+}
+.logging_table {
+    width: 100%;
+    background-color: lightgray;
+}
+.logtd {
+    font-size: 80%;
+    padding-left: 4px;
+    padding-right: 4px;
+}

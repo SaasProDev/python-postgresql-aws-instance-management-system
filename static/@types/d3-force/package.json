@@ -1,0 +1,101 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "@types/d3-force@*",
+        "scope": "@types",
+        "escapedName": "@types%2fd3-force",
+        "name": "@types/d3-force",
+        "rawSpec": "*",
+        "spec": "*",
+        "type": "range"
+      },
+      "/Users/danny/ownCloud/ahome.patternfly3/node_modules/@types/d3"
+    ]
+  ],
+  "_from": "@types/d3-force@*",
+  "_hasShrinkwrap": false,
+  "_id": "@types/d3-force@1.2.1",
+  "_inCache": true,
+  "_location": "/@types/d3-force",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/d3-force_1.2.1_1550077958212_0.09828839350826857"
+  },
+  "_npmUser": {
+    "name": "types",
+    "email": "ts-npm-types@microsoft.com"
+  },
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "@types/d3-force@*",
+    "scope": "@types",
+    "escapedName": "@types%2fd3-force",
+    "name": "@types/d3-force",
+    "rawSpec": "*",
+    "spec": "*",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/@types/d3"
+  ],
+  "_resolved": "https://registry.npmjs.org/@types/d3-force/-/d3-force-1.2.1.tgz",
+  "_shasum": "c28803ea36fe29788db69efa0ad6c2dc09544e83",
+  "_shrinkwrap": null,
+  "_spec": "@types/d3-force@*",
+  "_where": "/Users/danny/ownCloud/ahome.patternfly3/node_modules/@types/d3",
+  "bugs": {
+    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
+  },
+  "contributors": [
+    {
+      "name": "Tom Wanzek",
+      "url": "https://github.com/tomwanzek"
+    },
+    {
+      "name": "Alex Ford",
+      "url": "https://github.com/gustavderdrache"
+    },
+    {
+      "name": "Boris Yankov",
+      "url": "https://github.com/borisyankov"
+    },
+    {
+      "name": "denisname",
+      "url": "https://github.com/denisname"
+    }
+  ],
+  "dependencies": {},
+  "description": "TypeScript definitions for D3JS d3-force module",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-jqK+I36uz4kTBjyk39meed5y31Ab+tXYN/x1dn3nZEus9yOHCLc+VrcIYLc/aSQ0Y7tMPRlIhLetulME76EiiA==",
+    "shasum": "c28803ea36fe29788db69efa0ad6c2dc09544e83",
+    "tarball": "https://registry.npmjs.org/@types/d3-force/-/d3-force-1.2.1.tgz",
+    "fileCount": 4,
+    "unpackedSize": 72912,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJcZFAGCRA9TVsSAnZWagAAntQP+QA7gfzCOpPn2m6IfDr4\n39WO2otQGIsUAKpqA5W6lpicCkznQjXv8CjBBO/WY3DU09mQy2qw90LPRUVW\nClRgTFhGRKQjCJAAxxRcX8mLQcwIriKSzAq7VzmdXro3PoMVxpFinisjvcCr\nGNu+0ql5nyQWDCh2SbgSt+uE1EJl5zcZeJCZg20zcM1PrTYR7+LgZg/Iikk0\no2yB/Of4cX/Qxvos47bbsRL6WcsHk4T//9kxEZttJxBm+9AJNYwU0Qslng9B\nmwW4D0RZeRM+1iS6lXyW78I4rz8ihrvzzuNu8GHK3CMnTUVFPujCI+yvHKG8\n6GeVSnWGPLkTmtPMP5f4D8bGQOwIGRlPZNtsGGcCXCOr1Bpk08u4zx2opWCY\nlqMNzVfdAlYS0EzHKV/OwIPnU8SGDjE7jffUKZ0JVd1VVeJh78upVNCbVasp\nDtp6WbD7UHUMW59sIkOurV3wpoqdTNz5nbL9sv+iYvvji/wTsf+bTZH94d5L\n/5p5+cHDgyvIlrYxdxFvnrHr235wEmKvIY6/GOtbmDb9a+l3YG6gjtjs59ho\nkELMbftUPf4UmFcyxrUdnzk4FAhJ0GsmtpaH2DyIbBKdLx8KYn3Q4UZHKGX7\nSGx2DWYeIOKPNB/cCv3b6v8UVd28TJN2BVlrnIw/Dk3nFRFMX8I1EnIlIPrc\njYmq\r\n=ylxS\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped#readme",
+  "license": "MIT",
+  "main": "",
+  "maintainers": [
+    {
+      "name": "types",
+      "email": "ts-npm-types@microsoft.com"
+    }
+  ],
+  "name": "@types/d3-force",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DefinitelyTyped/DefinitelyTyped.git"
+  },
+  "scripts": {},
+  "typeScriptVersion": "2.0",
+  "types": "index",
+  "typesPublisherContentHash": "b54f729cfaa3b5c8ad15a6cbf1cc864dc8b973ed8e2b7d9f0e51a912d97f0abf",
+  "version": "1.2.1"
+}

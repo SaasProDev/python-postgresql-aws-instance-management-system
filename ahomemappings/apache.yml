@@ -1,0 +1,47 @@
+--- 
+apiVersion: v1
+kind: apache
+labels: 
+  apache: web server
+metadata: 
+  name: app
+  annotations:
+    title: Web Server
+    description: |
+      Apache Web server
+    iconClass: icon-apache-icon
+    tags: "server,app"
+  cloud: false
+
+ansibleObjects: 
+
+  - apiVersion: v1
+    kind: ModelInjector
+    metadata: 
+      name: instance
+      model: core.iaas
+      anchor: r__apache_facts
+      entrypoint: r__apache_facts.svc
+
+
+    spec:
+      # adhoc: false
+      uniqueKeys:
+
+        - name: uuid
+          # value: bc31bdef-e6bb-4d3c-a81f-6bdb21224b16
+          # value: d9da8125-3747-4e48-8743-acf80f90dd81
+          yaqlRef: ahome_tags.ahome
+
+
+      modelFields: 
+
+        # - name: tags
+        #   yaqlRef: ahome_tags.ahome
+        #   fieldRef: inputs
+
+        - name: apache
+          yaqlRef: svc_url
+
+
+

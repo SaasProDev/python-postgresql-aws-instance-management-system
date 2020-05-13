@@ -1,0 +1,1 @@
+folder for mounting Celery comosed (temporrary) files  - see /tools/docker-compose

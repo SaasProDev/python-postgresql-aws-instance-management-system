@@ -1,0 +1,57 @@
+FROM xmig/centos7python37
+
+WORKDIR /
+
+ADD build_context/ .
+
+RUN yum update -y
+
+RUN	source /venv/ansible/bin/activate && \
+		pip3 install -r additional_requirements.txt && \
+		pip3 freeze
+
+
+RUN /usr/bin/ssh-keygen -q -t rsa -N "" -f /root/.ssh/id_rsa
+
+# RUN openssl req -nodes -newkey rsa:2048 -keyout /etc/nginx/nginx.key -out /etc/nginx/nginx.csr -subj "/C=FR/ST=France/L=Rueil-Malmaison/O=AHOME/OU=CaaS Development/CN=127.0.0.1"
+# RUN openssl x509 -req -days 365 -in /etc/nginx/nginx.csr -signkey /etc/nginx/nginx.key -out /etc/nginx/nginx.crt
+
+WORKDIR /ahome_devel
+
+
+RUN for file in \
+  /etc/nginx/nginx.conf /etc/nginx/conf.d/nginx.vh.default.conf /etc/supervisord.conf; \
+  do rm -fr $file; done
+
+RUN ln -sF /ahome_devel/tools/nginx.conf /etc/nginx/nginx.conf
+RUN ln -sF /ahome_devel/tools/nginx.vh.default.conf /etc/nginx/conf.d/nginx.vh.default.conf
+RUN ln -sF /ahome_devel/tools/supervisord-celery-sergii.conf /etc/supervisord.conf
+
+
+# Pre-create things that we need to write to
+RUN for dir in  /var/log/nginx /var/lib/nginx /.local; \
+  do mkdir -p $dir; chmod -R g+rwx $dir; chgrp -R root $dir; done
+
+RUN for file in \
+  /ahome_devel/ahome.log /var/run/nginx.pid; \
+  do touch $file; chmod -R g+rwx $file; chgrp -R root $file; done
+
+# AZURE CA CERTIFICATE
+# openssl s_client -connect management.azure.com:443 -showcerts
+# echo |     openssl s_client -servername management.azure.com -connect management.azure.com:443 2>/dev/null |     openssl x509 -text
+# export REQUESTS_CA_BUNDLE=$VIRTUAL_ENV/lib/python3.6/site-packages/certifi/cacert.pem
+
+RUN cat /azure.pem >> /venv/ansible/lib/python3.7/site-packages/certifi/cacert.pem
+RUN rm /azure.pem
+
+#EXPOSE 8043 8443 8001
+EXPOSE 5500 5555
+
+VOLUME ["/ahome_devel"]
+
+WORKDIR /ahome_devel
+
+
+ENTRYPOINT ["/entrypoint-celery.sh"]
+CMD ["/bin/bash"]
+

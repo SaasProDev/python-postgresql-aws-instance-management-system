@@ -1,0 +1,31 @@
+---
+# tasks file for apache
+
+- name: install apache
+  yum:
+    name: httpd
+    state: present
+
+- name: enable and start apache
+  service:
+    name: httpd
+    state: started
+    enabled: true
+  register: r__enable_apache
+
+
+
+- name: ahome callback
+  set_fact:
+    r__apache_facts:
+      ahome_id: "{{ ahome__id }}"
+      ahome_model: "{{ ahome__model }}"
+      svc:
+        - ahome_inventory: "{{ lookup('env','INVENTORY') }}"
+          svc_path: "/"
+          svc_port: "80"
+          svc_url: "http://{{ lookup('env','INVENTORY') }}/"
+          ahome_tags: "{{ lookup('env','TAGS') }}"
+      # ansible_facts: "[{{ r__enable_apache }}]"
+
+- debug: var=r__apache_facts

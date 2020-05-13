@@ -1,0 +1,657 @@
+{% load static %}
+
+<div class="row">
+  <div class="col-md-12">
+    <ol class="ahome-breadcrumb breadcrumb">
+      <li>
+        <a href="#dashboard-user" class="instance-refresh-link" data-url="{% url 'dashboard_user' %}">Home</a>
+      </li>
+      <li>Preferences</li>
+    </ol>
+    <div class="actions pull-right">
+      <a href="#preferences" class="instance-refresh-link" data-url="{% url 'userpreference' %}">
+        <span class="pficon pficon-refresh"></span>&nbsp;Refresh Results</a>
+    </div>
+    <h1>User preferences</h1>
+  </div>
+</div>
+
+<!-- /toast notification -->
+<div id="ahome-toast-notification">
+</div>
+<!-- /end toast -->
+
+
+<div class="row">
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-10" style="padding-left:0px;padding-right:0px;">
+    <ul class="nav nav-tabs nav-tabs-pf">
+      <li class="active li_tab">
+        <a href="#" id="profile_tab">Profile</a>
+      </li>
+      <li class="li_tab">
+        <a href="#" id="billing_tab">Billing</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-1">
+  </div>
+</div>
+<div class="row" id="billing_row" style="margin-top:25px;display:none;">
+  <div class="col-md-1">
+  </div>
+  <div class="col-md-10" style>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row" style="border:1px solid #d0cccc;padding:20px;">
+          <div class="col-md-12">
+            <span style="font-size:20px;">Remaining account credits</span>
+          </div>
+          <div class="col-md-12">
+            <span style="color:#5a9ee0;">Earn more credit through our referral program</span>
+          </div>
+          <div class="col-md-12">
+            <span style="font-size:17px;font-weight:300;">$100.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+      <div class="col-md-12">
+        <div class="row" style="border:1px solid #d0cccc;padding:20px;">
+          <div class="col-md-12">
+            <span style="font-size:20px;">Estimated costs for this billing period</span>
+          </div>
+          <div class="col-md-12">
+            <span style="color:#555353;">This is the current costs for your usage this billing period. A breakdown of your costs is available below</span>
+          </div>
+          <div class="col-md-12">
+            <span style="font-size:17px;font-weight:300;">$0.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+      <div class="col-md-12">
+        <div class="row" style="border:1px solid #d0cccc;padding:20px;">
+          <div class="col-md-12">
+            <span style="font-size:20px;">Month-to-date Summary February 1-14, 2020</span>
+          </div>
+          <div class="col-md-12">
+            <span style="color:#555353;">These charges are factored into your account balance.</span>
+          </div>
+          <div class="col-md-12">
+            <span style="font-size:13px;font-weight:300;">No costs to display for this billing period</span>
+          </div>
+          <div class="col-md-12">
+            <span style="font-size:13px;font-weight:300;">When you use the Ahome services, the associated costs will appear in this window the following day</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+      <div class="col-md-12">
+        <div class="row" style="border:1px solid #d0cccc;padding:20px;">
+          <div class="col-md-12">
+            <span style="font-size:20px;">Droplet transfer</span>
+          </div>
+          <div class="col-md-12">
+            <span style="color:#555353;">No outbound transfer data is available yet.</span>
+          </div>
+          <div class="col-md-12">
+            <span style="font-size:12px;font-weight:300;">Calculations are posted after the first day of recorded Droplet usage.</span>
+          </div>
+          <div class="col-md-12">
+            <span style="font-size:12px;font-weight:300;">How does this work</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+      <div class="col-md-12">
+        <div class="row" style="border:1px solid #d0cccc;padding:20px;">
+          <div class="col-md-12">
+            <span style="font-size:20px;">Billing alerts</span>
+          </div>
+          <div class="col-md-7">
+            <span style="color:#555353;">Send me an email anytime my monthly usage has exceeded the amount listed to the right</span>
+          </div>
+          <div class="col-md-5" style="display:flex;align-items:center;">
+            <span style="color:#0f0f0f;font-weight:bold;margin-right:10px;">$</span>
+            <div style="position:relative;width:56%;display:flex;align-items:center;">
+              <input type="text" class="form-control" style="padding:1.3rem .85rem .45rem!important;height:4.3rem;width:100%;border:1px solid #dfdfdf;font-size:1.3rem;"
+                value="20" />
+              <span class="fa fa-check" style="position: absolute;font-size:14px;color:#a2bcdd;top:15px;right:9px;"></span>
+              <label style="color:#88ABCB;position:absolute;left:10px;font-size:11px;top:6px;">Amount</label>
+            </div>
+
+            <button type="button" class="btn btn-default" disabled style="width:48%;margin-left:11px;height:43px;">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+      <div class="col-md-12">
+        <div class="row" style="border:1px solid #d0cccc;padding:20px;">
+          <div class="col-md-12">
+            <span style="font-size:20px;">Payment methods</span>
+          </div>
+          <div class="col-md-12">
+            <span style="color:#555353;">Please enter your preferred payment method below. You can use a credit/debit card or prepay through PayPal.</span>
+          </div>
+          <div class="col-md-12" style="margin-top:30px;">
+            <ul class="nav nav-tabs nav-tabs-pf">
+              <li class="active payment_tab">
+                <a href="javascript:;" id="credit_tab">Credit / Debit Card</a>
+              </li>
+              <li class="payment_tab">
+                <a href="javascript:;" id="pp_tab">PayPal</a>
+              </li>
+            </ul>
+            <div class="col-md-12" style="border:1px solid #d0cccc;">
+
+              <div class="row" style="margin-top:10px;" id="div_credit">
+                <div class="col-md-12">
+                  <span style="font-size:20px;">Credit or debit cards
+                    <span>?</span>
+                  </span>
+                </div>
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-6" style="display:flex;flex-direction:column;">
+                      <span>Card will be charged monthly for resources used.</span>
+                      <span>All major credit / debit cards accepted.</span>
+                    </div>
+                    <div class="col-md-6" style="display:flex;justify-content:flex-end;align-items:center;">
+                      <button type="button" class="btn btn-default">Add Card</button>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top:10px;margin-bottom:10px;border:1px solid #d0cccc;width:100%;display:flex;align-items:center;margin-left:0px;padding:8px;margin-right:0px;">
+                    <div class="col-md-6" style="display:flex;flex-direction:column;">
+                      <span>
+                        <span style="font-weight: bold;">Danny AFAHOUNKO xxxx-6308</span>
+                        <span>DEFAULT</span>
+                      </span>
+                      <span>Expires 02/2022 . Added on 12 Sep 2019</span>
+                    </div>
+                    <div class="col-md-6" style="display:flex;justify-content:flex-end;align-items:center;">
+                      <span>...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="margin-top:10px;display:none;" id="div_pp">
+                <div class="col-md-12">
+                  <span style="font-size:20px;font-weight:bold;">PayPal payment
+                  </span>
+                </div>
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12" style="display:flex;flex-direction:column;">
+                      <span>To use PayPal as your payment method, we require you to make a transaction to verify your account.</span>
+                    </div>
+                  </div>
+                  <div class="row" style="margin-top:10px;margin-bottom:10px;width:100%;display:flex;align-items:center;margin-left:0px;margin-right:0px;">
+                    <div class="col-md-5" style="display:flex;flex-direction:column;padding-left:0px;">
+                      <input type="text" value="US $5.00" class="form-control" />
+                    </div>
+                    <div class="col-md-5" style="display:flex;justify-content:flex-start;align-items:center;">
+                      <span>This will get you one month with our $5 droplet.</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12" style="display:flex;flex-direction:column;">
+                      <button type="button" class="btn btn-primary">Continue to PayPal</button>
+                    </div>
+                    <div class="col-md-12" style="display:flex;flex-direction:column;justify-content:column;text-align:center;margin-top:10px;margin-bottom:10px;">
+                      <span>*It may take a few minutes to process your payment with PayPal</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+      <div class="col-md-12">
+        <div class="row" style="border:1px solid #d0cccc;padding:20px;">
+          <div class="col-md-12">
+            <span style="font-size:20px;">Billing Settings</span>
+          </div>
+          <div class="col-md-12" style="display:flex;flex-direction:column;margin-bottom:15px;">
+            <span style="color:#555353;font-weight:bold;">ADDRESS</span>
+            <span style="color:#555353;font-weight:100;">This address appears on your monthly invoice and should be the legal address of your home or business</span>
+          </div>
+          <div class="col-md-6" style="display:flex;align-items:flex-start;flex-direction:column;justify-content:flex-start;">
+            <span style="color:#555353;font-weight:100;">55 rue Jean Jaures</span>
+            <span style="color:#555353;font-weight:100;">Puteaux, 92800</span>
+            <span style="color:#555353;font-weight:100;">FR</span>
+          </div>
+          <div class="col-md-6" style="display:flex;align-items:center;justify-content:flex-end;">
+            <button type="button" class="btn btn-default" style="padding:10px;">Edit Address</button>
+          </div>
+          <div class="col-md-12" style="display:flex;flex-direction:column;margin-top:10px;margin-bottom:15px;">
+            <span style="color:#555353;font-weight:bold;">TAX LOCATION</span>
+            <span style="color:#555353;font-weight:100;">France - 20.0% VAT</span>
+            <span style="color:#5a9ee0;font-weight:100;">More info</span>
+          </div>
+          <div class="col-md-12" style="display:flex;flex-direction:column;margin-top:10px;margin-bottom:15px;">
+            <span style="color:#555353;font-weight:100;">Your tax location determines the taxes that are applied to your bill.</span>
+            <span style="color:#5a9ee0;font-weight:100;">How do I correct my tax location?</span>
+          </div>
+          <div class="col-md-12" style="display:flex;flex-direction:column;margin-top:10px;margin-bottom:15px;">
+            <span style="color:#555353;font-weight:bold;">TAX ID</span>
+            <span style="color:#5a9ee0;font-weight:100;">Registered business can enter their tax identification number to remove tax charges from future bills.</span>
+          </div>
+          <div class="col-md-12" style="display:flex;flex-direction:column;margin-top:10px;margin-bottom:15px;">
+            <button type="button" class="btn btn-default" style="padding:10px;width:100px;">Add Tax ID</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+      <div class="col-md-12">
+        <div class="row" style="border:1px solid #d0cccc;padding:20px;">
+          <div class="col-md-12">
+            <span style="font-size:20px;">Promo code</span>
+          </div>
+          <div class="col-md-12" style="display:flex;flex-direction:column;margin-bottom:15px;">
+            <span style="color:#555353;">If you have a promo code, please enter it below to receive your credit.</span>
+          </div>
+          <div class="col-md-7" style="display:flex;align-items:center;flex-direction:column;">
+            <input type="text" class="form-control" placeholder="Promo Code" />
+          </div>
+          <div class="col-md-5" style="display:flex;align-items:center;justify-content:flex-end;">
+            <button type="button" class="btn btn-default" style="padding:10px;" disabled>Apply Code</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:20px;">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12" style="padding-left:0px;">
+            <span style="font-size:20px;">Billing history</span>
+          </div>
+          <div class="col-md-12" style="display:flex;flex-direction:column;margin-bottom:15px;">
+            <div class="row" style="background:#d7d6f3;padding-top:5px;padding-bottom:5px;">
+              <div class="col-md-2" style="display:flex;justify-content:center;">
+                <span>Date</span>
+              </div>
+              <div class="col-md-2" style="display:flex;justify-content:center;">
+                <span>Description</span>
+              </div>
+              <div class="col-md-8" style="display:flex;justify-content:center;">
+                <span>Amount</span>
+              </div>
+            </div>
+            <div class="row" style="border:1px solid #c5bfbf;">
+              <div class="col-md-2" style="display:flex;justify-content:center;">
+                <span>April 02, 2019</span>
+              </div>
+              <div class="col-md-2" style="display:flex;justify-content:center;">
+                <span>PayPal</span>
+              </div>
+              <div class="col-md-8" style="display:flex;justify-content:center;">
+                <span>-$100.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+  <div class="col-md-1">
+  </div>
+</div>
+<div class="row" id="profile_row" style="margin-top:25px;">
+
+  <div class="col-md-1">
+
+  </div>
+  <div class="col-md-10">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row" style="border:2px solid #d0cccc;padding:20px;">
+          <div class="col-md-3">
+            <img src="{% static 'temp/default1.png' %}" style="border-radius:100%;" />
+          </div>
+          <div class="col-md-7">
+            <div style="display:flex;justify-content:flex-start;flex-direction:column;">
+              <span style="font-size:14px;">serGem</span>
+              <span style="font-size:14px;">Member since 01/15/2020</span>
+              <span style="font-size:14px;">Add your address</span>
+            </div>
+          </div>
+          <div class="col-md-2" style="padding-right:0px;">
+            <button type="button" class="btn btn-primary" style="width:100%;border-radius:5px;height:38px;border-radius:5px;" id="edit_profile_btn">Edit Profile</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="display:flex;align-items:center;margin-top:15px;">
+      <div class="col-md-6" style="padding-left:0px;display:flex;flex-direction:column;">
+        <span style="font-size:1.8rem;font-weight:bold;">Sign-in method</span>
+      </div>
+    </div>
+    <div class="row change_email_div" style="display:none;align-items:center;margin-top:15px;">
+      <div class="col-md-4" style="padding-left:0px;display:flex;flex-direction:column;">
+        <div style="position:relative;width:100%;">
+          <input type="text" class="form-control" style="padding:1.3rem .85rem .45rem!important;height:4.3rem;width:100%;border:1px solid #dfdfdf;margin-bottom:1rem;font-size:1.3rem;"
+            value="xx@outlook.com" />
+          <label style="color:#88ABCB;position:absolute;left:10px;font-size:11px;top:6px;">Enter email address</label>
+        </div>
+      </div>
+      <div class="col-md-4" style="display:flex;justify-content:flex-start;padding-right:0px;">
+        <div style="position:relative;width:100%;">
+          <input type="password" class="form-control" style="padding:1.3rem .85rem .45rem!important;height:4.3rem;width:100%;border:1px solid #dfdfdf;margin-bottom:1rem;font-size:1.3rem;"
+            value="xx@outlook.com" />
+          <label style="color:#88ABCB;position:absolute;left:10px;font-size:11px;top:6px;">Confirm password</label>
+        </div>
+      </div>
+    </div>
+    <div class="row change_email_div" style="display:none;align-items:center;margin-top:15px;">
+      <div class="col-md-3" style="padding-left:0px;display:flex;flex-direction:column;">
+        <button type="button" class="btn btn-primary">Submit Change</button>
+      </div>
+      <div class="col-md-3" style="padding-left:0px;display:flex;flex-direction:column;">
+        <button type="button" class="btn btn-default" id="cancel_change_email_btn">Cancel</button>
+      </div>
+    </div>
+    <div class="row email_div" style="display:flex;align-items:center;margin-top:15px;">
+      <div class="col-md-6" style="padding-left:0px;display:flex;flex-direction:column;">
+        <span style="font-size:1.4rem;font-weight:bold;">EMAIL ADDRESS</span>
+        <span style="font-size:1.3rem;">xxxxxxx@outlook.com</span>
+      </div>
+      <div class="col-md-6" style="display:flex;justify-content:flex-end;padding-right:0px;">
+        <button type="button" class="btn btn-default" style="height:38px;border-radius:5px;width:100px;" id="btn_change_email">Change email</span>
+      </div>
+    </div>
+
+    <div class="row new_password_div" style="display:none;align-items:center;margin-top:15px;">
+      <div class="col-md-4" style="padding-left:0px;display:flex;flex-direction:column;">
+        <div style="position:relative;width:100%;">
+          <input type="text" class="form-control" id="current_password_txt" placeholder="Enter current password" style="padding:0 .85rem;height:4.3rem;width:100%;border:1px solid #dfdfdf;margin-bottom:1rem;font-size:1.3rem;padding-right:2.3rem;"
+            value="" />
+          <span class="fa fa-check" style="position: absolute;font-size:14px;color:#a2bcdd;top:15px;right:9px;display:none;" id="checked_current_password"></span>
+          <span class="fa fa-close" style="position: absolute;font-size:14px;color:#fa0202;top:15px;right:9px;display:none;" id="unchecked_current_password"></span>
+          <label style="color:#88ABCB;position:absolute;left:10px;font-size:11px;top:6px;opacity:0;visibility:hidden;" id="current_password_failed">Current password cannot be blank</label>
+        </div>
+      </div>
+      <div class="col-md-4" style="display:flex;justify-content:flex-start;padding-right:0px;">
+        <div style="position:relative;width:100%;">
+          <input type="password" class="form-control" id="new_password_txt" style="padding:0 .85rem;height:4.3rem;width:100%;border:1px solid #dfdfdf;margin-bottom:1rem;font-size:1.3rem;padding-right:2.3rem;"
+            placeholder="Create new password" />
+          <span class="fa fa-check" style="position: absolute;font-size:14px;color:#a2bcdd;top:15px;right:9px;display:none;" id="checked_new_password"></span>
+          <span class="fa fa-close" style="position: absolute;font-size:14px;color:#fa0202;top:15px;right:9px;display:none;" id="unchecked_new_password"></span>
+          <label style="color:#88ABCB;position:absolute;left:10px;font-size:11px;top:6px;opacity:0;visibility:hidden;" id="new_password_failed">New password cannot be blank</label>
+        </div>
+      </div>
+      <div class="col-md-4" style="display:flex;justify-content:flex-start;padding-right:0px;">
+        <div style="position:relative;width:100%;">
+          <input type="password" class="form-control" id="confirm_password_txt" placeholder="Confirm new password" style="padding:0 .85rem;height:4.3rem;width:100%;border:1px solid #dfdfdf;margin-bottom:1rem;font-size:1.3rem;padding-right:2.3rem;"
+          />
+          <span class="fa fa-check" style="position: absolute;font-size:14px;color:#a2bcdd;top:15px;right:9px;display:none;" id="checked_confirm_password"></span>
+          <span class="fa fa-close" style="position: absolute;font-size:14px;color:#fa0202;top:15px;right:9px;display:none;" id="unchecked_confirm_password"></span>
+          <label style="color:#88ABCB;position:absolute;left:10px;font-size:11px;top:6px;opacity:0;visibility:hidden;" id="confirm_password_failed">Password confirmation cannot be blank</label>
+        </div>
+      </div>
+    </div>
+    <div class="row new_password_div" style="display:none;align-items:center;margin-top:15px;">
+      <div class="col-md-3" style="padding-left:0px;display:flex;flex-direction:column;">
+        <button type="button" class="btn btn-primary" id="btn_update_password" disabled>Update Password</button>
+      </div>
+      <div class="col-md-3" style="padding-left:0px;display:flex;flex-direction:column;">
+        <button type="button" class="btn btn-default" id="cancel_update_password_btn">Cancel</button>
+      </div>
+    </div>
+
+    <div class="row reset_password_div" style="display:flex;align-items:center;margin-top:15px;">
+      <div class="col-md-6" style="padding-left:0px;display:flex;flex-direction:column;">
+        <span style="font-size:1.4rem;font-weight:bold;">Password</span>
+        <span style="font-size:1.3rem;">*******</span>
+      </div>
+      <div class="col-md-6" style="display:flex;justify-content:flex-end;padding-right:0px;">
+        <button type="button" class="btn btn-default" style="height:38px;border-radius:5px;width:145px;" id="btn_reset_password">Reset Password</span>
+      </div>
+    </div>
+    <div class="row" style="display:flex;align-items:center;margin-top:15px;">
+      <div class="col-md-8" style="padding-left:0px;display:flex;flex-direction:column;">
+        <span style="font-size:1.4rem;font-weight:bold;">Deactivate account</span>
+        <span style="font-size:1.3rem;">This will remove your account from all teams and disable your account.</span>
+      </div>
+      <div class="col-md-4" style="display:flex;justify-content:flex-end;padding-right:0px;">
+        <button type="button" class="btn btn-default" style="height:38px;border-radius:5px;width:145px;border:1px solid #ED4F32;">Deactive Account</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-1">
+
+  </div>
+
+
+
+</div>
+
+<div class="modal fade" id="myEditProfileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header" style="background:#fff !important;">
+        <span style="font-size:17px;">Edit profile</span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="font-size:25px;">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="margin-top:15px;">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-contrl" value="" style="width:100%;" />
+            </div>
+            <div class="form-group">
+              <label for="youraddress">Your address</label>
+              <input type="text" class="form-contrl" value="" style="width:100%;" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Update Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('#edit_profile_btn').on('click', function () {
+    $('#myEditProfileModal').modal('show');
+  })
+  $('#btn_change_email').on('click', function () {
+    $('.change_email_div').css('display', 'flex');
+    $('.email_div').css('display', 'none');
+  })
+  $('#cancel_change_email_btn').on('click', function () {
+    $('.change_email_div').css('display', 'none');
+    $('.email_div').css('display', 'flex');
+  })
+  $('#btn_reset_password').on('click', function () {
+    $('.reset_password_div').css('display', 'none');
+    $('.new_password_div').css('display', 'flex');
+  })
+  $('#cancel_update_password_btn').on('click', function () {
+    $('.reset_password_div').css('display', 'flex');
+    $('.new_password_div').css('display', 'none');
+    $('#current_password_txt').css('padding', '0 .85rem');
+    $('#new_password_txt').css('padding', '0 .85rem');
+    $('#confirm_password_txt').css('padding', '0 .85rem');
+    $('#current_password_failed').css('visibility', 'hidden');
+    $('#current_password_failed').css('opacity', '0');
+    $('#new_password_failed').css('visibility', 'hidden');
+    $('#new_password_failed').css('opacity', '0');
+    $('#confirm_password_failed').css('visibility', 'hidden');
+    $('#confirm_password_failed').css('opacity', '0');
+    $('#current_password_txt').val('');
+    $('#new_password_txt').val('');
+    $('#confirm_password_txt').val('');
+    $('#btn_update_password').prop('disabled', true);
+    $('#checked_confirm_password').css('display', 'none');
+    $('#unchecked_confirm_password').css('display', 'none');
+    $('#checked_new_password').css('display', 'none');
+    $('#unchecked_new_password').css('display', 'none');
+    $('#checked_current_password').css('display', 'none');
+    $('#unchecked_current_password').css('display', 'none');
+  })
+  $('#current_password_txt').focusout(function () {
+    if ($(this).val() == '') {
+      bUpdatePasswordCondition1 = false;
+      $('#btn_update_password').prop('disabled', true);
+      $('#current_password_txt').focusin();
+      $('#current_password_txt').css('padding', '1.3rem .85rem .45rem');
+      $('#current_password_failed').css('visibility', 'visible');
+      $('#current_password_failed').css('opacity', 1);
+      $('#current_password_failed').css('color', '#ED4F32');
+    }
+  })
+
+  $('#new_password_txt').focusout(function () {
+    if ($(this).val() == '') {
+      bUpdatePasswordCondition2 = false;
+      $('#btn_update_password').prop('disabled', true);
+      $('#new_password_txt').focusin();
+      $('#new_password_txt').css('padding', '1.3rem .85rem .45rem');
+      $('#new_password_failed').css('visibility', 'visible');
+      $('#new_password_failed').css('opacity', 1);
+      $('#new_password_failed').css('color', '#ED4F32');
+    }
+  })
+
+  $('#confirm_password_txt').focusout(function () {
+    if ($(this).val() == '') {
+      bUpdatePasswordCondition3 = false;
+      $('#btn_update_password').prop('disabled', true);
+      $('#confirm_password_txt').focusin();
+      $('#confirm_password_txt').css('padding', '1.3rem .85rem .45rem');
+      $('#confirm_password_failed').css('visibility', 'visible');
+      $('#confirm_password_failed').css('opacity', 1);
+      $('#confirm_password_failed').css('color', '#ED4F32');
+    }
+  })
+  var bUpdatePasswordCondition1 = false;
+  var bUpdatePasswordCondition2 = false;
+  var bUpdatePasswordCondition3 = false;
+  $('#current_password_txt').keyup(function () {
+    if ($(this).val() == '') {
+      bUpdatePasswordCondition1 = false;
+      $('#btn_update_password').prop('disabled', true);
+      $('#current_password_txt').focusin();
+      $('#current_password_txt').css('padding', '1.3rem .85rem .45rem');
+      $('#current_password_failed').css('visibility', 'visible');
+      $('#current_password_failed').css('opacity', 1);
+      $('#current_password_failed').css('color', '#ED4F32');
+      $('#checked_current_password').css('display', 'none');
+      $('#unchecked_current_password').css('display', 'block');
+      return;
+    }
+    $('#current_password_txt').css('padding', '1.3rem .85rem .45rem');
+    $('#current_password_failed').css('visibility', 'visible');
+    $('#current_password_failed').css('opacity', 1);
+    $('#current_password_failed').css('color', '#676767');
+    bUpdatePasswordCondition1 = true;
+    if (bUpdatePasswordCondition1 && bUpdatePasswordCondition2 && bUpdatePasswordCondition3) {
+      $('#btn_update_password').removeAttr('disabled');
+    }
+    $('#checked_current_password').css('display', 'block');
+    $('#unchecked_current_password').css('display', 'none');
+  })
+  $('#new_password_txt').keyup(function () {
+    if ($(this).val() == '') {
+      bUpdatePasswordCondition2 = false;
+      $('#btn_update_password').prop('disabled', true);
+      $('#new_password_txt').focusin();
+      $('#new_password_txt').css('padding', '1.3rem .85rem .45rem');
+      $('#new_password_failed').css('visibility', 'visible');
+      $('#new_password_failed').css('opacity', 1);
+      $('#new_password_failed').css('color', '#ED4F32');
+      $('#checked_new_password').css('display', 'none');
+      $('#unchecked_new_password').css('display', 'block');
+      return;
+    }
+    $('#new_password_txt').css('padding', '1.3rem .85rem .45rem');
+    $('#new_password_failed').css('visibility', 'visible');
+    $('#new_password_failed').css('opacity', 1);
+    $('#new_password_failed').css('color', '#676767');
+    bUpdatePasswordCondition2 = true;
+    if (bUpdatePasswordCondition1 && bUpdatePasswordCondition2 && bUpdatePasswordCondition3) {
+      $('#btn_update_password').removeAttr('disabled');
+    }
+    $('#checked_new_password').css('display', 'block');
+    $('#unchecked_new_password').css('display', 'none');
+  })
+  $('#confirm_password_txt').keyup(function () {
+    if ($(this).val() == '') {
+      bUpdatePasswordCondition3 = false;
+      $('#btn_update_password').prop('disabled', true);
+      $('#confirm_password_txt').focusin();
+      $('#confirm_password_txt').css('padding', '1.3rem .85rem .45rem');
+      $('#confirm_password_failed').css('visibility', 'visible');
+      $('#confirm_password_failed').css('opacity', 1);
+      $('#confirm_password_failed').css('color', '#ED4F32');
+      $('#checked_confirm_password').css('display', 'none');
+      $('#unchecked_confirm_password').css('display', 'block');
+      return;
+    }
+    $('#confirm_password_txt').css('padding', '1.3rem .85rem .45rem');
+    $('#confirm_password_failed').css('visibility', 'visible');
+    $('#confirm_password_failed').css('opacity', 1);
+    $('#confirm_password_failed').css('color', '#676767');
+    bUpdatePasswordCondition3 = true;
+    if (bUpdatePasswordCondition1 && bUpdatePasswordCondition2 && bUpdatePasswordCondition3) {
+      $('#btn_update_password').removeAttr('disabled');
+    }
+    $('#checked_confirm_password').css('display', 'block');
+    $('#unchecked_confirm_password').css('display', 'none');
+  })
+  $('#profile_tab').on('click', function () {
+    $('.li_tab').each(function () {
+      $(this).removeClass('active');
+    });
+    $(this).parent().addClass('active');
+    $('#billing_row').css('display', 'none');
+    $('#profile_row').css('display', 'block');
+  })
+  $('#billing_tab').on('click', function () {
+    $('.li_tab').each(function () {
+      $(this).removeClass('active');
+    });
+    $(this).parent().addClass('active');
+    $('#billing_row').css('display', 'block');
+    $('#profile_row').css('display', 'none');
+  })
+  $('#credit_tab').on('click', function () {
+    $('.payment_tab').each(function () {
+      $(this).removeClass('active');
+    });
+    $(this).parent().addClass('active');
+    $('#div_credit').css('display', 'block');
+    $('#div_pp').css('display', 'none');
+  })
+  $('#pp_tab').on('click', function () {
+    $('.payment_tab').each(function () {
+      $(this).removeClass('active');
+    });
+    $(this).parent().addClass('active');
+    $('#div_pp').css('display', 'block');
+    $('#div_credit').css('display', 'none');
+  })
+</script>

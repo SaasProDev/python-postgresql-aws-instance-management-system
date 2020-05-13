@@ -1,0 +1,41 @@
+<div class="padding-10">
+  <div class="row">
+
+  <div class="col-sm-12">
+    <div class="card-pf">
+          <button type="button" class="_logbtn_ btn btn-default">Debug</button>
+          <button type="button" class="_logbtn_ btn btn-default">Info</button>
+          <button type="button" class="_logbtn_ btn btn-default">Warning</button>
+          <button type="button" class="_logbtn_ btn btn-default">Error</button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button type="button" class="_logbtnmodule_ btn btn-default">core</button>
+          <button type="button" class="_logbtnmodule_ btn btn-default">account</button>
+          <button type="button" class="_logbtnmodule_ btn btn-default">django</button>
+          <button type="button" class="_logbtnmodule_ btn btn-default">frontend</button>
+          <button type="button" class="_logbtnmodule_ btn btn-default">celery</button>
+          <button type="button" class="_logbtnmodule_ btn btn-default"><i>other</i></button>
+          <button type="button" class="_logbtnmodule_ btn btn-default"><b>reset</b></button>
+      </div>
+    </div>
+  </div>
+
+ <div class="row">
+
+    <div class="col-sm-12">
+
+      <div class="instantlog_wrapper">
+        <table class="logging_table" border="1">
+            <tbody id="instantlog">
+            <tr *ngFor='let message of messages'>
+                <td class='logtd'>{{ message.module_name }}</td>
+                <td class='logtd'>{{ message.levelno }}</td>
+                <td class='logtd'><span class='log_{{message.levelname }}'>{{ message.levelname }}</span></td>
+                <td class='logtd'> {{ message.xtime }}</td>
+                <td class='logtd'>{{ message.message }}</td>
+            </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

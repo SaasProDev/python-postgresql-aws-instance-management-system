@@ -1,0 +1,9 @@
+[1;35m [WARNING]: Unable to parse[0m
+[1;35m/ahome_devel/playbooks/roles/discover.libvirt/inventory as an inventory source[0m
+[1;35m[0m
+[1;35m [WARNING]: No inventory was parsed, only implicit localhost is available[0m
+[1;35m[0m
+[1;35m [WARNING]: provided hosts list is empty, only localhost is available. Note[0m
+[1;35mthat the implicit localhost does not match 'all'[0m
+[1;35m[0m
+[0;31mERROR! the role 'discover.libvirt' was not found in /ahome_devel/playbooks/roles/discover.libvirt/project/roles:/root/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles:/ahome_devel/playbooks/roles/discover.libvirt/project[0m

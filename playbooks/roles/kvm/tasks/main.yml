@@ -1,0 +1,200 @@
+---
+
+- debug: var=cloud_init_vm_image
+- debug: var=vm_network_br
+
+- include_tasks: "inc/connect.yml"
+  when:
+    ahome__action in ['check',]
+
+
+
+# - name: Create VM data dir where store vm information
+#   file: "state=directory path={{ vm_data_dir }}/{{ vm_name }} force=yes"
+#   become: yes
+# Listing VMs
+# - name: get all VMs
+#   virt:
+#     command: list_vms #info
+#   register: r__guests
+
+# - name: guest info
+#   command: >
+#     virsh --connect qemu:///system qemu-agent-command {{ item }} '{"execute":"guest-get-host-name"}'
+#   register: r__guests_info
+#   changed_when: false
+#   with_items:
+#     - "{{ r__guests.list_vms }}"
+
+# - debug: var=r__guests_info
+
+# - name: guest uuid
+#   command: >
+#     virsh --connect qemu:///system list --uuid
+#   register: r__guests_uuid
+#   changed_when: false
+
+- name: guest uuid
+  command: >
+    virsh --connect qemu:///system list --name
+  register: r__guests_uuid
+  changed_when: false
+
+# - debug: var=r__guests_uuid
+
+
+- name: ahome id
+  set_fact:
+    r__ahome_vms: >-
+      {%- set vms = [] -%}
+      {%- for n in range(count|d(1)|int) -%}
+
+        {%- set name = [ahome__id, n] | join('_') -%}
+
+        {%- set ignore = vms.append( name ) -%}
+      {%- endfor -%}
+      {{ vms }}
+
+- debug: var=r__ahome_vms
+
+
+
+- name: Remove VM
+  include_tasks: inc/destroy-vm.yml
+  with_items:
+    - "{{ r__ahome_vms }}"
+  loop_control:
+    loop_var: outer_ahome_vm
+  when:
+    - outer_ahome_vm in  r__guests_uuid.stdout_lines
+    - ahome__action in ['reconfigure','stop']
+
+
+
+- name: Deploy Base VM
+  include_tasks: inc/create-vm.yml
+  with_items:
+    - "{{ r__ahome_vms }}"
+  loop_control:
+    loop_var: outer_ahome_vm
+  when:
+    - outer_ahome_vm not in  r__guests_uuid.stdout_lines
+    - ahome__action in ['reconfigure', 'start']
+
+
+- name: guest uuid
+  command: >
+    virsh --connect qemu:///system list --name
+  register: r__guests_uuid
+  changed_when: false
+
+- debug: msg="{{ r__ahome_vms|difference(r__guests_uuid.stdout_lines) }}"
+
+- block:
+
+  - name: guest info
+    command: >
+      virsh --connect qemu:///system qemu-agent-command {{ item }} '{"execute":"guest-get-host-name"}'
+    register: r__guests_info
+    changed_when: false
+    with_items:
+      - "{{ r__ahome_vms }}"
+      # - e86bfc09-a2bc-40c0-b8f6-abbe6f8b9167
+      # - e9e810c3-8e20-4965-b627-99538c8f84bb
+
+  # - debug: var=r__guests_info
+
+  - name: guest interfaces
+    command: >
+      virsh --connect qemu:///system qemu-agent-command {{ item }} '{"execute":"guest-network-get-interfaces"}'
+    register: r__guests_interfaces
+    changed_when: false
+    with_items:
+      - "{{ r__ahome_vms }}"
+      # - e86bfc09-a2bc-40c0-b8f6-abbe6f8b9167
+      # - e9e810c3-8e20-4965-b627-99538c8f84bb
+
+
+  - name: guest osinfo
+    command: >
+      virsh --connect qemu:///system qemu-agent-command {{ item }} '{"execute":"guest-get-osinfo"}'
+    register: r__guests_osinfo
+    changed_when: false
+    with_items:
+      - "{{ r__ahome_vms }}"
+      # - e86bfc09-a2bc-40c0-b8f6-abbe6f8b9167
+      # - e9e810c3-8e20-4965-b627-99538c8f84bb
+
+
+
+  - name: ahome callback
+    set_fact:
+      r__kvm_facts:
+        ahome__id: "{{ ahome__id }}"
+        ahome__model: "{{ ahome__model }}"
+        instances: >-
+          {%- set vms = [] -%}
+          {%- for uuid in r__ahome_vms -%}
+            {%- set vm = {} -%}
+            {%- set r_hostname = r__guests_info.results | selectattr('item', 'equalto', uuid ) | map(attribute='stdout') | list| first | from_json -%}
+            {%- set r_interfaces = r__guests_interfaces.results | selectattr('item', 'equalto', uuid ) | map(attribute='stdout') | list | first | from_json -%}
+            {%- set r_osinfo = r__guests_osinfo.results | selectattr('item', 'equalto', uuid ) | map(attribute='stdout') | list | first | from_json -%}
+            {%- set ignore = vm.update(
+                   {
+                    'uuid': uuid,
+                    'hostname': r_hostname.return['host-name'],
+                    'interfaces': r_interfaces.return,
+                    'os': r_osinfo.return,
+                    'tags': {
+                          'ahome': ahome__id, 
+
+                                },
+
+                   }
+                ) 
+            -%}
+            {%- set ignore = vms.append(vm) -%}
+          {%- endfor -%}
+          {{ vms }}
+
+  - debug: var=r__kvm_facts
+  when:
+    - ( r__ahome_vms|difference(r__guests_uuid.stdout_lines) )|length == 0
+
+
+
+# - name: get all VMs info
+#   virt:
+#     command: info
+#   register: r__info
+
+# - debug: var=r__info
+
+
+# - name: Deploy Base VM
+#   include_tasks: deploy-vm.yml
+
+# - name: System Prep for Clone
+#   import_tasks: system-prep.yml
+
+# # TEST
+# - name: VM is running
+#   shell: "virsh -c qemu:///system list | grep {{ vm_name }} | grep running | wc -l"
+#   register: vm_state
+#   failed_when: vm_state.stdout != '1'
+
+# - name: Check VM access
+#   shell: "ping -c 1 {{ vm_ip.stdout }}"
+#   register: vm_access
+#   failed_when: vm_access.rc == 1
+
+# - name: ahome callback
+#   set_fact:
+#     r__kvm_facts:
+#       ahome__id: "{{ ahome__id }}"
+#       ahome__model: "{{ ahome__model }}"
+#       instances:
+#         - interfaces: "{{ output_json.return }}"
+#           ahome_tags: "{{ lookup('env','TAGS') }}"
+
+# - debug: var=r__kvm_facts

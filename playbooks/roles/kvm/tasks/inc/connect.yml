@@ -1,0 +1,5 @@
+
+- name: get all VMs
+  virt:
+    command: list_vms #info
+  register: r__guests

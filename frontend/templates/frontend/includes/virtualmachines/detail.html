@@ -1,0 +1,442 @@
+{% load static %}
+{% load frontend_extras %}
+<div class="container-fluid">
+    <div class="row toolbar-pf">
+        <div class="col-sm-12">
+            <div class="vm-description-row">
+                <a href="#" data-url="{% url 'dashboard_user' %}" class="vm-link">Virtual Machines</a>
+                <span class="fa fa-angle-right"></span>
+                <span class="vm-id">{{apidata.name}}</span>
+            </div>
+            <div class="row custom-row">
+                <div class="col-sm-12">
+                    <form class="toolbar-pf-actions custom-toolbar">
+                        <div id="ahome-vm-detail-actions" class="custom-toolbar-pf-action-right">
+                            <div class="custom-button-group">
+                                <button class="vm-detail-run-activate" data-url="{{apidata.run.activate}}" class="btn btn-default" type="button">Activate</button>
+                            </div>
+                            <div class="custom-button-group">
+                                <button class="vm-detail-run-synchronize" data-url="{{apidata.run.synchronize}}" class="btn btn-default" type="button">synchronize</button>
+                            </div>
+                            <div class="custom-button-group ">
+                                <button class="vm-detail-run-deactivate" data-url="{{apidata.run.deactivate}}" class="btn btn-default" type="button">Deactivate</button>
+                            </div>
+                            <div class="custom-button-group">
+                                <button class="vm-detail-run-reconfigure" data-url="{{apidata.run.reconfigure}}" class="btn btn-default" type="button">Reboot</button>
+                            </div>
+                            <div class="custom-button-group colored">
+                                <button class="vm-detail-run-shutdown" data-url="{{apidata.run.shutdown}}" class="btn btn-default" type="button">Shutdown</button>
+                            </div>
+                        </div>
+                    </form>
+                </div><!-- /col -->
+            </div><!-- /row -->
+        </div><!-- /col -->
+    </div><!-- /row -->
+</div><!-- /container -->
+
+<div class="container-fluid container-cards-pf">
+    <div class="row">
+        <div class="custom-no-padding col-md-9">
+            <div class="custom-layout-row">
+                <div class="custom-col custom-col-6">
+                    <div class="card-pf custom-card-pf">
+                        {% if apidata.os and apidata.os.strip %}
+                            <div class="vm-card-custom-head"><span class="vm-os">Windows 10</span></div>
+                        {% else %}
+                            <div class="vm-card-custom-head"><span class="vm-os">Unknown</span></div>
+                        {% endif %}
+                        <div class="card-pf-body">
+                            <div class="vm-recap-box">
+                                <div class="vm-recap-image">
+                                   <img src="{% static 'temp/os-placeholder-img.jpg' %}" />
+                                </div>
+                                <div class="vm-recap-description">
+                                    <p><span class="vm-id">{{apidata.name}}</span><span class="vm-edit pficon-edit"></span>
+                                    </p>
+                                    {% if apidata.description and apidata.description.strip %}
+                                    <p>
+                                        {{apidata.description}}
+                                    </p>
+                                    {% else %}
+                                        <p>None desciption for this Virtual machine yet!</p>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-col custom-col-6">
+                    <div class="card-pf custom-card-pf">
+                        <div class="card-pf-heading">
+                            <h2 class="card-pf-title">
+                                Details
+                                <span class="vm-edit pficon-edit"></span>
+                            </h2>
+                        </div>
+                        <div class="card-pf-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <dl class="dl-horizontal">
+                                        <dt>Status</dt>
+                                        {% if apidata.status == "failed" %}
+                                        <dd><span class=" pficon-error-circle-o"></span> {{apidata.status}}</dd>
+                                        {% else %}
+                                        <dd><span class="pficon-ok"></span> {{apidata.status}}</dd>
+                                        {% endif %}
+                                        <dt>Host</dt>
+                                        <dd>{{apidata.summary_fields.name}}</dd>
+                                        <dt>IP Address</dt>
+                                        <dd>{% for ipv4 in apidata.ipaddresses.ipv4 %} {{ ipv4 }} &nbsp; {% endfor %}</dd>
+                                        <dt>FQDN</dt>
+                                        <dd>{{apidata.fqdn}}</dd>
+                                        <!--<dt>Cluster</dt>
+                                        <dd>Cluster 1</dd>
+                                        <dt>Datacenter</dt>
+                                        <dd>Datatcenter 1</dd>-->
+                                    </dl>
+                                </div>
+                                <!--<div class="col-md-5">
+                                    <dl class="dl-horizontal">
+                                        <dt>Template</dt>
+                                        <dd>Blank</dd>
+                                        <dt>CD</dt>
+                                        <dd>Empty</dd>
+                                        <dt>Cloud Init</dt>
+                                        <dd><span style="color: red;" class="pficon-off"></span> Off</dd>
+                                        <dt>Boot Menu</dt>
+                                        <dd><span style="color: red;" class="pficon-off"></span> Off</dd>
+                                        <dt>Console</dt>
+                                        <dd><a href="">SPICE</a>|<a href="">RDP</a></dd>
+                                    </dl>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /row -->
+            <div class="row">
+                <div class="custom-no-padding  col-md-12">
+                    <div class="card-pf card-pf-utilization">
+                        <div class="card-pf-heading">
+                            <p class="card-pf-heading-details">Last 30 days</p>
+                            <h2 class="card-pf-title">
+                                Utilization
+                            </h2>
+                        </div>
+                        <div class="card-pf-body">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                    <h3 class="card-pf-subtitle">CPU</h3>
+                                    <p class="card-pf-utilization-details">
+                                        <span class="card-pf-utilization-card-details-count">{% widthratio apidata.processors.processor|length 3 1 %}</span>
+                                        <span class="card-pf-utilization-card-details-description">
+                                            <span class="card-pf-utilization-card-details-line-1">Available</span>
+                                            <span class="card-pf-utilization-card-details-line-2">of {% widthratio apidata.processors.processor|length 3 1 %} Core</span>
+                                        </span>
+                                    </p>
+                                    <div id="chart-pf-donut-1"></div>
+                                    <div class="chart-pf-sparkline" id="chart-pf-sparkline-1"></div>
+                                    <script>
+                                        var donutConfig = $().c3ChartDefaults().getDefaultDonutConfig('A');
+                                        donutConfig.bindto = '#chart-pf-donut-1';
+                                        donutConfig.color = {
+                                            pattern: ["#cc0000", "#D1D1D1"]
+                                        };
+                                        donutConfig.data = {
+                                            type: "donut",
+                                            columns: [
+                                                ["Used",  {% widthratio apidata.processors.processor|length 3 1 %}],
+                                                ["Available", 0]
+                                            ],
+                                            groups: [
+                                                ["used", "available"]
+                                            ],
+                                            order: null
+                                        };
+                                        donutConfig.tooltip = {
+                                            contents: function (d) {
+                                                return '<span class="donut-tooltip-pf" style="white-space: nowrap;">' +
+                                                    Math.round(d[0].ratio * 100) + '%' + ' MHz ' + d[0].name +
+                                                    '</span>';
+                                            }
+                                        };
+
+                                        var chart1 = c3.generate(donutConfig);
+                                        var donutChartTitle = d3.select("#chart-pf-donut-1").select(
+                                            'text.c3-chart-arcs-title');
+                                        donutChartTitle.text("");
+                                        donutChartTitle.insert('tspan').text("{% widthratio apidata.processors.processor|length 3 1 %}").classed('donut-title-big-pf', true)
+                                            .attr('y', 0)
+                                            .attr('x', 0);
+                                        donutChartTitle.insert('tspan').text("Core Used").classed('donut-title-small-pf',
+                                            true).attr(
+                                            'y', 20).attr('x', 0);
+
+                                        var sparklineConfig = $().c3ChartDefaults().getDefaultSparklineConfig();
+                                        sparklineConfig.bindto = '#chart-pf-sparkline-1';
+                                        sparklineConfig.data = {
+                                            columns: [
+                                                ['%', 10, 50, 28, 20, 31, 27, 60, 36, 52, 55, 62, 68, 69, 88,
+                                                    74, 88, 95
+                                                ],
+                                            ],
+                                            type: 'area'
+                                        };
+                                        var chart2 = c3.generate(sparklineConfig);
+                                    </script>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                    {% widthratio apidata.memory.real.used apidata.memory.real.total 100 as mem_used %}
+                                    {% widthratio apidata.memory.real.free apidata.memory.real.total 100 as mem_free %}
+                                    <h3 class="card-pf-subtitle">Memory</h3>
+                                    <p class="card-pf-utilization-details">
+                                        <span class="card-pf-utilization-card-details-count">{{apidata.memory.real.free}}</span>
+                                        <span class="card-pf-utilization-card-details-description">
+                                            <span class="card-pf-utilization-card-details-line-1">Available</span>
+                                            <span class="card-pf-utilization-card-details-line-2">of {{apidata.memory.real.total}} MB</span>
+                                        </span>
+                                    </p>
+                                    <div id="chart-pf-donut-2"></div>
+                                    <div class="chart-pf-sparkline" id="chart-pf-sparkline-2"></div>
+                                    <script>
+                                        var donutConfig = $().c3ChartDefaults().getDefaultDonutConfig('A');
+                                        donutConfig.bindto = '#chart-pf-donut-2';
+                                        donutConfig.color = {
+                                            pattern: ["#3f9c35", "#D1D1D1"]
+                                        };
+                                        donutConfig.data = {
+                                            type: "donut",
+                                            columns: [
+                                                ["Used", {{mem_used}}],
+                                                ["Available", {{mem_free}}]
+                                            ],
+                                            groups: [
+                                                ["used", "available"]
+                                            ],
+                                            order: null
+                                        };
+                                        donutConfig.tooltip = {
+                                            contents: function (d) {
+                                                return '<span class="donut-tooltip-pf" style="white-space: nowrap;">' +
+                                                    Math.round(d[0].ratio * 100) + '%' + ' MB ' + d[0].name +
+                                                    '</span>';
+                                            }
+                                        };
+
+                                        var chart3 = c3.generate(donutConfig);
+                                        var donutChartTitle = d3.select("#chart-pf-donut-2").select(
+                                            'text.c3-chart-arcs-title');
+                                        donutChartTitle.text("");
+                                        donutChartTitle.insert('tspan').text("{{apidata.memory.real.used}}").classed('donut-title-big-pf', true)
+                                            .attr('y', 0)
+                                            .attr('x', 0);
+                                        donutChartTitle.insert('tspan').text("MB Used").classed('donut-title-small-pf',
+                                            true).attr(
+                                            'y', 20).attr('x', 0);
+
+                                        var sparklineConfig = $().c3ChartDefaults().getDefaultSparklineConfig();
+                                        sparklineConfig.bindto = '#chart-pf-sparkline-2';
+                                        sparklineConfig.data = {
+                                            columns: [
+                                                ['%', 35, 36, 20, 30, 31, 22, 44, 36, 40, 41, 55, 52, 48, 48,
+                                                    50, 40, 41
+                                                ],
+                                            ],
+                                            type: 'area'
+                                        };
+                                        var chart4 = c3.generate(sparklineConfig);
+                                    </script>
+                                </div>
+                                {% for mount in apidata.mounts %}
+                                <div class="col-xs-12 col-sm-4 col-md-4">
+                                        {% widthratio mount.block_used mount.block_total 100 as disk_used %}
+                                        {% widthratio mount.block_available mount.block_total 100 as disk_free %}
+                                    <h3 class="card-pf-subtitle">Disks</h3>
+                                    <p class="card-pf-utilization-details">
+                                        <span class="card-pf-utilization-card-details-count">{{disk_used}}</span>
+                                        <span class="card-pf-utilization-card-details-description">
+                                            <span class="card-pf-utilization-card-details-line-1">Available</span>
+                                            <span class="card-pf-utilization-card-details-line-2">of {{ mount.size_total |filesizeformat }}</span>
+                                        </span>
+                                    </p>
+                                    <div id="chart-pf-donut-3"></div>
+                                    <div class="chart-pf-sparkline" id="chart-pf-sparkline-3"></div>
+                                    <script>
+                                        var donutConfig = $().c3ChartDefaults().getDefaultDonutConfig('A');
+                                        donutConfig.bindto = '#chart-pf-donut-3';
+                                        donutConfig.color = {
+                                            pattern: ["#39a5dc", "#D1D1D1"]
+                                        };
+                                        donutConfig.data = {
+                                            type: "donut",
+                                            columns: [
+                                                ["Used", {{disk_used}}],
+                                                ["Available", {{disk_free}}]
+                                            ],
+                                            groups: [
+                                                ["used", "available"]
+                                            ],
+                                            order: null
+                                        };
+                                        donutConfig.tooltip = {
+                                            contents: function (d) {
+                                                return '<span class="donut-tooltip-pf" style="white-space: nowrap;">' +
+                                                    Math.round(d[0].ratio * 100) + '%' + ' GB ' + d[0].name +
+                                                    '</span>';
+                                            }
+                                        };
+
+                                        var chart5 = c3.generate(donutConfig);
+                                        var donutChartTitle = d3.select("#chart-pf-donut-3").select(
+                                            'text.c3-chart-arcs-title');
+                                        donutChartTitle.text("");
+                                        donutChartTitle.insert('tspan').text("{{disk_used}}").classed('donut-title-big-pf', true)
+                                            .attr('y',
+                                                0).attr('x', 0);
+                                        donutChartTitle.insert('tspan').text("GB Used").classed(
+                                                'donut-title-small-pf', true)
+                                            .attr('y', 20).attr('x', 0);
+
+                                        var sparklineConfig = $().c3ChartDefaults().getDefaultSparklineConfig();
+                                        sparklineConfig.bindto = '#chart-pf-sparkline-3';
+                                        sparklineConfig.data = {
+                                            columns: [
+                                                ['%', 60, 55, 70, 44, 31, 67, 54, 46, 58, 75, 62, 68, 69, 88,
+                                                    74, 88, 85
+                                                ],
+                                            ],
+                                            type: 'area'
+                                        };
+                                        var chart6 = c3.generate(sparklineConfig);
+                                    </script>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <!--<div class="card-pf">
+                        <div class="card-pf-heading">
+                            <h2 class="card-pf-title">
+                                <span class="fa fa-camera"></span>
+                                Snapshot
+                                <span class="badge">3</span>
+                                <span class="vm-edit pficon-edit"></span>
+                            </h2>
+                        </div>
+                        <div class="card-pf-body">
+                            <dl class="dl-horizontal">
+                                <dt>Active VM</dt>
+                                <dd></dd>
+                                <dt>Snapshot_def</dt>
+                                <dd>(06h ago) <span class="pficon-info"></span></dd>
+                                <dt>Snapshot_abc</dt>
+                                <dd>(06h ago) <span class="pficon-info"></span></dd>
+                            </dl>
+
+                        </div>
+                    </div>-->
+                </div>
+                <div class="col-md-12">
+                    
+                    <div class="card-pf">
+                        <div class="card-pf-heading">
+                            <h2 class="card-pf-title">
+                                <span class="pficon-network"></span>
+                                Network Interfaces
+                                <!--<span class="badge">{{interface.device}}</span>-->
+                                <!--<span class="vm-edit pficon-edit"></span>-->
+                            </h2>
+                        </div>
+                        {% for interface in apidata.interfaces %}
+                        <div class="card-pf-body">
+                            <dl class="dl-horizontal">
+                                <dt>Device</dt>
+                                <dd>{{interface.device}}</dd>
+                                <dt>type</dt>
+                                <dd>{{interface.type}}</dd>
+                                <dt>Mac Address</dt>
+                                <dd>{{interface.macaddress}}</dd>
+                                <dt>IPv4</dt>
+                                <dd>{{interface.ipv4.address}}</dd>
+                                <dt>IPv6</dt>
+                                <dd>{{interface.ipv6.address}}</dd>
+                            </dl>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    <div class="card-pf">
+                        <div class="card-pf-heading">
+                            <h2 class="card-pf-title">
+                                <span class="pficon-storage-domain"></span>
+                                Disks
+                                <!--<span class="badge">O</span>-->
+                                <!--<span class="vm-edit pficon-edit"></span>-->
+                            </h2>
+                        </div>
+                        <div class="card-pf-body">
+                                {% for mount in apidata.mounts %}
+                                <div class="card-pf-body">
+                                    <dl class="dl-horizontal">
+                                        <dt>Device</dt>
+                                        <dd>{{mount.device}}</dd>
+                                        <dt>fstype</dt>
+                                        <dd>{{mount.fstype}}</dd>
+                                        <dt>Total Size</dt>
+                                        <dd>{{ mount.size_total |filesizeformat }}</dd>
+                                        <dt>Available</dt>
+                                        <dd>{{ mount.size_available |filesizeformat }}</dd>
+                                    </dl>
+                                </div>
+                                {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        
+    </div>
+</div><!-- /container -->
+{% csrf_token %}
+<script src="{% static 'ahome/js/ahome-generics.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        // matchHeight the contents of each .card-pf and then the .card-pf itself
+        $(".row-cards-pf > [class*='col'] > .card-pf .card-pf-title").matchHeight();
+        $(".row-cards-pf > [class*='col'] > .card-pf > .card-pf-body").matchHeight();
+        $(".row-cards-pf > [class*='col'] > .card-pf > .card-pf-footer").matchHeight();
+        $(".row-cards-pf > [class*='col'] > .card-pf").matchHeight();
+
+        $(".vm-description-row a").click( function() {
+			var btn = $(this);
+			$.ajax({
+				type: 'GET',
+				url: btn.attr("data-url"),
+				beforeSend: function () {
+					$("#ahome-overlay").fadeIn(300);
+				},
+				success: function(data){
+					// console.log(data);
+					$("#ajax-responsive").html( data );
+				}
+			}).done(function() {
+				setTimeout(function(){
+					$("#ahome-overlay").fadeOut(300);
+				},500);
+			});
+		});
+
+    });
+</script>

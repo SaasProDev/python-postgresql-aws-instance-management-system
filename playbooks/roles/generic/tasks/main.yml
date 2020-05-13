@@ -1,0 +1,24 @@
+---
+# tasks file for playbooks/roles/generic
+
+- name: Wait for yum lock release
+  shell: ps -aux | grep yum
+  register: yum_lock
+  retries: 40
+  delay: 6
+  until: yum_lock.stdout_lines|length <= 2
+  changed_when: false
+
+- name: Get instance facts
+  action: setup
+  register: r__setup
+
+
+- name: ahome callback
+  set_fact:
+    r__ansible_facts:
+      ahome__id: "{{ ahome__id }}"
+      ahome__model: "{{ ahome__model }}"
+      ansible_facts: "[{{ r__setup.ansible_facts }}]"
+
+- debug: var=r__ansible_facts

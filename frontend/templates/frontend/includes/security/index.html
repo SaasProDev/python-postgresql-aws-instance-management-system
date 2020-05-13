@@ -1,0 +1,76 @@
+{% load static %}
+<div class="row">
+  <div class="col-md-12">
+    <ol class="ahome-breadcrumb breadcrumb">
+      <li><a href="#admin-panel" data-url="{% url 'dashboard_user' %}">Home</a></li>
+      <li>Security</li>
+    </ol>
+    <div class="actions pull-right">
+      <a href="#security" class="instance-refresh-link" data-url="{% url 'security' %}"><span
+          class="pficon pficon-refresh"></span>&nbsp;Refresh Results</a>
+    </div>
+    <h1>Security</h1>
+  </div>
+</div>
+
+<!-- /toast notification -->
+<div id="ahome-toast-notification">
+</div>
+<!-- /.end toast -->
+
+
+
+<!-- /wizardbox -->
+<div id="ahome-wizardbox">
+  {% include 'frontend/includes/helpers/wizard-modal.html' %}
+</div>
+<!-- /.wizardbox -->
+
+
+<!-- /search-bar -->
+<div id="ahome-generic-search-bar">
+  {% include 'frontend/includes/helpers/search.html' %}
+</div>
+<!-- /.search-bar -->
+
+
+<!-- /providers -->
+<div id="pf-list-simple-expansion" class="list-group list-view-pf list-view-pf-view">
+
+  <div id="ahome-generic-list">
+    {% include include_path %}
+  </div>
+  <!-- /.providers -->
+
+
+  <!-- /modal -->
+  <div class="modal fade" id="modal-ahome-generic">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+  <!-- /.modal -->
+
+  {% csrf_token %}
+  <script src="{% static 'ahome/js/ahome-generics.js' %}"></script>
+  <script>
+    $(".ahome-breadcrumb a").click(function () {
+      var btn = $(this);
+      $.ajax({
+        type: 'GET',
+        url: btn.attr("data-url"),
+        beforeSend: function () {
+          $("#ahome-overlay").fadeIn(300);
+        },
+        success: function (data) {
+          // console.log(data);
+          $("#ajax-responsive").html(data);
+        }
+      }).done(function () {
+        setTimeout(function () {
+          $("#ahome-overlay").fadeOut(300);
+        }, 500);
+      });
+    });
+  </script>

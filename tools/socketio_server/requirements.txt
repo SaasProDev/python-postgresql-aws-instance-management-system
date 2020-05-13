@@ -1,0 +1,15 @@
+aiohttp
+async-timeout
+aioredis
+chardet
+multidict
+python-engineio
+python_socketio
+six
+yarl
+attrdict
+
+aiohttp_cors    # don't sure it really required
+
+python-dateutil
+service_identity

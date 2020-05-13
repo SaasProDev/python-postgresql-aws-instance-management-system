@@ -1,0 +1,12 @@
+---
+
+- name: Get instance ec2 facts
+  action: ec2_instance_info
+  # register: r__ec2_instance_facts
+
+- ec2_instance_info:
+    filters:
+      instance-state-name: [ "running", "shutting-down", "stopping", "stopped" ]
+  register: r__ec2_inventory
+
+- debug: var=r__ec2_inventory

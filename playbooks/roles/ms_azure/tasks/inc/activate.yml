@@ -1,0 +1,164 @@
+---
+
+
+- name: Create resource group
+  azure_rm_resourcegroup:
+    name: "{{ resourcegroup }}"
+    location: eastus
+    tags: "{{ ahometags }}"
+
+
+
+- name: Create virtual network
+  azure_rm_virtualnetwork:
+    resource_group: "{{ resourcegroup }}"
+    name: "{{ virtualnetwork }}"
+    address_prefixes: "10.0.0.0/16"
+    tags: "{{ ahometags }}"
+
+
+
+- name: Add subnet
+  azure_rm_subnet:
+    resource_group: "{{ resourcegroup }}"
+    name: "{{ subnet }}"
+    address_prefix: "10.0.1.0/24"
+    virtual_network: "{{ virtualnetwork }}"
+
+
+
+- name: Create public IP address
+  azure_rm_publicipaddress:
+    resource_group: "{{ resourcegroup }}"
+    allocation_method: Static
+    name: "{{ publicipaddress }}-{{ '%02d' | format(item) }}"
+    tags: "{{ ahometags }}"
+  register: output_ip_address
+  loop: "{{ instance_count }}"
+
+
+# - debug: var=output_ip_address
+
+# - name: Dump public IP for VM which will be created
+#   debug:
+#     msg: "The public IP is {{ output_ip_address.state.ip_address }}."
+
+
+- name: Create Network Security Group that allows SSH/HTTP
+  azure_rm_securitygroup:
+    resource_group: "{{ resourcegroup }}"
+    name: "{{ securitygroup }}"
+    rules:
+      - name: SSH
+        protocol: Tcp
+        destination_port_range: 22
+        access: Allow
+        priority: 1001
+        direction: Inbound
+
+      - name: HTTP
+        protocol: Tcp
+        destination_port_range: 80
+        access: Allow
+        priority: 1002
+        direction: Inbound
+
+      - name: HTTPS
+        protocol: Tcp
+        destination_port_range: 443
+        access: Allow
+        priority: 1003
+        direction: Inbound
+
+    tags: "{{ ahometags }}"
+
+
+- name: Get facts for network interfaces
+  azure_rm_networkinterface_info:
+    resource_group: "{{ resourcegroup }}"
+    tags: 
+      - "ahome:{{ ahome__id }}"
+  register: r__networkinterface
+  ignore_errors: yes
+
+# - debug: var=r__networkinterface
+
+
+- name: Create virtual network interface card
+  azure_rm_networkinterface:
+    resource_group: "{{ resourcegroup }}"
+    name: "{{ networkinterface }}-{{ '%02d' | format(item) }}"
+    virtual_network: "{{ virtualnetwork }}"
+    subnet: "{{ subnet }}"
+    security_group: "{{ securitygroup }}"
+    ip_configurations:
+      - name: "{{ ipconfig }}-{{ '%02d' | format(item) }}"
+        public_ip_address_name: "{{ publicipaddress }}-{{ '%02d' | format(item) }}"
+        primary: True
+    tags: "{{ ahometags }}"
+  loop: "{{ instance_count }}"
+  # when:
+  #   - r__networkinterface.networkinterfaces | length == 0
+
+
+- name: Create VM
+  azure_rm_virtualmachine:
+    resource_group: "{{ resourcegroup }}"
+    name: "{{ virtualmachine }}-{{ '%02d' | format(item) }}"
+    vm_size: Standard_B1ms #Standard_DS1_v2
+    admin_username: azureuser
+    ssh_password_enabled: false
+    ssh_public_keys:
+      - path: /home/azureuser/.ssh/authorized_keys
+        key_data: "{{ lookup('env','SSH_PUB') | default( SSH_PUB ) }}"
+    network_interfaces: "{{ networkinterface }}-{{ '%02d' | format(item) }}"
+    image:
+      offer: CentOS
+      publisher: OpenLogic
+      sku: '7.5'
+      version: latest
+    tags: "{{ ahometags }}"
+  loop: "{{ instance_count }}"
+
+
+- name: Wait for SSH to come up
+  delegate_to: "{{ item.state.ip_address }}"
+  wait_for_connection:
+    delay: 30
+    timeout: 320
+  loop: "{{ output_ip_address.results }}"
+
+
+
+
+# - name: Get facts by name
+#   azure_rm_virtualmachine_info:
+#     resource_group: myResourceGroup
+#     name: myVM
+#   register: r__azure
+
+# - debug: var=r__azure
+
+# - name: Get facts by tags
+#   azure_rm_virtualmachine_info:
+#     resource_group: myResourceGroup
+#     tags:
+#       - testing
+#       - foo:bar
+
+
+
+# - ec2_instance_info:
+#     filters:
+#       "tag:ahome": "{{ ahome__id }}"
+#   register: r__ec2
+
+# - name: ahome callback
+#   set_fact:
+#     r__azure_facts:
+#       ahome__id: "{{ ahome__id }}"
+#       ahome__model: "{{ ahome__model }}"
+#       instances: "{{ r__azure.vms }}"
+
+# - debug: var=r__azure_facts
+

@@ -1,0 +1,29 @@
+{% load frontend_extras %}
+ {% if alert == 'failed' %}
+ <script type=text/javascript>toastr.error('<strong>{{ name }}</strong> {{ verb }}<br/> {{ msg }}')</script>
+{% elif alert == 'info' %}
+<script type=text/javascript>toastr.info('<strong>{{ name }}</strong> {{ verb }}<br/> {{ msg }}')</script>
+{% else %}
+<script type=text/javascript>toastr.success('<strong>{{ name }}</strong> {{ verb }}<br/> {{ msg }}')</script>
+{% endif %} 
+
+<!-- <div id="global-toast-notification" class="toast-pf toast-pf-max-width toast-pf-top-right alert {{alert | ws_toast }} alert-dismissable" style="top:74px;position:fixed;">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+    <span class="pficon pficon-close"></span>
+  </button>
+	  <span class="pficon {{alert | ws_pficon }}"></span>
+	  <span class="ahome-notification-content"><strong>{{ name }}</strong> {{ verb }}<br/>{{ msg }}</span>
+
+</div> -->
+<!-- <script>
+  setTimeout(function() {
+   $('#global-toast-notification').fadeOut();
+  }, 10000 );
+</script> -->
+
+
+<!-- /websocket-javascript -->
+<div id="ahome-websocket-javascript">
+{% include 'frontend/includes/helpers/websocket-helper.html' %}
+</div>
+<!-- /.webscoket-javascript -->

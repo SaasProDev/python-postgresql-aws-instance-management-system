@@ -1,0 +1,20 @@
+---
+# vars file for playbooks/roles/ms_azure
+
+resourcegroup: "ResourceGroup-{{ ahome__id }}"
+virtualnetwork: "Vnet-{{ ahome__id }}"
+subnet: "Subnet-{{ ahome__id }}"
+publicipaddress: "PublicIP-{{ ahome__id }}"
+networkinterface: "nic-{{ ahome__id }}"
+securitygroup: "NetworkSecurityGroup-{{ ahome__id }}"
+ipconfig: "ipconfig-{{ ahome__id }}"
+virtualmachine: "vm-{{ ahome__id }}"
+
+
+instance_count: "{{ range(0, count|int -1 + 1, 1)|list }}"
+
+
+ahometags:
+  Name: "{{ name }}"
+  instance_name: "{{ name }}"
+  ahome: "{{ ahome__id }}"

@@ -1,0 +1,48 @@
+# KVM config
+kvm_vm_pool_dir: /var/lib/libvirt/images
+# kvm_install_host: 192.168.1.150
+# kvm_install_host: localhost
+
+# Cloud Init Config
+vm_data_dir: /data/images
+vm_recreate: false
+cloud_init_vm_image: >-
+  {%- set vm_img = 'CentOS-7-x86_64-GenericCloud.qcow2' -%}
+  {%- if 'apps' in image|list -%}
+    {%- if image.apps | length > 0 -%}
+      {%- set vm_img = 'app-1.1-x86_64-GenericCloud.qcow2' -%}
+    {%- endif -%}
+  {%- endif -%}
+  {{ vm_img }}
+
+
+
+cloud_init_vm_image_link: "https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2"
+# Latest image is from https://cloud.centos.org/centos/7/images/
+
+cloud_init_user_data: "{{ vm_data_dir }}/{{ vm_name }}/user-data"
+cloud_init_meta_data: "{{ vm_data_dir }}/{{ vm_name }}/meta-data"
+cloud_init_iso_image: "{{ vm_data_dir }}/{{ vm_name }}/cidata.iso"
+
+vm_name: "{{ outer_ahome_vm | d('CentOS_Base') }}"
+vm_local_hostname: "{{ name | d('base.ahome.local') }}"
+vm_hostname: "{{ name | d('base.ahome.local') }}"
+vm_public_key: "{{ lookup('env','SSH_PUB') | default( SSH_PUB ) }}"
+# vm_public_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+vm_cpu: "{{ plan.vcpu | d(2) }}"
+vm_memory: "{{ (plan.memory|int)*1024 | d(4096) }}" #1024
+vm_root_disk_size: 20G
+
+
+# vm_network_br: ovsbr-int #ovsbr-noc #ovsbr-int #ovsbr-ext
+
+vm_network_br: >-
+  {%- set network_bridge = 'default' -%}
+  {%- if options.private_networking -%}
+    {%- if options.private_networking == 'true' -%}
+      {%- set network_bridge = 'ovsbr-noc' -%}
+    {%- else -%}
+      {%- set network_bridge = 'ovsbr-ext' -%}
+    {%- endif -%}
+  {%- endif -%}
+  {{ network_bridge }}

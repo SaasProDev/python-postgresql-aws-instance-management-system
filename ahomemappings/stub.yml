@@ -1,0 +1,7 @@
+---
+name: ansible stub facts
+title: ansible facts
+description: |
+    Ansible Facts
+cloud: false
+version: 1.0

@@ -1,0 +1,36 @@
+FROM centos:7
+
+WORKDIR /
+
+RUN localedef -c -i en_US -f UTF-8 en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+RUN yum install epel-release -y && \
+    yum update -y && \
+    yum install -y gcc \
+                   make \
+                   wget \
+				   screen \
+				   openssh-clients \
+				   git \
+				   postgresql-contrib \
+				   postgresql-devel \
+				   rsync \
+				   setools-libs \
+				   vim \
+				   openssh \
+				   openssh-clients \
+				   bash-completion-extras \
+				   libvirt-devel \
+				   curl-devel \
+				   libxml2-devel \
+				   krb5-devel \
+				   bubblewrap \
+				   nginx
+
+RUN yum install -y https://github.com/krallin/tini/releases/download/v0.18.0/tini_0.18.0.rpm
+
+
+

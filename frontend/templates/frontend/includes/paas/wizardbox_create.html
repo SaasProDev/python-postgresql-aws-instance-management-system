@@ -1,0 +1,41 @@
+
+{% load static %}
+
+
+
+<!-- /toast notification -->
+<div id="ahome-toast-notification">
+</div>
+<!-- /.end toast -->
+
+
+
+<!-- /wizardbox -->
+<div id="ahome-wizardbox">
+{% include 'frontend/includes/helpers/wizard-modal.html' %}
+</div>
+<!-- /.wizardbox -->
+
+
+<!-- /tab-pane -->
+<div id="ahome-tab-pane">
+{% include 'frontend/includes/paas/card-view.html' %}
+</div>
+<!-- /.tab-pane -->
+
+
+
+
+
+{% csrf_token %}
+<script  src="{% static 'ahome/js/ahome-generics.js' %}"></script>
+
+
+
+
+
+<script>
+  // Initialize Boostrap-select
+   $('.selectpicker').selectpicker();
+
+</script>

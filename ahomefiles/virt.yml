@@ -1,0 +1,57 @@
+---
+name: Libvirt KVM
+title: Provisioning Libvirt KVM instance
+description: |
+    Libvirt KVM instance
+cloud: false
+version: 1.0
+
+
+
+fields:
+
+  - name: instance_name
+    label: instance name
+    help_text: ex. instance1
+    required: true
+
+
+  - name: instance_type
+    label: instance type
+    help_text: ex. small
+    initial: small
+
+  - name: image
+    help_text: ex. centos7
+    initial: centos7
+    required: true
+
+  - name: wait
+    type: checkbox
+    advanced: true
+
+  - name: group
+    help_text: ex. webserver
+    advanced: true
+
+
+  - name: count
+    type: integer
+    initial: 1
+    advanced: true
+
+credentials:
+  - name: username
+    label: username
+
+  - name: password
+    type: password
+    label: Password
+
+  - name: key_name
+    advanced: true
+
+  - name: ssh_pubkey
+    label: ssh public key
+    advanced: true
+    type: textarea

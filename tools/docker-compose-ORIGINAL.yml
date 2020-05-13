@@ -1,0 +1,97 @@
+version: "3.7"
+services:
+  ahome:
+    container_name: ahome-core
+    restart: unless-stopped
+    build:
+      context: .
+    depends_on:
+      - postgresql
+      - redis
+      - rabbitmq
+    links:
+      - postgresql
+      - redis
+      - rabbitmq
+    working_dir: "/ahome_devel"
+    volumes:
+      - "../:/ahome_devel"
+      - "ahome_task_data:/opt/tmp"
+    expose:
+      - "8001"
+      - "8043"
+    ports:
+      - "8001:8001"
+      - "8043:8043"
+      - "8000:8000"
+      - "5000:5000"
+    privileged: true
+    environment:
+      DATABASE_ENGINE: postgresql
+      DATABASE_NAME: ahome_db
+      DATABASE_ADMIN_USER: postgres
+      DATABASE_ADMIN_PASSWORD: postgres
+      DATABASE_USER: ahome
+      DATABASE_PASSWORD: ahomepass123
+      DATABASE_HOST: postgresql
+      DATABASE_PORT: 5432
+      WEBSSH_PROXY_URL:  http://webssh:9001/
+      RABBIT_HOST: rabbitmq
+      RABBIT_PORT: 5672
+      RABBIT_USERNAME: guest
+      RABBIT_PASSWORD: guest
+      RABBIT_VHOST: /
+
+  redis:
+    container_name: ahome-redis
+    restart: unless-stopped
+    image: redis
+
+  rabbitmq:
+    container_name: ahome-rabbitmq
+    restart: unless-stopped
+    image: rabbitmq:management
+    ports:
+      - "15672:15672"
+    volumes:
+      - "ahome_rabbitmq_data:/var/lib/rabbitmq/"
+
+#  postgresql:
+#    container_name: ahome-psql
+#    restart: unless-stopped
+#    image: postgres:12-alpine
+#    environment:
+#      POSTGRES_USER: ahome
+#      POSTGRES_PASSWORD: ahomepass123
+#      POSTGRES_DB: ahome_db
+#    volumes:
+#      - "ahome_psql_data:/var/lib/postgresql/data"
+
+  postgresql:
+    container_name: ahome-psql
+    restart: unless-stopped
+    build:
+      context: ./postgres_db
+    environment:
+      POSTGRES_USER: ahome
+      POSTGRES_PASSWORD: ahomepass123
+      POSTGRES_DB: ahome_db
+    volumes:
+      - "ahome_psql_data:/var/lib/postgresql/data"
+
+  webssh:
+    container_name: ahome-webssh
+    restart: unless-stopped
+    build:
+      context: ./webssh
+    volumes:
+      - "ahome_task_data:/opt/tmp"
+    ports:
+      - "9001:9001"
+      - "7000:7000"
+
+
+volumes:
+  ahome_psql_data:
+  ahome_task_data:
+  ahome_rabbitmq_data:

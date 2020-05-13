@@ -1,0 +1,874 @@
+{% load static %}
+
+
+
+<!-- PatternFly Styles -->
+<!-- Note: No other CSS files are needed regardless of what other JS packages located in patternfly/components that you decide to pull in -->
+<link rel="stylesheet" href="{% static 'patternfly/dist/css/patternfly.min.css' %}">
+<link rel="stylesheet" href="{% static 'patternfly/dist/css/patternfly-additions.min.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<link rel="stylesheet" href="{% static 'carousel/owl.carousel.css' %}">
+<link rel="stylesheet" href="{% static 'carousel/owl.theme.default.css' %}">
+
+<style>
+  .toast-top-right {
+    top: 70px;
+    right: 12px;
+  }
+
+  #toast-container>div {
+    opacity: 1;
+  }
+</style>
+<link href="{% static 'ahome/assets/font-logos.css' %}" rel="stylesheet">
+<link href="{% static 'ahome/css/ws-common.css' %}" rel="stylesheet" />
+<style>
+  /* Place temporary here*/
+
+  #ajax-responsive {
+    background: #f5f5f5;
+    margin-top: 0;
+    padding-top: 16px;
+    min-height: 100vh;
+  }
+</style>
+
+<!-- jQuery -->
+
+<script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+<script src="{% static 'carousel/popper.min.js' %}"></script>
+<!-- Bootstrap JS -->
+<script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+
+<!-- C3, D3 - Charting Libraries -->
+<script src="{% static 'c3/c3.min.js' %}"></script>
+<script src="{% static 'd3/d3.min.js' %}"></script>
+
+<!-- PatternFly Custom Componets -  Sidebar, Popovers and Datatables Customizations -->
+<!-- Note: jquery.dataTables.js must occur in the html source before patternfly*.js.-->
+<script src="{% static 'patternfly/dist/js/patternfly.min.js' %}"></script>
+
+
+<!-- Datatables, jQuery Grid Component -->
+<!-- Note: jquery.dataTables.js must occur in the html source before patternfly*.js.-->
+
+
+
+<script src="{% static 'datatables.net/js/jquery.dataTables.js' %}"></script>
+
+<!-- <script  src="{% static 'datatables.net/js/jquery.dataTables.min.js' %}"></script> -->
+
+<script src="{% static 'drmonty-datatables-colvis/js/dataTables.colVis.js' %}"></script>
+<script src="{% static 'datatables.net-colreorder/js/dataTables.colReorder.js' %}"></script>
+
+<!-- Bootstrap Combobox -->
+<script src="{% static 'patternfly-bootstrap-combobox/js/bootstrap-combobox.js' %}"></script>
+
+<!-- Bootstrap Date Picker -->
+<script src="{% static 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' %}"></script>
+
+<!-- Moment - required by Bootstrap Date Time Picker -->
+<script src="{% static 'moment/min/moment.min.js' %}"></script>
+
+<!-- Bootstrap Date Time Picker - requires Moment -->
+<script src="{% static 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
+
+<!-- Bootstrap Select -->
+<script src="{% static 'bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+
+<!-- Bootstrap Tagsinput -->
+<script src="{% static 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js' %}"></script>
+<link rel="stylesheet" href="{% static 'bootstrap-tagsinput/dist/bootstrap-tagsinput.css' %}">
+
+
+<!-- Bootstrap typeahead -->
+<script src="{% static 'typeahead.js/dist/typeahead.jquery.js' %}"></script>
+<link rel="stylesheet" href="{% static 'bootstrap-tagsinput/dist/bootstrap-tagsinput-typeahead.css' %}">
+
+
+<!-- Bootstrap Switch -->
+<script src="{% static 'bootstrap-switch/dist/js/bootstrap-switch.min.js' %}"></script>
+
+<!-- Bootstrap Touchspin -->
+<script src="{% static 'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js' %}"></script>
+
+<!-- Bootstrap Tree View -->
+<script src="{% static 'patternfly-bootstrap-treeview/dist/bootstrap-treeview.min.js' %}"></script>
+
+<!-- Google Code Prettify - Syntax highlighting of code snippets -->
+<script src="{% static 'google-code-prettify/bin/prettify.min.js' %}"></script>
+
+<!-- MatchHeight - Used to make sure dashboard cards are the same height -->
+<script src="{% static 'jquery-match-height/jquery.matchHeight.js' %}"></script>
+
+<!-- Angular Application? You May Want to Consider Pulling Angular-PatternFly And Angular-UI Bootstrap instead of bootstrap.js -->
+<!-- See https://github.com/patternfly/angular-patternfly for more information -->
+
+<html class="layout-pf layout-pf-fixed">
+
+<head>
+  <link rel='shortcut icon' type='image/x-icon' href="{% static 'ahome/assets/favicon.ico' %}" />
+</head>
+<script src="{% static 'jquery-match-height/dist/jquery.matchHeight-min.js' %}"></script>
+
+<!-- Ahome WebSocket scripts -->
+
+
+<!-- Instant Logging -->
+<script src="{% static 'ahome/js/lodash.js' %}"></script>
+<script src="{% static 'ahome/js/xmig/utils.js' %}"></script>
+<script src="{% static 'ahome/js/instantlogger.js' %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="{% static 'carousel/owl.carousel.js' %}"></script>
+<script src="{% static 'patternfly/dist/js/patternfly-settings.js' %}"></script>
+<script src="{% static 'patternfly/dist/js/patternfly-settings-colors.js' %}"></script>
+<script src="{% static 'patternfly/dist/js/patternfly-settings-charts.js' %}"></script>
+
+<script src="{% static 'c3/c3.js' %}"></script>
+<script src="{% static 'd3/d3.js' %}"></script>
+
+<script src="{% static 'ahome/js/celery_progress.js' %}"></script>
+
+<!-- Virtual Machnes CSS -->
+<link rel="stylesheet" href="{% static 'custom/custom.css'%}" />
+<script src="{% static 'custom/custom.js' %}"></script>
+<style>
+  #clear-filter {
+    display: none;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+<!-- /navbar-->
+<nav class="navbar navbar-pf-vertical">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a href="/" class="navbar-brand">
+      <img class="navbar-brand-icon" src="{% static 'ahome/dist/img/logo-ahome.png' %}" alt="" />
+      <img class="navbar-brand-name" src="{% static 'ahome/dist/img/brand-alt.png' %}" alt="ahome Cloud as a Service" />
+    </a>
+
+    <ul class="nav pull-right visible-xs-block navbar-iconic">
+      <li class="drawer-pf-trigger">
+        <button class="btn btn-link nav-item-iconic">
+          <span class="fa fa-bell" title="Notifications"></span>
+          <span class="badge badge-pf-bordered"> </span>
+          <!-- in order to show the empty badge this requires a space, otherwise add a value -->
+        </button>
+      </li>
+    </ul>
+
+
+
+
+  </div>
+  <nav class="collapse navbar-collapse">
+    <ul class="nav navbar-nav navbar-right navbar-iconic navbar-utility">
+
+      <li class="drawer-pf-trigger">
+        <button class="btn btn-link nav-item-iconic">
+          <span class="fa fa-bell" title="Notifications"></span>
+          <span class="badge badge-pf-bordered"> </span>
+          <!-- in order to show the empty badge this requires a space, otherwise add a value -->
+        </button>
+      </li>
+
+
+      <li class="dropdown">
+        <button class="btn btn-link dropdown-toggle nav-item-iconic" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="true">
+          <span title="Help" class="fa pficon-help"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li>
+            <a href="#0">Help</a>
+          </li>
+          <li>
+            <a href="#0">About</a>
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <button class="btn btn-link dropdown-toggle nav-item-iconic" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="true">
+          <span title="Username" class="fa pficon-user"></span>
+          <span class="dropdown-title">
+            {% if user.is_authenticated %} {{ user.get_username }}
+            <span class="caret"></span>
+            {% else %}
+            <a href="{% url 'login'%}?next={{request.path}}">Login</a>
+            {% endif %}
+          </span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+          <li>
+            <a href="#preferences" class="instance-refresh-link" data-url="{% url 'userpreference' %}">Preferences</a>
+
+          </li>
+          <li id="console-link">
+            <a href="#console">Console</a>
+          </li>
+          <li>
+            <a href="{% url 'logout' %}">Logout</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+
+
+
+  <!-- /notification-drawer -->
+  <div id="ahome-notification-drawer">
+    {% include 'frontend/includes/helpers/notification-drawer.html' %}
+  </div>
+  <!-- /.notification-drawer -->
+
+
+</nav>
+<!--/.navbar-->
+
+
+<div id="ahome-nav-pf-link" class="nav-pf-vertical nav-pf-vertical-with-sub-menus hide-nav-pf">
+  <ul class="list-group">
+
+    <li class="list-group-item {{ dashboard_active }}" id="dashboard-link">
+      <a href="#dashboard-user" class="js-link-ahome-nav-pf" data-url="{% url 'dashboard_user' %}">
+        <span class="fa fa-dashboard" data-toggle="tooltip" title="User Dashboard"></span>
+        <span class="list-group-item-value">Dashboard</span>
+      </a>
+    </li>
+
+
+    <li class="list-group-item {{ iaas_active }}" id="iaas-link">
+      <a href="#iaas" class="js-link-ahome-nav-pf" data-url="{% url 'iaas' %}">
+        <span class="fa pficon-service" data-toggle="tooltip" title="IaaS"></span>
+        <span class="list-group-item-value">Infrastructures</span>
+      </a>
+    </li>
+
+
+    <li class="list-group-item {{ paas_active }} hidden" id="paas-link">
+      <a href="#paas" class="js-link-ahome-nav-pf" data-url="{% url 'paas' %}">
+        <span class="fa pficon-image" data-toggle="tooltip" title="PaaS"></span>
+        <span class="list-group-item-value">Platforms</span>
+      </a>
+    </li>
+
+    <li class="list-group-item secondary-nav-item-pf" data-target="#user-settings-secondary">
+      <a href="#user-credentials" class="js-link-ahome-nav-pf" data-url="{% url 'project' %}">
+        <span class="fa pficon-maintenance" data-toggle="tooltip" title="Settings"></span>
+        <span class="list-group-item-value">Settings</span>
+      </a>
+
+      <div id="nav-secondary" class="nav-pf-secondary-nav">
+        <div class="nav-item-pf-header">
+          <a href="#" class="secondary-collapse-toggle-pf" data-toggle="collapse-secondary-nav"></a>
+          <span class="fa pficon-maintenance" data-toggle="tooltip" title="Settings"></span>
+          <span>Settings</span>
+        </div>
+
+        <ul class="list-group">
+
+
+          <li class="list-group-item " data-target="#admin-projects-tertiary" id="project-link">
+            <a href="#project" class="js-link-ahome-nav-pf" data-url="{% url 'project' %}">
+              <span class="fa pficon-blueprint" data-toggle="tooltip" title="Projects"></span>
+              <span class="list-group-item-value">Projects</span>
+            </a>
+          </li>
+
+
+          <li class="list-group-item " data-target="#user-settings-intellegam-tertiary">
+            <a href="#user-credentials" class="js-link-ahome-nav-pf" data-url="{% url 'usercredential' %}">
+              <span class="fa pficon-private" data-toggle="tooltip" title="Credentials"></span>
+              <span class="list-group-item-value">Credentials</span>
+            </a>
+
+          </li>
+          <!--           <li class="list-group-item " data-target="#user-settings-copiosae-tertiary">
+            <a href="#user-keys" class="js-link-ahome-nav-pf" data-url="{% url 'userkey' %}">
+              <span class="fa pficon-key" data-toggle="tooltip" title="Keys"></span>
+              <span class="list-group-item-value">Keys</span>
+            </a>
+
+          </li> -->
+
+          <li class="list-group-item " data-target="#user-settings-copiosae-tertiary">
+            <a href="#user-secrets" class="js-link-ahome-nav-pf" data-url="{% url 'usersecret' %}">
+              <span class="fa pficon-key" data-toggle="tooltip" title="Secrets"></span>
+              <span class="list-group-item-value">Secrets</span>
+            </a>
+
+          </li>
+
+        </ul>
+      </div>
+    </li>
+
+
+
+
+    <li class="list-group-item secondary-nav-item-pf" data-target="#admin-secondary">
+      <a href="#admin-panel" class="js-link-ahome-nav-pf" data-url="{% url 'dashboard' %}">
+        <span class="fa fa-map-marker" data-toggle="tooltip" title="Admin Panel"></span>
+        <span class="list-group-item-value">Admin Panel</span>
+      </a>
+
+      <div id="nav-secondary" class="nav-pf-secondary-nav">
+        <div class="nav-item-pf-header">
+          <a href="#" class="secondary-collapse-toggle-pf" data-toggle="collapse-secondary-nav"></a>
+          <span class="fa fa-map-marker" data-toggle="tooltip" title="Admin Panel"></span>
+          <span>Admin Panel</span>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item " data-target="#admin-dashboard-tertiary">
+            <a href="#admin-dashboard" class="js-link-ahome-nav-pf" data-url="{% url 'dashboard' %}">
+              <span class="fa fa-dashboard" data-toggle="tooltip" title="Dashboard"></span>
+              <span class="list-group-item-value">Dashboard</span>
+            </a>
+
+          </li>
+
+          <li class="list-group-item " data-target="#admin-organizations-tertiary" id="organizations-link">
+            <a href="#organization" class="js-link-ahome-nav-pf" data-url="{% url 'organization' %}">
+              <span class="fa pficon-enterprise" data-toggle="tooltip" title="Organizations"></span>
+              <span class="list-group-item-value">Organizations</span>
+            </a>
+          </li>
+
+
+
+          <li class="list-group-item tertiary-nav-item-pf" data-target="#ipsum-intellegam-tertiary">
+            <a href="#">
+              <span class="fa pficon-private" data-toggle="tooltip" title="Credentials"></span>
+              <span class="list-group-item-value">Credentials</span>
+            </a>
+
+            <div id="compute-containers-tertiary" class="nav-pf-tertiary-nav">
+              <div class="nav-item-pf-header">
+                <span class="fa pficon-private" data-toggle="tooltip" title="Credentials"></span>
+                <a href="#" class="tertiary-collapse-toggle-pf" data-toggle="collapse-tertiary-nav"></a>
+                <span>Credentials</span>
+              </div>
+              <ul class="list-group">
+
+                <li class="list-group-item">
+                  <a href="#">
+                    <span class="fa pficon-key" data-toggle="tooltip" title="Tokens"></span>
+                    <span id="compute-containers-groups-nav-item" class="list-group-item-value">Tokens</span>
+
+                  </a>
+                </li>
+
+                <li class="list-group-item" id="providers-link">
+                  <a href="#provider" class="js-link-ahome-nav-pf" data-url="{% url 'provider' %}">
+                    <span class="fa pficon-domain" data-toggle="tooltip" title="Providers"></span>
+                    <span id="compute-containers-users-nav-item" class="list-group-item-value">Providers</span>
+
+                  </a>
+                </li>
+
+
+              </ul>
+            </div>
+
+
+          </li>
+
+
+          <li class="list-group-item " data-target="#admin-sdn-tertiary">
+            <a href="#" class="js-link-ahome-nav-pf" data-url="{% url 'user' %}">
+              <span class="fa pficon-users" data-toggle="tooltip" title="Users"></span>
+              <span class="list-group-item-value">Users</span>
+            </a>
+
+          </li>
+
+
+
+
+          <li class="list-group-item tertiary-nav-item-pf" data-target="#ipsum-intellegam-tertiary">
+            <a href="#" class="js-link-ahome-nav-pf" data-url="{% url 'prefix' %}">
+              <span class="fa pficon-topology" data-toggle="tooltip" title="IPAM"></span>
+              <span class="list-group-item-value">IPAM</span>
+            </a>
+
+            <div id="compute-containers-tertiary" class="nav-pf-tertiary-nav">
+              <div class="nav-item-pf-header">
+                <a href="#" class="tertiary-collapse-toggle-pf" data-toggle="collapse-tertiary-nav"></a>
+                <span class="fa pficon-topology" data-toggle="tooltip" title="IPAM"></span>
+                <span>IPAM</span>
+              </div>
+              <ul class="list-group">
+
+                <li class="list-group-item" id="prefixes-link">
+                  <a href="#prefixes" class="js-link-ahome-nav-pf" data-url="{% url 'prefix' %}">
+                    <span class="fa pficon-network" data-toggle="tooltip" title="Prefixes"></span>
+                    <span id="compute-containers-users-nav-item" class="list-group-item-value">Prefixes</span>
+
+                  </a>
+                </li>
+
+                <li class="list-group-item" id="aggregates-link">
+                  <a href="#aggregates" class="js-link-ahome-nav-pf" data-url="{% url 'aggregate' %}">
+                    <span class="fa fa-cubes" data-toggle="tooltip" title="Aggregates"></span>
+                    <span id="compute-containers-groups-nav-item" class="list-group-item-value">Aggregates</span>
+
+                  </a>
+                </li>
+
+
+                <li class="list-group-item" id="vrf-link">
+                  <a href="#vrfs" class="js-link-ahome-nav-pf" data-url="{% url 'vrf' %}">
+                    <span class="fa pficon-integration" data-toggle="tooltip" title="VRF"></span>
+                    <span id="compute-containers-roles-nav-item" class="list-group-item-value">Virtual RF</span>
+
+                  </a>
+                </li>
+
+
+                <li class="list-group-item" id="ip-addresses-link">
+                  <a href="#ip-addresses" class="js-link-ahome-nav-pf" data-url="{% url 'ipaddress' %}">
+                    <span class="fa pficon-route" data-toggle="tooltip" title="IP Addresses"></span>
+                    <span id="compute-containers-roles-nav-item" class="list-group-item-value">IP Addresses</span>
+
+                  </a>
+                </li>
+
+
+                <li class="list-group-item" id="vlans-link">
+                  <a href="#vlans" class="js-link-ahome-nav-pf" data-url="{% url 'vlan' %}">
+                    <span class="fa pficon-zone" data-toggle="tooltip" title="Vlans"></span>
+                    <span id="compute-containers-roles-nav-item" class="list-group-item-value">Vlans</span>
+
+                  </a>
+                </li>
+
+
+                <li class="list-group-item" id="rir-link">
+                  <a href="#rirs" class="js-link-ahome-nav-pf" data-url="{% url 'rir' %}">
+                    <span class="fa pficon-rebalance" data-toggle="tooltip" title="RIR"></span>
+                    <span id="compute-containers-roles-nav-item" class="list-group-item-value">Internet Registries
+                    </span>
+
+                  </a>
+                </li>
+
+
+
+                <li class="list-group-item" id="devices-link">
+                  <a href="#device" class="js-link-ahome-nav-pf" data-url="{% url 'device' %}">
+                    <span class="fa pficon-server" data-toggle="tooltip" title="Devices"></span>
+                    <span id="compute-containers-roles-nav-item" class="list-group-item-value">Devices</span>
+
+                  </a>
+                </li>
+
+
+
+
+                <li class="list-group-item" id="virtual-machines-link">
+                  <a href="#virtualmachine" class="js-link-ahome-nav-pf" data-url="{% url 'virtualmachine' %}">
+                    <span class="fa pficon-virtual-machine" data-toggle="tooltip" title="Virtual Machines"></span>
+                    <span id="compute-containers-roles-nav-item" class="list-group-item-value">Virtual Machines</span>
+
+                  </a>
+                </li>
+
+
+                <li class="list-group-item" id="network-gears-link">
+                  <a href="#networkgears" class="js-link-ahome-nav-pf" data-url="{% url 'networkgear' %}">
+                    <span class="fa pficon-migration" data-toggle="tooltip" title="Network Gears"></span>
+                    <span id="compute-containers-roles-nav-item" class="list-group-item-value">Network Gears</span>
+
+                  </a>
+                </li>
+
+                <li class="list-group-item" id="containers-pods-link">
+                  <a href="#containers-pods" class="js-link-ahome-nav-pf" data-url="{% url 'container' %}">
+                    <span class="fa pficon-registry" data-toggle="tooltip" title="Containers & Pods"></span>
+                    <span id="compute-containers-roles-nav-item" class="list-group-item-value">Containers & Pods</span>
+
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+
+
+          </li>
+
+
+          <li class="list-group-item " data-target="#admin-sdn-tertiary" id="sdn-link">
+            <a href="#sdn" class="js-link-ahome-nav-pf" data-url="{% url 'sdn' %}">
+              <span class="fa pficon-infrastructure" data-toggle="tooltip" title="Software Defined Network"></span>
+              <span class="list-group-item-value">SDN</span>
+            </a>
+
+          </li>
+
+          <li class="list-group-item " data-target="#admin-organizations-tertiary" id="storages-link">
+            <a href="#storages" class="js-link-ahome-nav-pf" data-url="{% url 'storage' %}">
+              <span class="fa pficon-regions" data-toggle="tooltip" title="Storages"></span>
+              <span class="list-group-item-value">Storages</span>
+            </a>
+
+          </li>
+
+          <li class="list-group-item " data-target="#admin-organizations-tertiary" id="services-link">
+            <a href="#services" class="js-link-ahome-nav-pf" data-url="{% url 'service' %}">
+              <span class="fa pficon-services" data-toggle="tooltip" title="Services"></span>
+              <span class="list-group-item-value">Services</span>
+            </a>
+
+          </li>
+
+
+          <li class="list-group-item " data-target="#admin-organizations-tertiary" id="monitorings-link">
+            <a href="#monitorings" class="js-link-ahome-nav-pf" data-url="{% url 'monitoring' %}">
+              <span class="fa pficon-in-progress" data-toggle="tooltip" title="Monitorings"></span>
+              <span class="list-group-item-value">Monitorings</span>
+            </a>
+
+          </li>
+
+
+          <li class="list-group-item " data-target="#admin-organizations-tertiary" id="security-link">
+            <a href="#security" class="js-link-ahome-nav-pf" data-url="{% url 'security' %}">
+              <span class="fa pficon-security" data-toggle="tooltip" title="Security"></span>
+              <span class="list-group-item-value">Security</span>
+            </a>
+
+          </li>
+
+
+
+          <li class="list-group-item " data-target="#admin-organizations-tertiary" id="pki-link">
+            <a href="#pki" class="js-link-ahome-nav-pf" data-url="{% url 'pki' %}">
+              <span class="fa pficon-cloud-security" data-toggle="tooltip" title="PKI"></span>
+              <span class="list-group-item-value">PKI</span>
+            </a>
+
+          </li>
+
+
+          <li class="list-group-item " data-target="#admin-organizations-tertiary" id="backups-link">
+            <a href="#backups" class="js-link-ahome-nav-pf" data-url="{% url 'backup' %}">
+              <span class="fa pficon-repository" data-toggle="tooltip" title="Backups"></span>
+              <span class="list-group-item-value">Backups</span>
+            </a>
+
+          </li>
+
+
+
+          <li class="list-group-item " data-target="#admin-organizations-tertiary" id="billings-link">
+            <a href="#billings" class="js-link-ahome-nav-pf" data-url="{% url 'billing' %}">
+              <span class="fa pficon-cloud-tenant" data-toggle="tooltip" title="Billings"></span>
+              <span class="list-group-item-value">Billings</span>
+            </a>
+
+          </li>
+
+
+
+          <li class="list-group-item " data-target="#admin-organizations-tertiary" id="documentations-link">
+            <a href="#documentations" class="js-link-ahome-nav-pf" data-url="{% url 'documentation' %}">
+              <span class="fa pficon-catalog" data-toggle="tooltip" title="Documentations"></span>
+              <span class="list-group-item-value">Documentations</span>
+            </a>
+
+          </li>
+
+
+          <li class="list-group-item " data-target="#admin-organizations-tertiary">
+            <a href="#configs">
+              <span class="fa pficon-settings" data-toggle="tooltip" title="Configs"></span>
+              <span class="list-group-item-value">Configs</span>
+            </a>
+
+          </li>
+
+
+
+
+
+
+
+        </ul>
+      </div>
+
+    </li>
+
+
+
+    <!--
+
+    <li class="list-group-item " data-target="#ipsum-secondary">
+      <a href="#prefixes">
+        <span class="fa fa-space-shuttle" data-toggle="tooltip" title="Prefixes"></span>
+        <span class="list-group-item-value">Prefixes</span>
+      </a>
+      
+    </li>
+    <li class="list-group-item " data-target="#amet-secondary">
+      <a href="#vlans">
+        <span class="fa fa-paper-plane" data-toggle="tooltip" title="Vlans"></span>
+        <span class="list-group-item-value">Vlans</span>
+      </a>
+      
+    </li>
+
+//-->
+
+
+    <li class="list-group-item secondary-nav-item-pf mobile-nav-item-pf visible-xs-block">
+      <a href="#0">
+        <span class="pficon pficon-user" data-toggle="tooltip" title="" data-original-title="User"></span>
+        <span class="list-group-item-value dropdown-title">User</span>
+      </a>
+      <div id="user-secondary" class="nav-pf-secondary-nav">
+        <div class="nav-item-pf-header">
+          <a href="#0" class="secondary-collapse-toggle-pf" data-toggle="collapse-secondary-nav"></a>
+          <span>User</span>
+        </div>
+
+        <ul class="list-group">
+          <li class="list-group-item">
+            <a href="#0">
+              <span class="list-group-item-value">Preferences</span>
+            </a>
+          </li>
+
+          <li class="list-group-item">
+            <a href="#0">
+              <span class="list-group-item-value">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="list-group-item secondary-nav-item-pf mobile-nav-item-pf visible-xs-block" data-target="#amet-secondary">
+      <a href="#0">
+        <span class="pficon pficon-help" data-toggle="tooltip" title="" data-original-title="Help"></span>
+        <span class="list-group-item-value dropdown-title">Help</span>
+      </a>
+      <div id="help-secondary" class="nav-pf-secondary-nav">
+        <div class="nav-item-pf-header">
+          <a href="#0" class="secondary-collapse-toggle-pf" data-toggle="collapse-secondary-nav"></a>
+          <span>Help</span>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <a href="#0">
+              <span class="list-group-item-value">Help</span>
+            </a>
+          </li>
+          <li class="list-group-item">
+            <a href="#0">
+              <span class="list-group-item-value">About</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+
+  </ul>
+
+</div>
+
+
+
+<!-- /ahome global toast notification -->
+<div id="ahome-generic-toast-notification">
+  {% include 'frontend/includes/helpers/alert-notifications.html' %}
+</div>
+<!-- /.ahome global toast notification -->
+
+
+<div id="ajax-responsive" class="container-fluid container-cards-pf container-pf-nav-pf-vertical hide-nav-pf ">
+
+  {% include 'frontend/includes/dashboard/user.html' %}
+
+</div>
+
+
+<div id="ahome-overlay">
+  <div class="ahome-cv-spinner">
+    <span class="ahome-spinner"></span>
+  </div>
+</div>
+
+
+
+
+
+<style type="text/css">
+  #ahome-overlay {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .ahome-cv-spinner {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ahome-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px #ddd solid;
+    border-top: 4px #2e93e6 solid;
+    border-radius: 50%;
+    animation: sp-anime 0.8s infinite linear;
+  }
+
+  @keyframes sp-anime {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(359deg);
+    }
+  }
+
+  .is-hide {
+    display: none;
+  }
+</style>
+
+
+
+<script>
+
+  // let instance_refresh_link = $(".instance-refresh-link");
+
+  var navigateLink = function () {
+    var btn = $(this);
+
+    $.ajax({
+      type: 'GET',
+      url: btn.attr("data-url"),
+      beforeSend: function () {
+        $("#ahome-overlay").fadeIn(300);
+      },
+      success: function (data) {
+        //console.log(data);
+        $("#ajax-responsive").html(data);
+      }
+    }).done(function () {
+      //$(".instance-refresh-link").click(navigateLink);
+      // $('body').on('click', '.instance-refresh-link', navigateLink);
+      setTimeout(function () {
+        $("#ahome-overlay").fadeOut(300);
+      }, 500);
+    });
+
+  };
+
+
+  $("#ahome-nav-pf-link .js-link-ahome-nav-pf").click(navigateLink);
+
+  $('body').on('click', '.instance-refresh-link', navigateLink);
+
+
+  $(".ahome-breadcrumb a").click(function () {
+    var btn = $(this);
+    $.ajax({
+      type: 'GET',
+      url: btn.attr("data-url"),
+      beforeSend: function () {
+        $("#ahome-overlay").fadeIn(300);
+      },
+      success: function (data) {
+        // console.log(data);
+        $("#ajax-responsive").html(data);
+      }
+    }).done(function () {
+      setTimeout(function () {
+        $("#ahome-overlay").fadeOut(300);
+      }, 500);
+    });
+  });
+
+  $(document).ready(function () {
+    // Initialize the vertical navigation
+    $().setupVerticalNavigation(true);
+  });
+
+  // Initialize Boostrap-select
+  $('.selectpicker').selectpicker();
+
+  //call or tweak after ajax call completed
+  $(document).ajaxComplete(function (event, xhr, settings) {
+
+    console.log(settings.url);
+
+    // if ( settings.url === "/frontend/wizardboxes/pricing/kvm/plan/generate/" ) {
+    //   // console.log('ok');
+
+    //   $(function () {
+
+
+    //     $(".sexytabs").tabs({ 
+    //     	cache: false,
+    //      show: { effect: "slide", direction: "left", duration: 200, easing: "easeOutBack" } ,
+    //      hide: { effect: "slide", direction: "right", duration: 200, easing: "easeInQuad" } 
+    //       });
+
+
+    //     });
+
+    // };
+
+    //Demo
+
+    if (settings.url === "ajax/test.html") {
+      $(".log").text("Triggered ajaxComplete handler. The result is " +
+        xhr.responseText);
+    };
+
+
+
+
+  });
+
+
+
+
+
+
+
+
+</script>
+
+
+
+</html>

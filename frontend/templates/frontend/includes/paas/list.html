@@ -1,0 +1,314 @@
+{% load static %}
+{% load frontend_extras %}
+
+
+{% for data in apidata.results %}
+
+  <div class="list-group-item">
+    <div class="list-group-item-header">
+      <div class="list-view-pf-expand">
+        <span class="fa fa-angle-right"></span>
+      </div>
+      <div class="list-view-pf-checkbox">
+        <input type="checkbox">
+      </div>
+      <div class="list-view-pf-actions">
+
+        {% snippet__row_header_spinner_adv %}
+
+      </div>
+
+
+
+
+
+
+      <div class="list-view-pf-main-info">
+        <div class="list-view-pf-left">
+          <img src="{{ data.icons.iaas.small }}" class="list-view-pf-icon-sm">
+        </div>
+        <div class="list-view-pf-body">
+          <div class="list-view-pf-description">
+            <div class="list-group-item-heading">
+              {{ data.name }}
+            </div>
+            <div class="list-group-item-text">
+              <img src="{{ data.icons.provider.small }}" class="fa list-view-pf-icon-sm">
+              &nbsp;&nbsp;{{ data.summary_fields.provider.name }}
+              <br/>
+              {{ data.description }}
+            </div>
+          </div>
+          <div class="list-view-pf-additional-info">
+
+
+            <div class="list-view-pf-additional-info-item">
+              <span class="pficon pficon-virtual-machine"></span>
+              {% with  total_vm=data.summarized_fields.virtualmachine %}
+                <strong>{{ total_vm }}</strong>
+                {% if total_vm > 1 %}
+                  Instances
+                {% else %}
+                  Instance
+                {% endif %}
+              {% endwith %}
+            </div>
+            <div class="list-view-pf-additional-info-item" id="{{ model_name | lower}}-vm-status-{{data.uuid}}">
+                {% if data.summarized_fields.failed_vm > 0 %}
+                  <div style="margin-right: 8px">
+                    <span class="pficon pficon-virtual-machine" style="color:#b51c10"></span>
+                    <strong>{{ data.summarized_fields.failed_vm }}</strong>Stopped
+                  </div>
+                {% endif %}
+    
+                {% if data.summarized_fields.running_vm > 0 %}
+                  <div style="margin-right: 8px">
+                    <span class="pficon pficon-virtual-machine" style="color:green"></span>
+                    <strong>{{ data.summarized_fields.running_vm }}</strong> Running
+                  </div>
+                {% endif %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+    </div>
+
+    <div id="details_{{ vm.uuid }}" class="list-group-item-container container-fluid hidden">
+      <div class="close">
+        <span class="pficon pficon-close"></span>
+      </div>
+      <div class="row">
+
+        <img style="display: inline; margin: 0 5px; height:50px; width:50px;" src="{{ data.icons.iaas.large }}" class="pficon list-view-pf-icon-sm">
+        <strong>{{data.instance.image_label}}</strong> - <strong>{{ data.instance.type_label }}</strong>
+
+
+        <div class="col-md-6">
+          <dl class="dl-horizontal">
+            <dt>PROVIDER</dt>
+            <dd><strong><a href="#"  class="js-link-ahome-navigate" data-url="{% url 'usercredential' %}">{{ data.name }}</a></strong></dd>
+            <dt>Name</dt>
+            <dd id="{{ model_name | lower }}-name-{{data.uuid}}">{{ data.name }}</dd>
+            <dt>Description</dt>
+            <dd id="{{ model_name | lower }}-description-{{data.uuid}}">{{ data.description }}</dd>
+            <dt>Created</dt>
+            <dd id="{{ model_name | lower }}-created-{{data.uuid}}">{{ data.created }}</dd>
+            <dt>Updated</dt>
+            <dd id="{{ model_name | lower }}-updated-{{data.uuid}}">{{ data.last_updated }}</dd>
+            <dt>Status</dt>
+            <dd id="{{ model_name | lower }}-runner-status-{{ data.uuid }}">{{ data.runner.status }}</dd>
+            <dt>State</dt>
+            <dd id="{{ model_name | lower }}-runner-state-{{ data.uuid }}">{{ data.runner.status }}</dd>
+
+          </dl>
+
+        </div>
+
+        <div class="col-md-6">
+          <dl class="dl-horizontal">
+            <b><a href="#virtualmachines"  class="js-link-ahome-navigate" data-url="{% url 'virtualmachine' %}">Virtual Machines (instances)</a></b>
+            <ul>
+              {% for vm in data.related.virtualmachine|dictsort:"name" %}
+              <li class="{{model_name | lower}}-iaas-vm-status{{data.uuid}}">
+                  <a href="#"  class="js-link-ahome-navigate" data-url="{% url 'virtualmachine' %}?id={{ vm.id }}&iaas={{ data.id }}">{{ vm.name }}</a> &nbsp;
+
+
+                 ( <i class="fa fa-info" aria-hidden="true"></i> {{ vm.status }} )
+
+                    {% if vm.status == 'successful' %}
+                    &nbsp; &nbsp;
+                    <span id="get_console_{{ vm.uuid }}" title="connect" class="_websshbutton pficon pficon-virtual-machine" style="color:blueviolet"></span>
+                    {% endif %}
+              </li>
+              {% endfor %}
+            </ul>
+          </dl>
+
+          {% snippet__row_content_progressbar %}
+
+        </div>
+
+
+
+      </div>
+
+
+    </div>
+
+
+   </div>
+
+
+
+    {% for vm in data.related.virtualmachine|dictsort:"name" %}
+     <div id="console_panel_{{ vm.uuid }}" class="_websshconsole  container-fluid hidden">
+       <div class="row">
+           <div class="col-md-12">
+           <a id="console_link_{{ vm.uuid }}" target="_blank" href="">console</a>
+               </div>
+       </div>
+       <div class="row">
+            <div id="console_{{ vm.uuid}}"></div>
+       </div>
+     </div>
+
+    {% endfor %}
+
+
+{% empty %}
+
+
+
+<div class="blank-slate-pf " id="">
+  <div class="blank-slate-pf-icon">
+    <span class="pficon pficon pficon-add-circle-o"></span>
+  </div>
+  <h1>
+    No {{model_name}}
+  </h1>
+  <p>
+    Please add an {{model_name}} to start using ahome enterprise edition.
+  </p>
+  <p>
+    Learn more about this <a href="#">in the documentation</a>.
+  </p>
+
+  <div id="ahome-generic-create" class="blank-slate-pf-main-action js-link-ahome-navigate" data-url="{% url 'paas_wizardbox_create' %}">
+    <button class="btn btn-primary btn-lg"> Add {{model_name}} </button>
+  </div>
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+<script>
+$(function () {
+
+  $(".js-link-ahome-generic-create").click(function () {
+    $.ajax({
+      url: "{% url url_create %}",
+      type: 'get',
+      dataType: 'json',
+      beforeSend: function () {
+        $("#modal-ahome-generic").modal("show");
+      },
+      success: function (data) {
+        $("#modal-ahome-generic .modal-content").html(data.html_form);
+      }
+    });
+  });
+
+});
+
+</script>
+<script>
+
+function compose_webssh_iframe(id, url) {
+    return '<iframe class="webssh_wrapper" id="' + id + '" src="' + url + '"></iframe>'
+}
+
+
+
+function start_webssh(vm_uuid) {
+     $.ajax({
+        type: 'GET',
+        url: '/frontend/vm/connect/?uuid=' + vm_uuid,
+        beforeSend: function () {},
+        success: function (data) {
+            console.log(data)
+            display_webssh_window(data)
+        }
+      });
+}
+
+function display_webssh_window(data) {
+    if (data.status === "OK") {
+        var vm_uuid = data.uuid,
+            url = data.connect,
+            console_panel = $("#console_panel_" + vm_uuid),
+            console_wrapper = $("#console_" + vm_uuid),
+            console_link = $("#console_link_" + vm_uuid),
+            details = $("#details_" + vm_uuid)
+
+        console_panel.toggleClass("hidden")
+        console_wrapper.html(compose_webssh_iframe(vm_uuid, url))
+        console_link.attr("href", url)
+        details.toggleClass("hidden")
+
+        {#console.log("details", details)#}
+        {#console.log("console_link", console_link)#}
+    }
+}
+
+</script>
+
+<script>
+  $(document).ready(function () {
+    // Row Checkbox Selection
+    $("#pf-list-simple-expansion input[type='checkbox']").change(function (e) {
+      if ($(this).is(":checked")) {
+        $(this).closest('.list-group-item').addClass("active");
+      } else {
+        $(this).closest('.list-group-item').removeClass("active");
+      }
+      alert("#3")
+    });
+    // toggle dropdown menu
+    $("#pf-list-simple-expansion .list-view-pf-actions").on('show.bs.dropdown', function () {
+      var $this = $(this);
+      var $dropdown = $this.find('.dropdown');
+      var space = $(window).height() - $dropdown[0].getBoundingClientRect().top - $this.find('.dropdown-menu').outerHeight(true);
+      $dropdown.toggleClass('dropup', space < 10);
+
+      {#alert("#2")#}
+    });
+
+    // click the list-view heading then expand a row
+    $("#pf-list-simple-expansion .list-group-item-header").click(function(event){
+      if(!$(event.target).is("button, a, input, .fa-ellipsis-v")){
+        $(this).find(".fa-angle-right").toggleClass("fa-angle-down")
+          .end().parent().toggleClass("list-view-pf-expand-active")
+            .find(".list-group-item-container").toggleClass("hidden");
+      } else {
+      }
+      {#alert("#1")#}
+      {#  console.log("THIS", this)#}
+    })
+
+    // click the close button, hide the expand row and remove the active status
+    $("#pf-list-simple-expansion .list-group-item-container .close").on("click", function (){
+      $(this).parent().addClass("hidden")
+        .parent().removeClass("list-view-pf-expand-active")
+          .find(".fa-angle-right").removeClass("fa-angle-down");
+       {#alert("#4")#}
+    })
+
+    $("._websshbutton").on("click", function (event){
+            var button_id = event.target.id,
+                vm_uuid = button_id.slice("get_console_".length)
+            start_webssh(vm_uuid)
+      })
+
+  });
+</script>
+
+<style>
+ .webssh_wrapper {
+     width: 100%;
+     height: 400px;
+     background-color: white;
+ }
+</style>
+

@@ -1,0 +1,30 @@
+---
+# tasks file for playbooks/roles/nginx
+
+- name: install nginx
+  yum:
+    name: nginx
+    state: present
+
+- name: enable and start nginx
+  service:
+    name: nginx
+    state: started
+    enabled: true
+  register: r__enable_nginx
+
+
+- name: ahome callback
+  set_fact:
+    r__nginx_facts:
+      ahome_id: "{{ ahome__id }}"
+      ahome_model: "{{ ahome__model }}"
+      svc:
+        - ahome_inventory: "{{ lookup('env','INVENTORY') }}"
+          svc_path: "/"
+          svc_port: "80"
+          svc_url: "http://{{ lookup('env','INVENTORY') }}/"
+          ahome_tags: "{{ lookup('env','TAGS') }}"
+
+
+- debug: var=r__nginx_facts

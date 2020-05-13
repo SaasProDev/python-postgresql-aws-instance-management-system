@@ -1,0 +1,77 @@
+{% load static %}
+
+<div style="height: 10px;"></div>
+
+<div class="row"> 
+  <div class="col-md-12">
+    <ol class="ahome-breadcrumb breadcrumb">
+      <li><a href="#dashboard-user" data-url="{% url 'dashboard_user' %}">Home</a></li>
+      <li>Dashboard</li>    
+    </ol>
+    <div class="actions pull-right">
+        <a href="#admin_dashboard" class="instance-refresh-link" data-url="{% url 'dashboard' %}"><span class="pficon pficon-refresh"></span>&nbsp;Refresh Results</a>
+    </div>
+    <h1>Admin Dashboard</h1>
+  </div>
+</div>
+
+
+
+
+<div ng-controller="CardDemoCtrl" class="container-fluid">
+  <div id="terminal"></div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+      <label>With Top Border</label>
+      <pf-aggregate-status-card status="status" show-top-border="true" show-spinner="dataLoading" spinner-text="Loading..." spinner-card-height="90"></pf-aggregate-status-card>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+      <label>No Top Border</label>
+      <pf-aggregate-status-card status="status2"></pf-aggregate-status-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+      <label>layout = "mini"</label>
+      <pf-aggregate-status-card status="miniAggStatus" show-top-border="true" layout="mini"></pf-aggregate-status-card>
+      <pf-aggregate-status-card status="miniAggStatus2" show-top-border="true" layout="mini"></pf-aggregate-status-card>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+      <label>layout = "tall"</label>
+      <pf-aggregate-status-card status="aggStatusAlt" show-top-border="true" layout="tall"></pf-aggregate-status-card>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+      <label>Alternate Layout</label>
+      <br>
+      <i>(depreciated, use layout = 'tall' instead)</i>
+      <pf-aggregate-status-card status="aggStatusAlt" show-top-border="true" alt-layout="true"></pf-aggregate-status-card>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+      <label>Loading State</label>
+      <br>
+      <br>
+      <pf-aggregate-status-card status="aggStatusAlt2" spinner-card-height="140" show-top-border="true" show-spinner="dataLoading" spinner-text="Loading" layout="tall"></pf-aggregate-status-card>
+    </div>
+  </div>
+</div>
+
+
+
+<div ng-controller="ChartCtrl">
+   <pf-c3-chart id="chartId" config="chartConfig" get-chart-callback="getChart"></pf-c3-chart>
+
+
+
+   <form role="form" style="width:300px">
+     Total = {{total}}, Used = {{used}}, Available = {{available}}
+     <div class="form-group">
+       <label>Used</label>
+       <input type="text" class="form-control" ng-model="newUsed">
+     </div>
+     <input type="button" ng-click="submitform(newUsed)" value="Set Used" />
+     <input type="button" ng-click="focusUsed()" value="Focus Used" />
+   </form>
+</div>
+

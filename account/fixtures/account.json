@@ -1,0 +1,1367 @@
+[
+{
+    "model": "account.groupobjectrole",
+    "pk": 1,
+    "fields": {
+        "created": "2020-01-29T14:25:37.266Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 8,
+        "severity": 17,
+        "natural_key": "account.user",
+        "name": "account.user:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 2,
+    "fields": {
+        "created": "2020-01-29T14:25:37.272Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 11,
+        "severity": 17,
+        "natural_key": "account.team",
+        "name": "account.team:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 3,
+    "fields": {
+        "created": "2020-01-29T14:25:37.278Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 12,
+        "severity": 17,
+        "natural_key": "account.userorganizations",
+        "name": "account.userorganizations:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 4,
+    "fields": {
+        "created": "2020-01-29T14:25:37.283Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 9,
+        "severity": 17,
+        "natural_key": "account.accessgroup",
+        "name": "account.accessgroup:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 5,
+    "fields": {
+        "created": "2020-01-29T14:25:37.289Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 16,
+        "severity": 17,
+        "natural_key": "account.accessgroups",
+        "name": "account.accessgroups:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 6,
+    "fields": {
+        "created": "2020-01-29T14:25:37.294Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 10,
+        "severity": 17,
+        "natural_key": "account.organization",
+        "name": "account.organization:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 7,
+    "fields": {
+        "created": "2020-01-29T14:25:37.299Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 13,
+        "severity": 17,
+        "natural_key": "account.userobjectrole",
+        "name": "account.userobjectrole:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 8,
+    "fields": {
+        "created": "2020-01-29T14:25:37.304Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 15,
+        "severity": 17,
+        "natural_key": "account.groupobjectrole",
+        "name": "account.groupobjectrole:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 9,
+    "fields": {
+        "created": "2020-01-29T14:25:37.310Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 17,
+        "severity": 17,
+        "natural_key": "core.iaas",
+        "name": "core.iaas:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 10,
+    "fields": {
+        "created": "2020-01-29T14:25:37.315Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 39,
+        "severity": 17,
+        "natural_key": "core.paas",
+        "name": "core.paas:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 11,
+    "fields": {
+        "created": "2020-01-29T14:25:37.320Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 32,
+        "severity": 17,
+        "natural_key": "core.sdn",
+        "name": "core.sdn:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 12,
+    "fields": {
+        "created": "2020-01-29T14:25:37.327Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 43,
+        "severity": 17,
+        "natural_key": "core.ipaddress",
+        "name": "core.ipaddress:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 13,
+    "fields": {
+        "created": "2020-01-29T14:25:37.334Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 37,
+        "severity": 17,
+        "natural_key": "core.prefix",
+        "name": "core.prefix:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 14,
+    "fields": {
+        "created": "2020-01-29T14:25:37.339Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 45,
+        "severity": 17,
+        "natural_key": "core.device",
+        "name": "core.device:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 15,
+    "fields": {
+        "created": "2020-01-29T14:25:37.344Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 40,
+        "severity": 17,
+        "natural_key": "core.networkgear",
+        "name": "core.networkgear:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 16,
+    "fields": {
+        "created": "2020-01-29T14:25:37.349Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 34,
+        "severity": 17,
+        "natural_key": "core.rir",
+        "name": "core.rir:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 17,
+    "fields": {
+        "created": "2020-01-29T14:25:37.355Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 24,
+        "severity": 17,
+        "natural_key": "core.vlan",
+        "name": "core.vlan:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 18,
+    "fields": {
+        "created": "2020-01-29T14:25:37.360Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 23,
+        "severity": 17,
+        "natural_key": "core.vrf",
+        "name": "core.vrf:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 19,
+    "fields": {
+        "created": "2020-01-29T14:25:37.365Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 25,
+        "severity": 17,
+        "natural_key": "core.virtualmachine",
+        "name": "core.virtualmachine:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 20,
+    "fields": {
+        "created": "2020-01-29T14:25:37.373Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 18,
+        "severity": 17,
+        "natural_key": "core.job",
+        "name": "core.job:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 21,
+    "fields": {
+        "created": "2020-01-29T14:25:37.378Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 42,
+        "severity": 17,
+        "natural_key": "core.jobevent",
+        "name": "core.jobevent:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 22,
+    "fields": {
+        "created": "2020-01-29T14:25:37.384Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 36,
+        "severity": 17,
+        "natural_key": "core.provider",
+        "name": "core.provider:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 23,
+    "fields": {
+        "created": "2020-01-29T14:25:37.392Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 29,
+        "severity": 17,
+        "natural_key": "core.storage",
+        "name": "core.storage:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 24,
+    "fields": {
+        "created": "2020-01-29T14:25:37.397Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 20,
+        "severity": 17,
+        "natural_key": "core.tag",
+        "name": "core.tag:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 25,
+    "fields": {
+        "created": "2020-01-29T14:25:37.404Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 50,
+        "severity": 17,
+        "natural_key": "core.aggregate",
+        "name": "core.aggregate:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 26,
+    "fields": {
+        "created": "2020-01-29T14:25:37.409Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 47,
+        "severity": 17,
+        "natural_key": "core.container",
+        "name": "core.container:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 27,
+    "fields": {
+        "created": "2020-01-29T14:25:37.413Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 22,
+        "severity": 17,
+        "natural_key": "core.wizardbox",
+        "name": "core.wizardbox:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 28,
+    "fields": {
+        "created": "2020-01-29T14:25:37.418Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 46,
+        "severity": 17,
+        "natural_key": "core.credential",
+        "name": "core.credential:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 29,
+    "fields": {
+        "created": "2020-01-29T14:25:37.424Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 44,
+        "severity": 17,
+        "natural_key": "core.documentation",
+        "name": "core.documentation:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 30,
+    "fields": {
+        "created": "2020-01-29T14:25:37.429Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 33,
+        "severity": 17,
+        "natural_key": "core.runnertask",
+        "name": "core.runnertask:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 31,
+    "fields": {
+        "created": "2020-01-29T14:25:37.433Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 48,
+        "severity": 17,
+        "natural_key": "core.billing",
+        "name": "core.billing:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 32,
+    "fields": {
+        "created": "2020-01-29T14:25:37.438Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 49,
+        "severity": 17,
+        "natural_key": "core.backup",
+        "name": "core.backup:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 33,
+    "fields": {
+        "created": "2020-01-29T14:25:37.443Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 38,
+        "severity": 17,
+        "natural_key": "core.pki",
+        "name": "core.pki:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 34,
+    "fields": {
+        "created": "2020-01-29T14:25:37.452Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 31,
+        "severity": 17,
+        "natural_key": "core.security",
+        "name": "core.security:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 35,
+    "fields": {
+        "created": "2020-01-29T14:25:37.457Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 41,
+        "severity": 17,
+        "natural_key": "core.monitoring",
+        "name": "core.monitoring:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 36,
+    "fields": {
+        "created": "2020-01-29T14:25:37.462Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 30,
+        "severity": 17,
+        "natural_key": "core.service",
+        "name": "core.service:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 37,
+    "fields": {
+        "created": "2020-01-29T14:25:37.466Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 26,
+        "severity": 17,
+        "natural_key": "core.usersecret",
+        "name": "core.usersecret:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 38,
+    "fields": {
+        "created": "2020-01-29T14:25:37.471Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 28,
+        "severity": 17,
+        "natural_key": "core.userkey",
+        "name": "core.userkey:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 39,
+    "fields": {
+        "created": "2020-01-29T14:25:37.475Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 21,
+        "severity": 17,
+        "natural_key": "core.usercredential",
+        "name": "core.usercredential:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 40,
+    "fields": {
+        "created": "2020-01-29T14:25:37.480Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 35,
+        "severity": 17,
+        "natural_key": "core.resourcealivehistory",
+        "name": "core.resourcealivehistory:read.execute",
+        "organization": 1,
+        "group": 1
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 41,
+    "fields": {
+        "created": "2020-01-29T14:25:37.483Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 8,
+        "severity": 63,
+        "natural_key": "account.user",
+        "name": "account.user:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 42,
+    "fields": {
+        "created": "2020-01-29T14:25:37.486Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 11,
+        "severity": 63,
+        "natural_key": "account.team",
+        "name": "account.team:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 43,
+    "fields": {
+        "created": "2020-01-29T14:25:37.489Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 12,
+        "severity": 63,
+        "natural_key": "account.userorganizations",
+        "name": "account.userorganizations:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 44,
+    "fields": {
+        "created": "2020-01-29T14:25:37.491Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 9,
+        "severity": 63,
+        "natural_key": "account.accessgroup",
+        "name": "account.accessgroup:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 45,
+    "fields": {
+        "created": "2020-01-29T14:25:37.493Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 16,
+        "severity": 63,
+        "natural_key": "account.accessgroups",
+        "name": "account.accessgroups:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 46,
+    "fields": {
+        "created": "2020-01-29T14:25:37.495Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 10,
+        "severity": 63,
+        "natural_key": "account.organization",
+        "name": "account.organization:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 47,
+    "fields": {
+        "created": "2020-01-29T14:25:37.498Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 13,
+        "severity": 63,
+        "natural_key": "account.userobjectrole",
+        "name": "account.userobjectrole:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 48,
+    "fields": {
+        "created": "2020-01-29T14:25:37.500Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 15,
+        "severity": 63,
+        "natural_key": "account.groupobjectrole",
+        "name": "account.groupobjectrole:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 49,
+    "fields": {
+        "created": "2020-01-29T14:25:37.504Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 17,
+        "severity": 63,
+        "natural_key": "core.iaas",
+        "name": "core.iaas:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 50,
+    "fields": {
+        "created": "2020-01-29T14:25:37.507Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 39,
+        "severity": 63,
+        "natural_key": "core.paas",
+        "name": "core.paas:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 51,
+    "fields": {
+        "created": "2020-01-29T14:25:37.509Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 32,
+        "severity": 63,
+        "natural_key": "core.sdn",
+        "name": "core.sdn:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 52,
+    "fields": {
+        "created": "2020-01-29T14:25:37.512Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 43,
+        "severity": 63,
+        "natural_key": "core.ipaddress",
+        "name": "core.ipaddress:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 53,
+    "fields": {
+        "created": "2020-01-29T14:25:37.514Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 37,
+        "severity": 63,
+        "natural_key": "core.prefix",
+        "name": "core.prefix:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 54,
+    "fields": {
+        "created": "2020-01-29T14:25:37.517Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 45,
+        "severity": 63,
+        "natural_key": "core.device",
+        "name": "core.device:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 55,
+    "fields": {
+        "created": "2020-01-29T14:25:37.520Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 40,
+        "severity": 63,
+        "natural_key": "core.networkgear",
+        "name": "core.networkgear:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 56,
+    "fields": {
+        "created": "2020-01-29T14:25:37.523Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 34,
+        "severity": 63,
+        "natural_key": "core.rir",
+        "name": "core.rir:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 57,
+    "fields": {
+        "created": "2020-01-29T14:25:37.526Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 24,
+        "severity": 63,
+        "natural_key": "core.vlan",
+        "name": "core.vlan:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 58,
+    "fields": {
+        "created": "2020-01-29T14:25:37.529Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 23,
+        "severity": 63,
+        "natural_key": "core.vrf",
+        "name": "core.vrf:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 59,
+    "fields": {
+        "created": "2020-01-29T14:25:37.531Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 25,
+        "severity": 63,
+        "natural_key": "core.virtualmachine",
+        "name": "core.virtualmachine:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 60,
+    "fields": {
+        "created": "2020-01-29T14:25:37.534Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 18,
+        "severity": 63,
+        "natural_key": "core.job",
+        "name": "core.job:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 61,
+    "fields": {
+        "created": "2020-01-29T14:25:37.538Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 42,
+        "severity": 63,
+        "natural_key": "core.jobevent",
+        "name": "core.jobevent:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 62,
+    "fields": {
+        "created": "2020-01-29T14:25:37.541Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 36,
+        "severity": 63,
+        "natural_key": "core.provider",
+        "name": "core.provider:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 63,
+    "fields": {
+        "created": "2020-01-29T14:25:37.544Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 29,
+        "severity": 63,
+        "natural_key": "core.storage",
+        "name": "core.storage:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 64,
+    "fields": {
+        "created": "2020-01-29T14:25:37.547Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 20,
+        "severity": 63,
+        "natural_key": "core.tag",
+        "name": "core.tag:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 65,
+    "fields": {
+        "created": "2020-01-29T14:25:37.550Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 50,
+        "severity": 63,
+        "natural_key": "core.aggregate",
+        "name": "core.aggregate:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 66,
+    "fields": {
+        "created": "2020-01-29T14:25:37.553Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 47,
+        "severity": 63,
+        "natural_key": "core.container",
+        "name": "core.container:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 67,
+    "fields": {
+        "created": "2020-01-29T14:25:37.558Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 22,
+        "severity": 63,
+        "natural_key": "core.wizardbox",
+        "name": "core.wizardbox:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 68,
+    "fields": {
+        "created": "2020-01-29T14:25:37.561Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 46,
+        "severity": 63,
+        "natural_key": "core.credential",
+        "name": "core.credential:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 69,
+    "fields": {
+        "created": "2020-01-29T14:25:37.563Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 44,
+        "severity": 63,
+        "natural_key": "core.documentation",
+        "name": "core.documentation:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 70,
+    "fields": {
+        "created": "2020-01-29T14:25:37.566Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 33,
+        "severity": 63,
+        "natural_key": "core.runnertask",
+        "name": "core.runnertask:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 71,
+    "fields": {
+        "created": "2020-01-29T14:25:37.570Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 48,
+        "severity": 63,
+        "natural_key": "core.billing",
+        "name": "core.billing:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 72,
+    "fields": {
+        "created": "2020-01-29T14:25:37.573Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 49,
+        "severity": 63,
+        "natural_key": "core.backup",
+        "name": "core.backup:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 73,
+    "fields": {
+        "created": "2020-01-29T14:25:37.576Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 38,
+        "severity": 63,
+        "natural_key": "core.pki",
+        "name": "core.pki:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 74,
+    "fields": {
+        "created": "2020-01-29T14:25:37.578Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 31,
+        "severity": 63,
+        "natural_key": "core.security",
+        "name": "core.security:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 75,
+    "fields": {
+        "created": "2020-01-29T14:25:37.581Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 41,
+        "severity": 63,
+        "natural_key": "core.monitoring",
+        "name": "core.monitoring:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 76,
+    "fields": {
+        "created": "2020-01-29T14:25:37.584Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 30,
+        "severity": 63,
+        "natural_key": "core.service",
+        "name": "core.service:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 77,
+    "fields": {
+        "created": "2020-01-29T14:25:37.587Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 26,
+        "severity": 63,
+        "natural_key": "core.usersecret",
+        "name": "core.usersecret:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 78,
+    "fields": {
+        "created": "2020-01-29T14:25:37.591Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 28,
+        "severity": 63,
+        "natural_key": "core.userkey",
+        "name": "core.userkey:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 79,
+    "fields": {
+        "created": "2020-01-29T14:25:37.593Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 21,
+        "severity": 63,
+        "natural_key": "core.usercredential",
+        "name": "core.usercredential:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.groupobjectrole",
+    "pk": 80,
+    "fields": {
+        "created": "2020-01-29T14:25:37.596Z",
+        "obj_id": null,
+        "obj_ids": "",
+        "ctype": 35,
+        "severity": 63,
+        "natural_key": "core.resourcealivehistory",
+        "name": "core.resourcealivehistory:FULL",
+        "organization": 1,
+        "group": 2
+    }
+},
+{
+    "model": "account.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$4wQz92TQwHY9$dYAUGonWoKf4g01gu55V9Eml3LQcixHYGZypDTrP4LI=",
+        "last_login": "2019-11-22T14:23:00.700Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2019-11-22T14:08:11.634Z",
+        "uuid": "63e9a567-f4ef-4075-abe6-3060fab8ea38",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "account.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$9VghOBEI3kVv$8WZOZMFuSum+XyoY/o9FDgrgSeIlcYsEcY+FNTvIZVw=",
+        "last_login": "2019-11-28T12:13:13.942Z",
+        "is_superuser": false,
+        "username": "auditor",
+        "first_name": "Super",
+        "last_name": "Auditor",
+        "email": "auditor@system.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2019-11-22T14:30:11.342Z",
+        "uuid": "4ae2c814-f2a9-498e-a19e-57fbadafbd4d",
+        "groups": [
+            2
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "account.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$9VghOBEI3kVv$8WZOZMFuSum+XyoY/o9FDgrgSeIlcYsEcY+FNTvIZVw=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "user",
+        "first_name": "Just",
+        "last_name": "User",
+        "email": "user@system.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-11-22T14:30:11.342Z",
+        "uuid": "4ae2c814-f2a9-498e-a19e-57fbadafbd5d",
+        "groups": [
+            2
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "account.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$150000$9VghOBEI3kVv$8WZOZMFuSum+XyoY/o9FDgrgSeIlcYsEcY+FNTvIZVw=",
+        "last_login": "2019-12-02T09:00:49.340Z",
+        "is_superuser": false,
+        "username": "writer",
+        "first_name": "Just",
+        "last_name": "Writer",
+        "email": "writer@system.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2019-11-22T14:30:11.342Z",
+        "uuid": "4ae2c814-f2a9-498e-a19e-57fbadafbd6d",
+        "groups": [
+            2
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "account.accessgroup",
+    "pk": 1,
+    "fields": {
+        "created": "2020-01-29T14:25:37.252Z",
+        "name": "Read Access",
+        "description": null,
+        "organization": 1
+    }
+},
+{
+    "model": "account.accessgroup",
+    "pk": 2,
+    "fields": {
+        "created": "2020-01-29T14:25:37.256Z",
+        "name": "Full Access",
+        "description": null,
+        "organization": 1
+    }
+},
+{
+    "model": "account.accessgroups",
+    "pk": 1,
+    "fields": {
+        "access_group": 1,
+        "user": 3
+    }
+},
+{
+    "model": "account.accessgroups",
+    "pk": 2,
+    "fields": {
+        "access_group": 2,
+        "user": 4
+    }
+},
+{
+    "model": "account.team",
+    "pk": 1,
+    "fields": {
+        "created": "2019-12-03T14:19:52.451Z",
+        "uuid": "b561ba92-7843-4119-b0e3-ae111e13a2ee",
+        "name": "Whole General",
+        "description": "Default Team",
+        "organization": 1
+    }
+},
+{
+    "model": "account.organization",
+    "pk": 1,
+    "fields": {
+        "created": "2019-12-03T14:19:52.443Z",
+        "uuid": "975480e4-5fe8-4ae5-8915-009f8d9a6276",
+        "name": "General",
+        "description": "General Organisation for simple Users",
+        "location": "",
+        "contact": "",
+        "phone": "",
+        "email": "",
+        "info": "",
+        "status": "DEFAULT",
+        "kind": "stub",
+        "headquarter": null
+    }
+},
+{
+    "model": "account.userorganizations",
+    "pk": 1,
+    "fields": {
+        "organization": 1,
+        "user": 3
+    }
+},
+{
+    "model": "account.userorganizations",
+    "pk": 2,
+    "fields": {
+        "organization": 1,
+        "user": 4
+    }
+}
+]

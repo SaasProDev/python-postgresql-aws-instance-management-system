@@ -1,0 +1,1 @@
+{"event": "verbose", "uuid": "aa61fb1c-104b-4557-847b-e55990f26488", "counter": 2, "stdout": "\u001b[1;35m/ahome_devel/playbooks/roles/discover.libvirt/inventory as an inventory source\u001b[0m", "start_line": 1, "end_line": 2, "runner_ident": "3c167f4e-160b-44c2-bcfd-371c40237236"}

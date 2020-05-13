@@ -1,0 +1,7 @@
+---
+name: kvm
+title: Libvirt KVM
+description: |
+    Libvirt KVM nodules
+cloud: false
+version: 1.0

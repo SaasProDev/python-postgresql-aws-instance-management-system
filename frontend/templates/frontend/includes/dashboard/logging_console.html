@@ -1,0 +1,75 @@
+<div class="row row-cards-pf _hidden">
+  <div class="col-xs-12">
+    <div class="card-pf">
+        <button type="button" class="_logbtn_ btn btn-default">Debug</button>
+        <button type="button" class="_logbtn_ btn btn-default">Info</button>
+        <button type="button" class="_logbtn_ btn btn-default">Warning</button>
+        <button type="button" class="_logbtn_ btn btn-default">Error</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="_logbtnmodule_ btn btn-default">core</button>
+        <button type="button" class="_logbtnmodule_ btn btn-default">account</button>
+        <button type="button" class="_logbtnmodule_ btn btn-default">django</button>
+        <button type="button" class="_logbtnmodule_ btn btn-default">frontend</button>
+        <button type="button" class="_logbtnmodule_ btn btn-default">celery</button>
+        <button type="button" class="_logbtnmodule_ btn btn-default"><i>other</i></button>
+        <button type="button" class="_logbtnmodule_ btn btn-default"><b>reset</b></button>
+{#      <h2 class="card-pf-title">Instant Logging</h2>#}
+  </div>
+  </div>
+  <div class="col-xs-12">
+      <div class="_card-pf-body instantlog_wrapper">
+        <table class="logging_table" border="0">
+            <tbody id="instantlog">
+            </tbody>
+        </table>
+      </div>
+    </div>
+
+      <div class="col-xs-12">
+    <div class="card-pf">
+        &nbsp;
+    </div>
+  </div>
+
+</div>
+
+<script>
+$("._logbtn_").bind('click', function (e) {
+    var el = e.target;
+    $xlog.set_level(el.innerText)
+})
+$("._logbtnmodule_").bind('click', function (e) {
+var el = e.target;
+    $xlog.set_module(el.innerText)
+})
+
+</script>
+
+<style>
+.logging_table {
+
+}
+.instantlog_wrapper {
+    overflow: scroll;
+    height: 300px;
+    width: 100%
+}
+.logtd {
+    font-size: 80%;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+.log_ERROR {
+   color: red;
+}
+.log_INFO {
+    color: blue;
+}
+.log_DEBUG {
+    color: black;
+}
+.log_WARNING {
+    color: orange;
+}
+</style>
+

@@ -1,0 +1,98 @@
+
+- debug: msg="{{ lookup('env','PUBLICKEY') }}"
+
+- ec2_instance_info:
+    filters:
+      "tag:ahome": "{{ ahome__id }}"
+      # instance-state-name: [ "shutting-down", "stopping", "stopped" ]
+      instance-state-name: running
+  register: r__ec2
+
+- block:
+
+  - name: create key pair
+    ec2_key:
+      name: "ahome_keypair_{{ ahome__id }}"
+      key_material: "{{ lookup('env','PUBLICKEY') }}"
+      # key_material: "{{ lookup('env','PUBLICKEY') | default( SSH_PUB ) }}"
+
+  - name: Create a security group
+    ec2_group:
+      name: "ahome_security_group_{{ ahome__id }}"
+      description: "Security Group for {{ ahome__id }}"
+      rules:
+        - proto: tcp
+          from_port: 22
+          to_port: 22
+          cidr_ip: 0.0.0.0/0
+        - proto: tcp
+          from_port: 80
+          to_port: 80
+          cidr_ip: 0.0.0.0/0
+        - proto: tcp
+          from_port: 443
+          to_port: 443
+          cidr_ip: 0.0.0.0/0
+      rules_egress:
+        - proto: all
+          cidr_ip: 0.0.0.0/0
+    register: r__ec2_group
+
+  # - name: gather facts about an AMI
+  #   ec2_ami_facts:
+  #     image_ids: ami-0badcc5b522737046
+  #   register: r__ec2_ami
+  # 309956199498;RHEL-8.0.*
+
+  - name: set ami-id
+    set_fact:
+      r__ami_id: "{{ ec2_instance_image | default('309956199498;RHEL-8.0.*') }}"
+
+  - name: retrieve owner and ami-id
+    set_fact:
+      r__ami: "{{ r__ami_id.split(';') }}"
+
+  # - debug: var=r__ami
+
+  - name: gather facts about an AMI
+    ec2_ami_facts:
+      owners: "{{ r__ami[0] }}"
+      filters:
+        name: "{{ r__ami[1] }}"
+    register: r__ec2_ami_facts
+
+
+  # Launch an EC2 instance
+  - name: Launch EC2 instance
+    vars:
+      r__ec2_ami: >
+        {{ r__ec2_ami_facts.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+    ec2:
+      image: "{{ r__ec2_ami.image_id }}"
+      instance_type: "{{ ec2_instance_type | default('t2.micro') }}"
+      key_name: "ahome_keypair_{{ ahome__id }}"
+      group: "ahome_security_group_{{ ahome__id }}" 
+      wait: "{{ ec2_wait | default(true) }}"
+      count: "{{ ec2_instance_count | d('1') }}"
+      instance_tags:
+        Name: "{{ ec2_instance_name | d(name) }}"
+        instance_name: "{{ ec2_instance_name | d(name) }}"
+        ahome: "{{ ahome__id }}"
+
+    register: r__ec2_instance
+
+  - debug: var=r__ec2_instance
+
+
+  - name: Wait for SSH to come up
+    delegate_to: "{{ item.public_dns_name }}"
+    wait_for_connection:
+      delay: 30
+      timeout: 320
+    loop: "{{ r__ec2_instance.instances }}"
+
+
+  when:
+    r__ec2.instances | length == 0
+

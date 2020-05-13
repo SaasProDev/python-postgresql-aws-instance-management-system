@@ -1,0 +1,7 @@
+---
+name: amazon_ec2
+title: amazon EC2 modules
+description: |
+    Amazon Web service EC2 nodules
+cloud: true
+version: 1.0
